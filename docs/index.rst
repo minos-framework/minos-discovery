@@ -7,7 +7,7 @@ Welcome to Discovery Service's documentation!
 
    readme
    usage
-   modules
+   api/modules
    authors
    history
 

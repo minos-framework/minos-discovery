@@ -1,1 +1,3 @@
-from .client import MinosRedisClient
+from .client import (
+    MinosRedisClient,
+)

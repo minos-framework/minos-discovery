@@ -19,9 +19,13 @@ it performs a Redis lookup by key value. The value is stored in Redis as JSON.
         bar = foo.conn_values()
 """
 
-from abc import ABC
 import json
+from abc import (
+    ABC,
+)
+
 import redis
+
 from minos.api_gateway.common import (
     MinosConfig,
 )
@@ -51,11 +55,7 @@ class MinosRedisClient(ABC):
         """Perform connection to Redis"""
 
         try:
-            redis_connection = redis.Redis(
-                host=self._redis_host,
-                port=self._redis_port,
-                password=self._redis_password
-            )
+            redis_connection = redis.Redis(host=self._redis_host, port=self._redis_port, password=self._redis_password)
             redis_connection.ping()
         except Exception:
             raise Exception
@@ -78,7 +78,7 @@ class MinosRedisClient(ABC):
         flag = True
         try:
             self.redis.set(key, json.dumps(data))
-        except Exception: # pragma: no cover
+        except Exception:  # pragma: no cover
             flag = False
 
         return flag
@@ -98,6 +98,3 @@ class MinosRedisClient(ABC):
     def get_redis_connection(self):
         """Redis connection itself"""
         return self.redis
-
-
-

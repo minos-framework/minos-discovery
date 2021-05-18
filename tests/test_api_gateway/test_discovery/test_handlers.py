@@ -1,19 +1,19 @@
+from aiohttp import (
+    web,
+)
 from aiohttp.test_utils import (
     AioHTTPTestCase,
     unittest_run_loop,
 )
-import typing as t
+
 from minos.api_gateway.common import (
     MinosConfig,
 )
+from minos.api_gateway.discovery import (
+    DiscoveryService,
+)
 from tests.utils import (
     BASE_PATH,
-)
-from aiohttp import (
-    web,
-)
-from minos.api_gateway.discovery import (
-    DiscoveryService
 )
 
 
@@ -59,5 +59,3 @@ class TestDiscoveryHandler(AioHTTPTestCase):
         url = "/system/health"
         resp = await self.client.request("GET", url)
         assert resp.status == 200
-
-

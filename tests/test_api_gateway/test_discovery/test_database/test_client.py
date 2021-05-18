@@ -1,12 +1,14 @@
-
 import os
 import unittest
 from unittest import (
     mock,
 )
-from minos.api_gateway.discovery import MinosRedisClient
+
 from minos.api_gateway.common import (
     MinosConfig,
+)
+from minos.api_gateway.discovery import (
+    MinosRedisClient,
 )
 from tests.utils import (
     BASE_PATH,
@@ -36,9 +38,8 @@ class TestDiscoveryHandler(unittest.TestCase):
         config = MinosConfig(self.CONFIG_FILE_PATH)
         redis_cli = MinosRedisClient(config=config)
 
-        response = redis_cli.set_data("test_endpoint", {"test":"a"})
+        response = redis_cli.set_data("test_endpoint", {"test": "a"})
         self.assertTrue(response)
-
 
     def test_redis_client_delete_unexisting_data(self):
         config = MinosConfig(self.CONFIG_FILE_PATH)
@@ -59,4 +60,4 @@ class TestDiscoveryHandler(unittest.TestCase):
         redis_cli = MinosRedisClient(config=config)
 
         redis_conn = redis_cli.get_redis_connection()
-        self.assertEquals(type(redis_conn).__name__, 'Redis')
+        self.assertEquals(type(redis_conn).__name__, "Redis")
