@@ -17,8 +17,8 @@ from minos.api_gateway.discovery import (
 )
 
 
-class TestDiscoveryService(AioHTTPTestCase):
-    CONFIG_FILE_PATH = BASE_PATH / "test_config.yml"
+class TestDiscoveryHandler(AioHTTPTestCase):
+    CONFIG_FILE_PATH = BASE_PATH / "test_handlers_config.yml"
 
     async def get_application(self):
         """
@@ -59,4 +59,5 @@ class TestDiscoveryService(AioHTTPTestCase):
         url = "/system/health"
         resp = await self.client.request("GET", url)
         assert resp.status == 200
+
 

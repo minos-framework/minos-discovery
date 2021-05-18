@@ -10,8 +10,11 @@ from minos.api_gateway.common import (
     RESTService,
     MinosConfig
 )
+from aiohttp import (
+    web,
+)
 
 
 class DiscoveryService(RESTService):
-    def __init__(self, config: MinosConfig, **kwds: t.Any):
-        super().__init__(address=config.discovery.connection.host, port=config.discovery.connection.port, endpoints=config.discovery.endpoints, **kwds)
+    def __init__(self, config: MinosConfig, app: web.Application = web.Application(), **kwds: t.Any):
+        super().__init__(address=config.discovery.connection.host, port=config.discovery.connection.port, endpoints=config.discovery.endpoints, app=app, **kwds)
