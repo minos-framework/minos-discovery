@@ -12,9 +12,7 @@ from tests.utils import (
 from aiohttp import (
     web,
 )
-from minos.api_gateway.discovery import (
-    DiscoveryService
-)
+from minos.api_gateway.discovery import DiscoveryService
 
 
 class TestDiscoveryService(AioHTTPTestCase):

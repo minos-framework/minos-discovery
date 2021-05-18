@@ -1,4 +1,3 @@
-
 import os
 import unittest
 from unittest import (
@@ -58,4 +57,4 @@ class TestDiscoveryHandler(unittest.TestCase):
         redis_cli = MinosRedisClient(config=config)
 
         redis_conn = redis_cli.get_redis_connection()
-        self.assertEquals(type(redis_conn).__name__, 'Redis')
+        self.assertEquals(type(redis_conn).__name__, "Redis")
