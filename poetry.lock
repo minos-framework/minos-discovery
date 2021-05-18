@@ -47,20 +47,6 @@ optional = false
 python-versions = "*"
 
 [[package]]
-name = "api-gateway-common"
-version = "0.0.1"
-description = "Python Package with common Classes and Utilities used in Minos API Gateway."
-category = "main"
-optional = false
-python-versions = ">=3.9,<4.0"
-
-[package.dependencies]
-aiohttp = ">=3.7.4,<4.0.0"
-aiomisc = ">=14.0.3,<15.0.0"
-PyYAML = ">=5.4.1,<6.0.0"
-six = ">=1.16.0,<2.0.0"
-
-[[package]]
 name = "appdirs"
 version = "1.4.4"
 description = "A small Python module for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
@@ -309,6 +295,20 @@ description = "McCabe checker, plugin for flake8"
 category = "dev"
 optional = false
 python-versions = "*"
+
+[[package]]
+name = "minos-apigateway-common"
+version = "0.0.1"
+description = "Python Package with common Classes and Utilities used in Minos API Gateway."
+category = "main"
+optional = false
+python-versions = ">=3.9,<4.0"
+
+[package.dependencies]
+aiohttp = ">=3.7.4,<4.0.0"
+aiomisc = ">=14.0.3,<15.0.0"
+PyYAML = ">=5.4.1,<6.0.0"
+six = ">=1.16.0,<2.0.0"
 
 [[package]]
 name = "multidict"
@@ -675,7 +675,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "f46794a278db46fd89b1c0acdfa108ba0b05dc6872e19101ff7c6de65ba796ba"
+content-hash = "7381133d48c43e8d9e4eddfa865accf415e5f8f3ba88f5bbbf40fa226bd9b57a"
 
 [metadata.files]
 aiohttp = [
@@ -724,10 +724,6 @@ aiomisc = [
 alabaster = [
     {file = "alabaster-0.7.12-py2.py3-none-any.whl", hash = "sha256:446438bdcca0e05bd45ea2de1668c1d9b032e1a9154c2c259092d77031ddd359"},
     {file = "alabaster-0.7.12.tar.gz", hash = "sha256:a661d72d58e6ea8a57f7a86e37d86716863ee5e92788398526d58b26a4e4dc02"},
-]
-api-gateway-common = [
-    {file = "api_gateway_common-0.0.1-py3-none-any.whl", hash = "sha256:085576f54b0fae978cf1a64595e9fe10dff8063b12a6437514a420fdab7b7230"},
-    {file = "api_gateway_common-0.0.1.tar.gz", hash = "sha256:e0c05e0288eea8e0a5c65a7b39b97fb8f385d727600e9b48c75cf849e681b1ce"},
 ]
 appdirs = [
     {file = "appdirs-1.4.4-py2.py3-none-any.whl", hash = "sha256:a841dacd6b99318a741b166adb07e19ee71a274450e68237b4650ca1055ab128"},
@@ -909,6 +905,10 @@ markupsafe = [
 mccabe = [
     {file = "mccabe-0.6.1-py2.py3-none-any.whl", hash = "sha256:ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42"},
     {file = "mccabe-0.6.1.tar.gz", hash = "sha256:dd8d182285a0fe56bace7f45b5e7d1a6ebcbf524e8f3bd87eb0f125271b8831f"},
+]
+minos-apigateway-common = [
+    {file = "minos_apigateway_common-0.0.1-py3-none-any.whl", hash = "sha256:42fa94f8d471430ba9e9989dff47a03c37ddace73918adffd4b36c807b9b725b"},
+    {file = "minos_apigateway_common-0.0.1.tar.gz", hash = "sha256:dd1449f57d49772effe31df65c44708b03fa5d223009c93200b215e5899d61db"},
 ]
 multidict = [
     {file = "multidict-5.1.0-cp36-cp36m-macosx_10_14_x86_64.whl", hash = "sha256:b7993704f1a4b204e71debe6095150d43b2ee6150fa4f44d6d966ec356a8d61f"},
