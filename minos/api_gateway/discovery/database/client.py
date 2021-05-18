@@ -78,7 +78,7 @@ class MinosRedisClient(ABC):
         flag = True
         try:
             self.redis.set(key, json.dumps(data))
-        except Exception: # pragma: no cover
+        except Exception:  # pragma: no cover
             flag = False
 
         return flag
@@ -98,6 +98,3 @@ class MinosRedisClient(ABC):
     def get_redis_connection(self):
         """Redis connection itself"""
         return self.redis
-
-
-

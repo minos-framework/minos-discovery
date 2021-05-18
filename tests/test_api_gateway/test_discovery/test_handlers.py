@@ -59,5 +59,3 @@ class TestDiscoveryHandler(AioHTTPTestCase):
         url = "/system/health"
         resp = await self.client.request("GET", url)
         assert resp.status == 200
-
-

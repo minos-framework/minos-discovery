@@ -36,9 +36,8 @@ class TestDiscoveryHandler(unittest.TestCase):
         config = MinosConfig(self.CONFIG_FILE_PATH)
         redis_cli = MinosRedisClient(config=config)
 
-        response = redis_cli.set_data("test_endpoint", {"test":"a"})
+        response = redis_cli.set_data("test_endpoint", {"test": "a"})
         self.assertTrue(response)
-
 
     def test_redis_client_delete_unexisting_data(self):
         config = MinosConfig(self.CONFIG_FILE_PATH)
