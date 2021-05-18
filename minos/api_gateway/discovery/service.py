@@ -13,16 +13,12 @@ from minos.api_gateway.common import RESTService
 
 
 class DiscoveryService(RESTService):
-    def __init__(
-        self,
-        config: MinosConfig,
-        app: web.Application = web.Application(),
-        **kwds: t.Any
-    ):
-        super().__init__(
-            address=config.discovery.connection.host,
-            port=config.discovery.connection.port,
-            endpoints=config.discovery.endpoints,
-            app=app,
-            **kwds
-        )
+    def __init__(self,
+                 config: MinosConfig,
+                 app: web.Application = web.Application(),
+                 **kwds: t.Any):
+        super().__init__(address=config.discovery.connection.host,
+                         port=config.discovery.connection.port,
+                         endpoints=config.discovery.endpoints,
+                         app=app,
+                         **kwds)
