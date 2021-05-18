@@ -4,7 +4,6 @@
 #
 # Minos framework can not be copied and/or distributed without the express
 # permission of Clariteia SL.
-
 """API Router is responsible for obtaining the connection values for each domain name.
 
 This module obtains the IP, port and status of a microservice. Using the domain name,
@@ -18,11 +17,11 @@ it performs a Redis lookup by key value. The value is stored in Redis as JSON.
         foo = OrdersMinosApiRouter('order')
         bar = foo.conn_values()
 """
-
 import json
 from abc import ABC
 
 import redis
+
 from minos.api_gateway.common import MinosConfig
 
 

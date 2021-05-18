@@ -3,7 +3,6 @@ import unittest
 from unittest import mock
 
 from minos.api_gateway.common import MinosConfig
-
 from minos.api_gateway.discovery import MinosRedisClient
 from tests.utils import BASE_PATH
 

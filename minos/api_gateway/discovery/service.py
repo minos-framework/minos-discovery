@@ -4,11 +4,12 @@
 #
 # Minos framework can not be copied and/or distributed without the express
 # permission of Clariteia SL.
-
 import typing as t
 
 from aiohttp import web
-from minos.api_gateway.common import MinosConfig, RESTService
+
+from minos.api_gateway.common import MinosConfig
+from minos.api_gateway.common import RESTService
 
 
 class DiscoveryService(RESTService):
