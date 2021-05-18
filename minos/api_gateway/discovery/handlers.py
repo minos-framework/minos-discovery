@@ -1,6 +1,4 @@
-from aiohttp import (
-    web,
-)
+from aiohttp import web
 
 
 class DiscoveryHandlers(object):

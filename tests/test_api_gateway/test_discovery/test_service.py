@@ -1,18 +1,11 @@
-from aiohttp.test_utils import (
-    AioHTTPTestCase,
-    unittest_run_loop,
-)
 import typing as t
-from minos.api_gateway.common import (
-    MinosConfig,
-)
-from tests.utils import (
-    BASE_PATH,
-)
-from aiohttp import (
-    web,
-)
+
+from aiohttp import web
+from aiohttp.test_utils import AioHTTPTestCase, unittest_run_loop
+from minos.api_gateway.common import MinosConfig
+
 from minos.api_gateway.discovery import DiscoveryService
+from tests.utils import BASE_PATH
 
 
 class TestDiscoveryService(AioHTTPTestCase):

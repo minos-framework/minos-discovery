@@ -1,15 +1,11 @@
 import os
 import unittest
-from unittest import (
-    mock,
-)
+from unittest import mock
+
+from minos.api_gateway.common import MinosConfig
+
 from minos.api_gateway.discovery import MinosRedisClient
-from minos.api_gateway.common import (
-    MinosConfig,
-)
-from tests.utils import (
-    BASE_PATH,
-)
+from tests.utils import BASE_PATH
 
 
 class TestDiscoveryHandler(unittest.TestCase):

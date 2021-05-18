@@ -6,10 +6,9 @@
 # permission of Clariteia SL.
 
 import typing as t
-from minos.api_gateway.common import RESTService, MinosConfig
-from aiohttp import (
-    web,
-)
+
+from aiohttp import web
+from minos.api_gateway.common import MinosConfig, RESTService
 
 
 class DiscoveryService(RESTService):
