@@ -33,6 +33,6 @@ discovery:
           controller: tests.services.DiscoveryHandlerService.DiscoveryHandlers
           action: system_health
     db:
-        host: localhost
+        host: redis
         port: 6379
         password:
