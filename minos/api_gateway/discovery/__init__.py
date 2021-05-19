@@ -11,6 +11,7 @@ from .database import (
     MinosRedisClient,
 )
 from .periodic import (
+    DiscoveryPeriodicHealthChecker,
     HealthStatusCheck,
 )
 from .service import (
