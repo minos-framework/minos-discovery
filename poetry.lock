@@ -19,7 +19,7 @@ speedups = ["aiodns", "brotlipy", "cchardet"]
 
 [[package]]
 name = "aiomisc"
-version = "14.0.3"
+version = "14.0.7"
 description = "aiomisc - miscellaneous utils for asyncio"
 category = "main"
 optional = false
@@ -298,7 +298,7 @@ python-versions = "*"
 
 [[package]]
 name = "minos-apigateway-common"
-version = "0.0.1"
+version = "0.0.2"
 description = "Python Package with common Classes and Utilities used in Minos API Gateway."
 category = "main"
 optional = false
@@ -675,7 +675,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "7381133d48c43e8d9e4eddfa865accf415e5f8f3ba88f5bbbf40fa226bd9b57a"
+content-hash = "acc66d53c705e7b8a5dee688a40e66e4fbf58068fa8f84bce692029dc89beaa3"
 
 [metadata.files]
 aiohttp = [
@@ -718,8 +718,8 @@ aiohttp = [
     {file = "aiohttp-3.7.4.post0.tar.gz", hash = "sha256:493d3299ebe5f5a7c66b9819eacdcfbbaaf1a8e84911ddffcdc48888497afecf"},
 ]
 aiomisc = [
-    {file = "aiomisc-14.0.3-py3-none-any.whl", hash = "sha256:b387c7662fab3b539ec607c034d727bbda2683a1e89d6c6f557ca4e64c95bfa8"},
-    {file = "aiomisc-14.0.3.tar.gz", hash = "sha256:10b7fed39ee9a7d5d03cf354c14542901f489cd279cc0f35ad2bacc02b444f45"},
+    {file = "aiomisc-14.0.7-py3-none-any.whl", hash = "sha256:409ff3548a1b5d92b332d6d6ea6a16afe389a4407490c02f48eb0a4212ee3c7c"},
+    {file = "aiomisc-14.0.7.tar.gz", hash = "sha256:8eec96c1813f45d2c64f8020a26b561215e1bace94bc6d593958c2c4c425bbb9"},
 ]
 alabaster = [
     {file = "alabaster-0.7.12-py2.py3-none-any.whl", hash = "sha256:446438bdcca0e05bd45ea2de1668c1d9b032e1a9154c2c259092d77031ddd359"},
@@ -907,8 +907,8 @@ mccabe = [
     {file = "mccabe-0.6.1.tar.gz", hash = "sha256:dd8d182285a0fe56bace7f45b5e7d1a6ebcbf524e8f3bd87eb0f125271b8831f"},
 ]
 minos-apigateway-common = [
-    {file = "minos_apigateway_common-0.0.1-py3-none-any.whl", hash = "sha256:42fa94f8d471430ba9e9989dff47a03c37ddace73918adffd4b36c807b9b725b"},
-    {file = "minos_apigateway_common-0.0.1.tar.gz", hash = "sha256:dd1449f57d49772effe31df65c44708b03fa5d223009c93200b215e5899d61db"},
+    {file = "minos-apigateway-common-0.0.2.tar.gz", hash = "sha256:7e8a4e8d6cd40589826f122e17484555f30846878084d17ebd033b9097d573c7"},
+    {file = "minos_apigateway_common-0.0.2-py3-none-any.whl", hash = "sha256:b2a905a1720d7e6a28d397f5a08e411499b1324c5aa3a242466417e4609fcfbc"},
 ]
 multidict = [
     {file = "multidict-5.1.0-cp36-cp36m-macosx_10_14_x86_64.whl", hash = "sha256:b7993704f1a4b204e71debe6095150d43b2ee6150fa4f44d6d966ec356a8d61f"},

@@ -23,6 +23,7 @@ class DiscoveryService(RESTService):
             address=config.discovery.connection.host,
             port=config.discovery.connection.port,
             endpoints=config.discovery.endpoints,
+            config=config,
             app=app,
             **kwds
         )
