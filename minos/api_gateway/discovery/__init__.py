@@ -10,6 +10,9 @@ __version__ = "0.0.1"
 from .database import (
     MinosRedisClient,
 )
+from .periodic import (
+    HealthStatusCheck,
+)
 from .service import (
     DiscoveryService,
 )

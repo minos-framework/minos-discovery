@@ -98,3 +98,6 @@ class MinosRedisClient(ABC):
     def get_redis_connection(self):
         """Redis connection itself"""
         return self.redis
+
+    def flush_db(self):
+        self.redis.flushdb()
