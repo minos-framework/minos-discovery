@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 """Tests for `discovery_service` package."""
 
 
