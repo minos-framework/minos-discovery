@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 """Tests for `discovery_service` package."""
-import pytest
 
-from minos.api_gateway import discovery
+
+import pytest
 
 
 @pytest.fixture
