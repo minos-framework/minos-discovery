@@ -2,10 +2,10 @@
 
 """Tests for `discovery_service` package."""
 
-
 import pytest
 
-from discovery_service import minos
+from minos.api_gateway import discovery
+
 
 @pytest.fixture
 def response():
