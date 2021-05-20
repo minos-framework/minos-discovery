@@ -47,7 +47,9 @@ class HealthStatusCheck(ABC):
                     url = "http://{0}:{1}/system/health".format(data["ip"], data["port"])
 
             try:
-                response = await self._client_http.get(url=url)
+                async with ClientHttp() as client:
+                    response = await client.get(url=url)
+
                 status_code = response.status
             except Exception:
                 print("Error connecting to {0}".format(url))
