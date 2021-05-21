@@ -25,7 +25,7 @@ from tests.utils import (
 )
 
 
-class TestMinosQueueService(unittest.TestCase):
+class TestMinosQueueService(unittest.IsolatedAsyncioTestCase):
     CONFIG_FILE_PATH = BASE_PATH / "test_config.yml"
 
     def test_is_instance(self):
