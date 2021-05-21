@@ -27,7 +27,7 @@ class TestRestInterfaceService(AioHTTPTestCase):
         """
 
         async def system_health(request):
-            return web.Response(text="", status=200)
+            return web.json_response(data="")
 
         app = web.Application()
         app.router.add_get("/system/health", system_health)

@@ -1,5 +1,3 @@
-import json
-
 from aiohttp import (
     web,
 )
@@ -50,7 +48,7 @@ class DiscoveryHandlers(object):
 
             # Get JSON data
             data = redis_cli.get_data(name)
-            return web.Response(text=json.dumps(data))
+            return web.json_response(data=data)
 
     async def subscribe(self, request: web.Request, config: MinosConfig, **kwargs):
         validation, errors = await validate_input(request)
@@ -64,7 +62,7 @@ class DiscoveryHandlers(object):
 
         redis_cli.set_data(input_json["name"], input_json)
 
-        return web.Response(text="Service added", status=200)
+        return web.json_response(text="Service added")
 
     async def unsubscribe(self, request: web.Request, config: MinosConfig, **kwargs):
         name = request.query.get("name")
@@ -81,7 +79,7 @@ class DiscoveryHandlers(object):
 
             redis_cli.set_data(name, data)
 
-            return web.Response(text="Unsubscription done!", status=200)
+            return web.json_response(text="Unsubscription done!")
 
     async def system_health(self, request: web.Request, config: MinosConfig, **kwargs):
-        return web.json_response({"host": request.host}, status=200)
+        return web.json_response({"host": request.host})
