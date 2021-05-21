@@ -1,8 +1,7 @@
-=================
 Discovery Service
 =================
 
-Minos Boilerplate contains all the boilerplate you need to create a Minos Python package.
+Minos API Gateway Discovery Service
 
 Credits
 -------

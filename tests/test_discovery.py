@@ -1,11 +1,9 @@
 #!/usr/bin/env python
-
 """Tests for `discovery_service` package."""
 
 
 import pytest
 
-from discovery_service import minos
 
 @pytest.fixture
 def response():

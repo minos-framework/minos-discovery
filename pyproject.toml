@@ -1,0 +1,48 @@
+[tool.poetry]
+name = "minos-discovery"
+version = "0.0.1"
+description = "Minos Discovery service for Microservices subscription."
+readme = "README.md"
+repository = "https://github.com/clariteia/discovery"
+homepage = "https://clariteia.com"
+authors = ["Clariteia Devs <devs@clariteia.com>"]
+license = "MIT"
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+]
+keywords = [
+    "clariteia",
+    "minos",
+    "api gateway",
+    "discovery",
+]
+packages = [
+    { include = "minos" }
+]
+include = [
+    "AUTHORS.md",
+    "HISTORY.md",
+    "LICENSE",
+]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+redis = "^3.5.3"
+minos-apigateway-common = "^0.0.3"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.4"
+flake8 = "^3.9.2"
+black = "^21.5b1"
+coverage = "^5.5"
+isort = "^5.8.0"
+Sphinx = "^4.0.1"
+pre-commit = "^2.12.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
