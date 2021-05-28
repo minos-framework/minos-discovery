@@ -2,6 +2,8 @@
 Usage
 =====
 
-To use Discovery Service in a project::
+To use Minos Microservice Common in a project::
 
-    import discovery_service
+    import minos_microservice_common
+
+

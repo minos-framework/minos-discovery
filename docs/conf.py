@@ -31,8 +31,16 @@ from minos.api_gateway import discovery
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode']
+import sphinx_rtd_theme
 
+extensions = [
+    "sphinxcontrib.apidoc",
+    'sphinx.ext.autodoc',
+    "sphinx_autodoc_typehints",
+    "sphinx.ext.viewcode",
+    "sphinx_rtd_theme",
+    "m2r2",
+]
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
@@ -40,7 +48,7 @@ templates_path = ['_templates']
 # You can specify multiple suffix as a list of string:
 #
 # source_suffix = ['.rst', '.md']
-source_suffix = '.rst'
+source_suffix = ['.rst', '.md']
 
 # The master toctree document.
 master_doc = 'index'
@@ -83,7 +91,7 @@ todo_include_todos = False
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = 'sphinx_rtd_theme'
 
 # Theme options are theme-specific and customize the look and feel of a
 # theme further.  For a list of options available for each theme, see the
@@ -158,5 +166,28 @@ texinfo_documents = [
      'Miscellaneous'),
 ]
 
+# "apidoc" extension
+apidoc_module_dir = "../minos"
+apidoc_output_dir = "api"
+apidoc_separate_modules = True
+autodoc_default_options = {
+    "inherited-members": True,
+    "special-members": "__init__",
+    "undoc-members": True,
+}
+
+apidoc_toc_file = False
+apidoc_module_first = True
+apidoc_extra_args = [
+    "--force",
+    "--implicit-namespaces",
+]
+apidoc_excluded_paths = [
+    '../minos/common/testing.py'
+]
+# "autodoc typehints" extension
+
+set_type_checking_flag = True
+typehints_fully_qualified = True
 
 
