@@ -1,0 +1,7 @@
+minos.api\_gateway.discovery.periodic.service module
+====================================================
+
+.. automodule:: minos.api_gateway.discovery.periodic.service
+   :members:
+   :undoc-members:
+   :show-inheritance:

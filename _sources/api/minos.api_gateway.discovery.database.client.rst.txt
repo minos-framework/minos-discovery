@@ -1,0 +1,7 @@
+minos.api\_gateway.discovery.database.client module
+===================================================
+
+.. automodule:: minos.api_gateway.discovery.database.client
+   :members:
+   :undoc-members:
+   :show-inheritance:

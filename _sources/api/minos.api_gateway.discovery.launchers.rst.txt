@@ -1,0 +1,7 @@
+minos.api\_gateway.discovery.launchers module
+=============================================
+
+.. automodule:: minos.api_gateway.discovery.launchers
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,16 @@
+minos.api\_gateway.discovery.periodic package
+=============================================
+
+.. automodule:: minos.api_gateway.discovery.periodic
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   minos.api_gateway.discovery.periodic.abc
+   minos.api_gateway.discovery.periodic.service

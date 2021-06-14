@@ -1,0 +1,27 @@
+minos.api\_gateway.discovery package
+====================================
+
+.. automodule:: minos.api_gateway.discovery
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   minos.api_gateway.discovery.database
+   minos.api_gateway.discovery.periodic
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   minos.api_gateway.discovery.cli
+   minos.api_gateway.discovery.handlers
+   minos.api_gateway.discovery.launchers
+   minos.api_gateway.discovery.service

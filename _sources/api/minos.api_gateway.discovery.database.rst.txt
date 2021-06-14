@@ -1,0 +1,15 @@
+minos.api\_gateway.discovery.database package
+=============================================
+
+.. automodule:: minos.api_gateway.discovery.database
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   minos.api_gateway.discovery.database.client
