@@ -16,7 +16,7 @@ from tests.utils import (
 
 
 class TestDiscoveryHandler(unittest.TestCase):
-    CONFIG_FILE_PATH = BASE_PATH / "test_config.yml"
+    CONFIG_FILE_PATH = BASE_PATH / "config.yml"
 
     @mock.patch.dict(os.environ, {"DISCOVERY_SERVICE_DB_HOST": "redishost"})
     @mock.patch.dict(os.environ, {"DISCOVERY_SERVICE_DB_PORT": "8393"})

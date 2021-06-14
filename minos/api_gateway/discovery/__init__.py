@@ -7,8 +7,14 @@ Minos framework can not be copied and/or distributed without the express permiss
 """
 __version__ = "0.0.1"
 
+from .cli import (
+    app,
+)
 from .database import (
     MinosRedisClient,
+)
+from .launchers import (
+    EntrypointLauncher,
 )
 from .periodic import (
     DiscoveryPeriodicHealthChecker,

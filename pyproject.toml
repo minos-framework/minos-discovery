@@ -33,6 +33,8 @@ include = [
 python = "^3.9"
 redis = "^3.5.3"
 minos-apigateway-common = "^0.0.3"
+typer = "^0.3.2"
+cached-property = "^1.5.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.4"
@@ -50,3 +52,6 @@ m2r2 = "^0.2.7"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+discovery = "minos.api_gateway.discovery.cli:main"
