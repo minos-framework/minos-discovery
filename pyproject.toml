@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "minos-discovery"
+name = "minos_discovery"
 version = "0.0.2"
 description = "Minos Discovery service for Microservices subscription."
 readme = "README.md"
