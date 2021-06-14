@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "minos-discovery"
-version = "0.0.1"
+version = "0.0.2"
 description = "Minos Discovery service for Microservices subscription."
 readme = "README.md"
 repository = "https://github.com/clariteia/discovery"
