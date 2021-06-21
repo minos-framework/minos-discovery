@@ -17,15 +17,17 @@ from tests.utils import (
 
 class TestDiscoveryHandler(unittest.TestCase):
     def setUp(self) -> None:
-        config_file_path = BASE_PATH / "config.yml"
-        config = MinosConfig(config_file_path)
+        self.config_file_path = BASE_PATH / "config.yml"
+        config = MinosConfig(self.config_file_path)
         self.redis_client = MinosRedisClient(config=config)
 
     @mock.patch.dict(os.environ, {"DISCOVERY_SERVICE_DB_HOST": "redishost"})
     @mock.patch.dict(os.environ, {"DISCOVERY_SERVICE_DB_PORT": "8393"})
     @mock.patch.dict(os.environ, {"DISCOVERY_SERVICE_DB_PASSWORD": "SomePass"})
     def test_redis_client_connection(self):
+        config = MinosConfig(self.config_file_path)
         with self.assertRaises(Exception):
+            self.redis_client = MinosRedisClient(config=config)
             print(self.redis_client.get_redis_connection())
 
     def test_redis_client_get_data(self):
