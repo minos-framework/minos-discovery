@@ -36,26 +36,25 @@ class HealthStatusChecker:
     """TODO"""
 
     def __init__(self, config: MinosConfig):
-        self.redis_cli = MinosRedisClient(config=config)
-        self.redis_conn = self.redis_cli.get_redis_connection()
+        self.redis = MinosRedisClient(config=config)
 
     async def check(self):
         """TODO
 
         :return: TODO
         """
-        coroutines = (self._check_one(key) for key in self.redis_conn.scan_iter())
+        coroutines = (self._check_one(key) for key in self.redis.get_redis_connection().scan_iter())
         await gather(*coroutines)
 
     async def _check_one(self, key: str):
         logger.info(f"Checking {key!r} health status...")
         try:
             # noinspection PyTypeChecker
-            data: dict[str, Any] = self.redis_cli.get_data(key)
+            data: dict[str, Any] = self.redis.get_data(key)
             alive = await self._query_health_status(**data)
             self._update_one(alive, key, data)
         except Exception as exc:
-            self.redis_cli.delete_data(key)
+            self.redis.delete_data(key)
             logger.warning(f"An exception was raised while checking {key!r}: {exc!r}")
 
     # noinspection PyMethodMayBeStatic,PyUnusedLocal
@@ -74,4 +73,4 @@ class HealthStatusChecker:
             return
 
         data["status"] = alive
-        self.redis_cli.set_data(key, data)
+        self.redis.set_data(key, data)
