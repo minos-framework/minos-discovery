@@ -55,6 +55,7 @@ class HealthStatusChecker:
             alive = await self._query_health_status(**data)
             self._update_one(alive, key, data)
         except Exception as exc:
+            self.redis_cli.delete_data(key)
             logger.warning(f"An exception was raised while checking {key!r}: {exc!r}")
 
     # noinspection PyMethodMayBeStatic,PyUnusedLocal
