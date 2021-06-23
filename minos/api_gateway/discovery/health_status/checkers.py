@@ -4,6 +4,7 @@
 #
 # Minos framework can not be copied and/or distributed without the express
 # permission of Clariteia SL.
+import logging
 
 from minos.api_gateway.common import (
     ClientHttp,
@@ -13,6 +14,8 @@ from minos.api_gateway.common import (
 from ..database import (
     MinosRedisClient,
 )
+
+logger = logging.getLogger(__name__)
 
 
 class HealthStatusChecker:
@@ -29,6 +32,8 @@ class HealthStatusChecker:
         """
         status_code = None
         for key in self.redis_conn.scan_iter():
+            logger.info(f"Checking {key!r} health status...")
+
             try:
                 data = self.redis_cli.get_data(key)
                 try:
@@ -54,8 +59,8 @@ class HealthStatusChecker:
                     response = await client.get(url=url)
 
                 status_code = response.status
-            except Exception:
-                print("Error connecting to {0}".format(url))
+            except Exception as exc:
+                logger.warning(f"An exception was raised while checking {url!r} health status: {exc!r}")
 
         return status_code
 
