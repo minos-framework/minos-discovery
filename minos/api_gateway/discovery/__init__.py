@@ -13,12 +13,12 @@ from .cli import (
 from .database import (
     MinosRedisClient,
 )
+from .health_status import (
+    HealthStatusChecker,
+    HealthStatusCheckerService,
+)
 from .launchers import (
     EntrypointLauncher,
-)
-from .health_status import (
-    HealthStatusCheckerService,
-    HealthStatusChecker,
 )
 from .service import (
     DiscoveryService,

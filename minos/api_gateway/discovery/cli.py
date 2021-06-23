@@ -18,11 +18,11 @@ from minos.api_gateway.common import (
     MinosConfig,
 )
 
-from .launchers import (
-    EntrypointLauncher,
-)
 from .health_status import (
     HealthStatusCheckerService,
+)
+from .launchers import (
+    EntrypointLauncher,
 )
 from .service import (
     DiscoveryService,

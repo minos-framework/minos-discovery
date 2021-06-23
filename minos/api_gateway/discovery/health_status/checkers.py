@@ -9,6 +9,7 @@ from minos.api_gateway.common import (
     ClientHttp,
     MinosConfig,
 )
+
 from ..database import (
     MinosRedisClient,
 )
