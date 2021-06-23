@@ -22,7 +22,6 @@ class HealthStatusCheck(ABC):
     def __init__(self, config: MinosConfig):
         self.redis_cli = MinosRedisClient(config=config)
         self.redis_conn = self.redis_cli.get_redis_connection()
-        self._client_http = ClientHttp()
 
     async def perform_health_check(self):
         status_code = None
