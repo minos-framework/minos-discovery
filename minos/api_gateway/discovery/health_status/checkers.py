@@ -5,39 +5,42 @@
 # Minos framework can not be copied and/or distributed without the express
 # permission of Clariteia SL.
 
-from abc import (
-    ABC,
-)
-
 from minos.api_gateway.common import (
     ClientHttp,
     MinosConfig,
 )
-from minos.api_gateway.discovery.database import (
+from ..database import (
     MinosRedisClient,
 )
 
 
-class HealthStatusCheck(ABC):
+class HealthStatusChecker:
+    """TODO"""
+
     def __init__(self, config: MinosConfig):
         self.redis_cli = MinosRedisClient(config=config)
         self.redis_conn = self.redis_cli.get_redis_connection()
 
-    async def perform_health_check(self):
+    async def check(self):
+        """TODO
+
+        :return: TODO
+        """
         status_code = None
         for key in self.redis_conn.scan_iter():
             try:
                 data = self.redis_cli.get_data(key)
                 try:
-                    status_code = await self.__request(data)
+                    status_code = await self._check_one(data)
                 finally:
-                    self.__update(status_code, key, data)
+                    self._update_one(status_code, key, data)
             finally:
                 pass
 
         return True
 
-    async def __request(self, data):
+    # noinspection PyMethodMayBeStatic
+    async def _check_one(self, data):
         status_code = None
         if len(data) > 0 and "ip" in data and "name" in data:
             url = "http://{0}/system/health".format(data["ip"])
@@ -55,7 +58,7 @@ class HealthStatusCheck(ABC):
 
         return status_code
 
-    def __update(self, status_code, key, data):
+    def _update_one(self, status_code, key, data):
         try:
             # If response status code == 200
             # set status to True else,

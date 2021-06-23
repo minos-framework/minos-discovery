@@ -21,8 +21,8 @@ from minos.api_gateway.common import (
 from .launchers import (
     EntrypointLauncher,
 )
-from .periodic import (
-    DiscoveryPeriodicHealthChecker,
+from .health_status import (
+    HealthStatusCheckerService,
 )
 from .service import (
     DiscoveryService,
@@ -46,7 +46,7 @@ def start(
         raise typer.Exit(code=1)
 
     services = (
-        DiscoveryPeriodicHealthChecker(interval=120, delay=0, config=config),
+        HealthStatusCheckerService(interval=120, delay=0, config=config),
         DiscoveryService(config=config),
     )
     try:

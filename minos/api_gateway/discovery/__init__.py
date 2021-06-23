@@ -16,9 +16,9 @@ from .database import (
 from .launchers import (
     EntrypointLauncher,
 )
-from .periodic import (
-    DiscoveryPeriodicHealthChecker,
-    HealthStatusCheck,
+from .health_status import (
+    HealthStatusCheckerService,
+    HealthStatusChecker,
 )
 from .service import (
     DiscoveryService,

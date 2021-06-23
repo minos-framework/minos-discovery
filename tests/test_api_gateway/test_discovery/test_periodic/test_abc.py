@@ -10,7 +10,7 @@ from minos.api_gateway.common import (
     MinosConfig,
 )
 from minos.api_gateway.discovery import (
-    HealthStatusCheck,
+    HealthStatusChecker,
     MinosRedisClient,
 )
 from tests.utils import (
@@ -47,8 +47,8 @@ class TestRestInterfaceService(AioHTTPTestCase):
         )
         redis.set_data("system_health", endpoint_data)
 
-        mhc = HealthStatusCheck(config=config)
-        await mhc.perform_health_check()
+        mhc = HealthStatusChecker(config=config)
+        await mhc.check()
 
         data = redis.get_data("system_health")
 
@@ -68,8 +68,8 @@ class TestRestInterfaceService(AioHTTPTestCase):
         )
         redis.set_data("system_health2", endpoint_data)
 
-        mhc = HealthStatusCheck(config=config)
-        await mhc.perform_health_check()
+        mhc = HealthStatusChecker(config=config)
+        await mhc.check()
 
         data = redis.get_data("system_health2")
         endpoint_data["status"] = True
@@ -89,8 +89,8 @@ class TestRestInterfaceService(AioHTTPTestCase):
             dict(ip=self.client.host, port=5050, name="system_health_wrong", status=True, subscribed=True),
         )
 
-        mhc = HealthStatusCheck(config=config)
-        await mhc.perform_health_check()
+        mhc = HealthStatusChecker(config=config)
+        await mhc.check()
 
         data = redis.get_data("system_health_wrong")
 
