@@ -33,15 +33,15 @@ logger = logging.getLogger(__name__)
 
 
 class HealthStatusChecker:
-    """TODO"""
+    """Health Status Checker class."""
 
     def __init__(self, config: MinosConfig):
         self.redis = MinosRedisClient(config=config)
 
-    async def check(self):
-        """TODO
+    async def check(self) -> NoReturn:
+        """Check the health status of the already known microservices.
 
-        :return: TODO
+        :return: This method does not return anything.
         """
         coroutines = (self._check_one(key) for key in self.redis.get_redis_connection().scan_iter())
         await gather(*coroutines)
