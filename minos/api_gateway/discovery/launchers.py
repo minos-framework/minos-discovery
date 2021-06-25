@@ -42,7 +42,7 @@ class EntrypointLauncher:
         """
         logger.info("Starting API Gateway...")
         with self.entrypoint as loop:
-            logger.info("API Gateway is up and running!")
+            logger.info("MinosDiscovery is up and running!")
             loop.run_forever()
 
     @cached_property
