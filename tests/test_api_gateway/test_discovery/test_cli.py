@@ -13,7 +13,6 @@ from minos.api_gateway.common import (
 )
 from minos.api_gateway.discovery.cli import (
     EntrypointLauncher,
-    app,
 )
 from tests.utils import (
     BASE_PATH,
@@ -36,12 +35,6 @@ class TestCli(unittest.TestCase):
         self.config = MinosConfig(self.CONFIG_FILE_PATH)
         self.services = ["a", "b", Foo]
         self.launcher = EntrypointLauncher(config=self.config, services=self.services)
-
-    def test_app_ko(self):
-        path = f"{BASE_PATH}/non_existing_config.yml"
-        result = runner.invoke(app, ["start", path])
-        self.assertEqual(result.exit_code, 1)
-        self.assertTrue("Error loading config" in result.stdout)
 
     def test_launch(self):
         loop = FakeLoop()

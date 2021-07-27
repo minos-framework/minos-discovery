@@ -52,7 +52,7 @@ class EntrypointLauncher:
                 logger.info("Discovery is up and running!")
                 self.loop.run_forever()
         except KeyboardInterrupt:  # pragma: no cover
-            logger.info("Stopping microservice...")
+            logger.info("Stopping discovery...")
         finally:
             self.graceful_shutdown()
 
