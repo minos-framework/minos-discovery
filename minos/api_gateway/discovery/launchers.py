@@ -14,9 +14,6 @@ from typing import (
     NoReturn,
 )
 
-from aiomisc import (
-    entrypoint,
-)
 from aiomisc.entrypoint import (
     Entrypoint,
 )
@@ -56,13 +53,12 @@ class EntrypointLauncher:
         finally:
             self.graceful_shutdown()
 
-    @cached_property
-    def loop(self) -> AbstractEventLoop:
-        """Create the loop.
+    def graceful_shutdown(self, err: Exception = None) -> NoReturn:
+        """Shutdown the services execution gracefully.
 
-        :return: An ``AbstractEventLoop`` instance.
+        :return: This method does not return anything.
         """
-        return create_default_event_loop()[0]  # pragma: no cover
+        self.loop.run_until_complete(self.entrypoint.graceful_shutdown(err))
 
     @cached_property
     def entrypoint(self) -> Entrypoint:
@@ -71,11 +67,12 @@ class EntrypointLauncher:
         :return: An ``Entrypoint`` instance.
         """
 
-        return entrypoint(*self.services, loop=self.loop)  # pragma: no cover
+        return Entrypoint(*self.services, loop=self.loop)  # pragma: no cover
 
-    def graceful_shutdown(self, err: Exception = None) -> NoReturn:
-        """Shutdown the services execution gracefully.
+    @cached_property
+    def loop(self) -> AbstractEventLoop:
+        """Create the loop.
 
-        :return: This method does not return anything.
+        :return: An ``AbstractEventLoop`` instance.
         """
-        self.loop.run_until_complete(self.entrypoint.graceful_shutdown(err))
+        return create_default_event_loop()[0]  # pragma: no cover
