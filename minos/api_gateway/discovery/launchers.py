@@ -45,9 +45,9 @@ class EntrypointLauncher:
         """
         logger.info("Starting Discovery...")
         try:
-            with self.entrypoint:
-                logger.info("Discovery is up and running!")
-                self.loop.run_forever()
+            self.loop.run_until_complete(self.entrypoint.__aenter__())
+            logger.info("Discovery is up and running!")
+            self.loop.run_forever()
         except KeyboardInterrupt:  # pragma: no cover
             logger.info("Stopping discovery...")
         finally:

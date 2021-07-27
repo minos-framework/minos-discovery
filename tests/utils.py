@@ -16,14 +16,10 @@ class FakeEntrypoint:
     """For testing purposes."""
 
     def __init__(self):
-        self.call_count = 0
         self.graceful_shutdown_call_count = 0
 
-    def __enter__(self):
-        self.call_count += 1
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        return
+    async def __aenter__(self):
+        """For testing purposes."""
 
     def graceful_shutdown(self, *args, **kwargs):
         """For testing purposes."""

@@ -45,6 +45,5 @@ class TestCli(unittest.TestCase):
             with patch("minos.api_gateway.discovery.EntrypointLauncher.entrypoint", new_callable=PropertyMock) as mock:
                 mock.return_value = entrypoint
                 self.launcher.launch()
-            self.assertEqual(1, entrypoint.call_count)
             self.assertEqual(1, entrypoint.graceful_shutdown_call_count)
             self.assertEqual(1, loop.call_count)
