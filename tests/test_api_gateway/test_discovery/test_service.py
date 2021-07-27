@@ -32,7 +32,7 @@ class TestDiscoveryService(unittest.IsolatedAsyncioTestCase):
         config = MinosConfig(self.CONFIG_FILE_PATH)
         service = DiscoveryService(config=config, app=app)
 
-        self.assertEqual(10, service.graceful_stop_timeout)
+        self.assertEqual(5, service.graceful_stop_timeout)
 
     async def test_stop(self):
         app = web.Application()

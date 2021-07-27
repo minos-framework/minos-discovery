@@ -27,7 +27,7 @@ class DiscoveryService(RESTService):
         self,
         config: MinosConfig,
         app: web.Application = web.Application(),
-        graceful_stop_timeout: int = 10,
+        graceful_stop_timeout: int = 5,
         **kwargs: t.Any,
     ):
         super().__init__(
