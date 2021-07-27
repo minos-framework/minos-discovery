@@ -1,4 +1,9 @@
 import json
+import unittest
+from unittest.mock import (
+    call,
+    patch,
+)
 
 from aiohttp import (
     web,
@@ -19,7 +24,29 @@ from tests.utils import (
 )
 
 
-class TestDiscoveryService(AioHTTPTestCase):
+class TestDiscoveryService(unittest.IsolatedAsyncioTestCase):
+    CONFIG_FILE_PATH = BASE_PATH / "config.yml"
+
+    def test_default_graceful_stop_timeout(self):
+        app = web.Application()
+        config = MinosConfig(self.CONFIG_FILE_PATH)
+        service = DiscoveryService(config=config, app=app)
+
+        self.assertEqual(5, service.graceful_stop_timeout)
+
+    async def test_stop(self):
+        app = web.Application()
+        config = MinosConfig(self.CONFIG_FILE_PATH)
+        service = DiscoveryService(config=config, app=app)
+
+        with patch("asyncio.sleep") as mock:
+            mock.return_value = None
+            await service.stop()
+            self.assertEqual(1, mock.call_count)
+            self.assertEqual(call(service.graceful_stop_timeout), mock.call_args)
+
+
+class TestDiscoveryServiceEndpoints(AioHTTPTestCase):
     CONFIG_FILE_PATH = BASE_PATH / "config.yml"
 
     async def get_application(self):
@@ -28,9 +55,9 @@ class TestDiscoveryService(AioHTTPTestCase):
         """
         app = web.Application()
         config = MinosConfig(self.CONFIG_FILE_PATH)
-        rest_interface = DiscoveryService(config=config, app=app)
+        service = DiscoveryService(config=config, app=app)
 
-        return await rest_interface.create_application()
+        return await service.create_application()
 
     @unittest_run_loop
     async def test_subscribe(self):
@@ -122,3 +149,7 @@ class TestDiscoveryService(AioHTTPTestCase):
         assert resp.status == 200
         text = await resp.text()
         assert "Service added" in text
+
+
+if __name__ == "__main__":
+    unittest.main()
