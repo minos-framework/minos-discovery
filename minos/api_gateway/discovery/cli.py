@@ -18,11 +18,11 @@ from minos.api_gateway.common import (
     MinosConfig,
 )
 
+from .health_status import (
+    HealthStatusCheckerService,
+)
 from .launchers import (
     EntrypointLauncher,
-)
-from .periodic import (
-    DiscoveryPeriodicHealthChecker,
 )
 from .service import (
     DiscoveryService,
@@ -39,23 +39,14 @@ def start(
 ):  # pragma: no cover
     """Start Discovery services."""
 
-    try:
-        config = MinosConfig(file_path)
-    except Exception as exc:
-        typer.echo(f"Error loading config: {exc!r}")
-        raise typer.Exit(code=1)
+    config = MinosConfig(file_path)
 
     services = (
-        DiscoveryPeriodicHealthChecker(interval=120, delay=0, config=config),
+        HealthStatusCheckerService(interval=120, delay=0, config=config),
         DiscoveryService(config=config),
     )
-    try:
-        EntrypointLauncher(config=config, services=services).launch()
-    except Exception as exc:
-        typer.echo(f"Error launching Discovery Service: {exc!r}")
-        raise typer.Exit(code=1)
-
-    typer.echo("Discovery Service is up and running!\n")
+    launcher = EntrypointLauncher(config=config, services=services)
+    launcher.launch()
 
 
 @app.command("status")

@@ -7,15 +7,18 @@ Minos framework can not be copied and/or distributed without the express permiss
 """
 
 import logging
+from asyncio import (
+    AbstractEventLoop,
+)
 from typing import (
     NoReturn,
 )
 
-from aiomisc import (
-    entrypoint,
-)
 from aiomisc.entrypoint import (
     Entrypoint,
+)
+from aiomisc.utils import (
+    create_default_event_loop,
 )
 from cached_property import (
     cached_property,
@@ -40,10 +43,22 @@ class EntrypointLauncher:
 
         :return: This method does not return anything.
         """
-        logger.info("Starting API Gateway...")
-        with self.entrypoint as loop:
-            logger.info("API Gateway is up and running!")
-            loop.run_forever()
+        logger.info("Starting Discovery...")
+        try:
+            self.loop.run_until_complete(self.entrypoint.__aenter__())
+            logger.info("Discovery is up and running!")
+            self.loop.run_forever()
+        except KeyboardInterrupt:  # pragma: no cover
+            logger.info("Stopping discovery...")
+        finally:
+            self.graceful_shutdown()
+
+    def graceful_shutdown(self, err: Exception = None) -> NoReturn:
+        """Shutdown the services execution gracefully.
+
+        :return: This method does not return anything.
+        """
+        self.loop.run_until_complete(self.entrypoint.graceful_shutdown(err))
 
     @cached_property
     def entrypoint(self) -> Entrypoint:
@@ -52,4 +67,12 @@ class EntrypointLauncher:
         :return: An ``Entrypoint`` instance.
         """
 
-        return entrypoint(*self.services)  # pragma: no cover
+        return Entrypoint(*self.services, loop=self.loop)  # pragma: no cover
+
+    @cached_property
+    def loop(self) -> AbstractEventLoop:
+        """Create the loop.
+
+        :return: An ``AbstractEventLoop`` instance.
+        """
+        return create_default_event_loop()[0]  # pragma: no cover

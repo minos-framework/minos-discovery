@@ -5,7 +5,7 @@ This file is part of minos framework.
 
 Minos framework can not be copied and/or distributed without the express permission of Clariteia SL.
 """
-__version__ = "0.0.2"
+__version__ = "0.0.3"
 
 from .cli import (
     app,
@@ -13,12 +13,12 @@ from .cli import (
 from .database import (
     MinosRedisClient,
 )
+from .health_status import (
+    HealthStatusChecker,
+    HealthStatusCheckerService,
+)
 from .launchers import (
     EntrypointLauncher,
-)
-from .periodic import (
-    DiscoveryPeriodicHealthChecker,
-    HealthStatusCheck,
 )
 from .service import (
     DiscoveryService,

@@ -15,3 +15,10 @@ History
 ------------------
 
 * added cli support
+
+0.0.3 (2021-07-27)
+------------------
+
+* Add a graceful stop timeout to `DiscoveryService`.
+* Add `__main__.py`.
+* Fix bugs related with connection.
