@@ -1,0 +1,7 @@
+minos.api\_gateway.discovery.health\_status.services module
+===========================================================
+
+.. automodule:: minos.api_gateway.discovery.health_status.services
+   :members:
+   :undoc-members:
+   :show-inheritance:

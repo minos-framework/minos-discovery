@@ -1,0 +1,7 @@
+minos.api\_gateway.discovery.health\_status.checkers module
+===========================================================
+
+.. automodule:: minos.api_gateway.discovery.health_status.checkers
+   :members:
+   :undoc-members:
+   :show-inheritance:

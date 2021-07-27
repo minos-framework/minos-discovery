@@ -13,7 +13,7 @@ Subpackages
    :maxdepth: 4
 
    minos.api_gateway.discovery.database
-   minos.api_gateway.discovery.periodic
+   minos.api_gateway.discovery.health_status
 
 Submodules
 ----------

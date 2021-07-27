@@ -1,7 +1,0 @@
-minos.api\_gateway.discovery.periodic.abc module
-================================================
-
-.. automodule:: minos.api_gateway.discovery.periodic.abc
-   :members:
-   :undoc-members:
-   :show-inheritance:

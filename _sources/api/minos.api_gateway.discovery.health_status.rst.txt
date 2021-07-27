@@ -1,0 +1,16 @@
+minos.api\_gateway.discovery.health\_status package
+===================================================
+
+.. automodule:: minos.api_gateway.discovery.health_status
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   minos.api_gateway.discovery.health_status.checkers
+   minos.api_gateway.discovery.health_status.services

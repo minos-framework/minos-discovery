@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>minos.api_gateway.discovery.periodic.abc module &mdash; Discovery Service 0.0.2 documentation</title>
+  <title>minos.api_gateway.discovery.health_status.checkers module &mdash; Discovery Service 0.0.3 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.0.2
+                0.0.3
               </div>
             
           
@@ -144,13 +144,13 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>minos.api_gateway.discovery.periodic.abc module</li>
+      <li>minos.api_gateway.discovery.health_status.checkers module</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/api/minos.api_gateway.discovery.periodic.abc.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/api/minos.api_gateway.discovery.health_status.checkers.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -163,22 +163,31 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-minos.api_gateway.discovery.periodic.abc">
-<span id="minos-api-gateway-discovery-periodic-abc-module"></span><h1>minos.api_gateway.discovery.periodic.abc module<a class="headerlink" href="#module-minos.api_gateway.discovery.periodic.abc" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-minos.api_gateway.discovery.health_status.checkers">
+<span id="minos-api-gateway-discovery-health-status-checkers-module"></span><h1>minos.api_gateway.discovery.health_status.checkers module<a class="headerlink" href="#module-minos.api_gateway.discovery.health_status.checkers" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="minos.api_gateway.discovery.periodic.abc.HealthStatusCheck">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">minos.api_gateway.discovery.periodic.abc.</span></span><span class="sig-name descname"><span class="pre">HealthStatusCheck</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/periodic/abc.html#HealthStatusCheck"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.periodic.abc.HealthStatusCheck" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dt class="sig sig-object py" id="minos.api_gateway.discovery.health_status.checkers.HealthStatusChecker">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">minos.api_gateway.discovery.health_status.checkers.</span></span><span class="sig-name descname"><span class="pre">HealthStatusChecker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/health_status/checkers.html#HealthStatusChecker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.health_status.checkers.HealthStatusChecker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Health Status Checker class.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="minos.api_gateway.discovery.periodic.abc.HealthStatusCheck.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/periodic/abc.html#HealthStatusCheck.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.periodic.abc.HealthStatusCheck.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
-</dd></dl>
+<dt class="sig sig-object py" id="minos.api_gateway.discovery.health_status.checkers.HealthStatusChecker.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/health_status/checkers.html#HealthStatusChecker.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.health_status.checkers.HealthStatusChecker.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="minos.api_gateway.discovery.periodic.abc.HealthStatusCheck.perform_health_check">
-<em class="property"><span class="pre">async</span> </em><span class="sig-name descname"><span class="pre">perform_health_check</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/periodic/abc.html#HealthStatusCheck.perform_health_check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.periodic.abc.HealthStatusCheck.perform_health_check" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt class="sig sig-object py" id="minos.api_gateway.discovery.health_status.checkers.HealthStatusChecker.check">
+<em class="property"><span class="pre">async</span> </em><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/health_status/checkers.html#HealthStatusChecker.check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.health_status.checkers.HealthStatusChecker.check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check the health status of the already known microservices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">typing.NoReturn</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>This method does not return anything.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
