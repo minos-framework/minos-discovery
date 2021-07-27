@@ -18,6 +18,7 @@ from minos.api_gateway.discovery.cli import (
 from tests.utils import (
     BASE_PATH,
     FakeEntrypoint,
+    FakeLoop,
 )
 
 runner = CliRunner()
@@ -43,10 +44,14 @@ class TestCli(unittest.TestCase):
         self.assertTrue("Error loading config" in result.stdout)
 
     def test_launch(self):
+        loop = FakeLoop()
         entrypoint = FakeEntrypoint()
-        with patch(
-            "minos.api_gateway.discovery.launchers.EntrypointLauncher.entrypoint", new_callable=PropertyMock
-        ) as mock:
-            mock.return_value = entrypoint
-            self.launcher.launch()
-        self.assertEqual(1, entrypoint.call_count)
+        with patch("minos.api_gateway.discovery.EntrypointLauncher.loop", new_callable=PropertyMock) as mock_loop:
+            mock_loop.return_value = loop
+
+            with patch("minos.api_gateway.discovery.EntrypointLauncher.entrypoint", new_callable=PropertyMock) as mock:
+                mock.return_value = entrypoint
+                self.launcher.launch()
+            self.assertEqual(1, entrypoint.call_count)
+            self.assertEqual(1, entrypoint.graceful_shutdown_call_count)
+            self.assertEqual(1, loop.call_count)
