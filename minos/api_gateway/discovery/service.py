@@ -6,12 +6,17 @@
 # permission of Clariteia SL.
 import asyncio
 import logging
-import typing as t
+from pathlib import (
+    Path,
+)
+from typing import (
+    Any,
+    Optional,
+)
 
 from aiohttp import (
     web,
 )
-
 from minos.api_gateway.common import (
     MinosConfig,
     RESTService,
@@ -23,13 +28,18 @@ logger = logging.getLogger(__name__)
 class DiscoveryService(RESTService):
     """Discovery Service class."""
 
+    CONFIG_FILE_PATH = Path(__file__).parent / "config.yml"
+
     def __init__(
         self,
-        config: MinosConfig,
-        app: web.Application = web.Application(),
+        app: Optional[web.Application] = None,
         graceful_stop_timeout: int = 5,
-        **kwargs: t.Any,
+        **kwargs: Any,
     ):
+        config = MinosConfig(self.CONFIG_FILE_PATH)
+        if app is None:
+            app = web.Application()
+
         super().__init__(
             address=config.discovery.connection.host,
             port=config.discovery.connection.port,

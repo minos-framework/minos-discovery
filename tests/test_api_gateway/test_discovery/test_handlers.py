@@ -18,17 +18,13 @@ from tests.utils import (
 
 
 class TestDiscoveryHandler(AioHTTPTestCase):
-    CONFIG_FILE_PATH = BASE_PATH / "test_handlers_config.yml"
-
     async def get_application(self):
         """
         Override the get_app method to return your application.
         """
-        app = web.Application()
-        config = MinosConfig(self.CONFIG_FILE_PATH)
-        rest_interface = DiscoveryService(config=config, app=app)
+        service = DiscoveryService()
 
-        return await rest_interface.create_application()
+        return await service.create_application()
 
     @unittest_run_loop
     async def test_discover(self):

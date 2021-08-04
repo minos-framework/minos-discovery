@@ -30,22 +30,20 @@ from .service import (
 
 app = typer.Typer()
 
+CONFIG_FILE_PATH = Path(__file__).parent / "config.yml"
+
 
 @app.command("start")
-def start(
-    file_path: Optional[Path] = typer.Argument(
-        "config.yml", help="Discovery Service configuration file.", envvar="MINOS_API_GATEWAY_CONFIG_FILE_PATH"
-    )
-):  # pragma: no cover
+def start():
     """Start Discovery services."""
 
-    config = MinosConfig(file_path)
+    config = MinosConfig(CONFIG_FILE_PATH)
 
     services = (
         HealthStatusCheckerService(interval=120, delay=0, config=config),
-        DiscoveryService(config=config),
+        DiscoveryService(),
     )
-    launcher = EntrypointLauncher(config=config, services=services)
+    launcher = EntrypointLauncher(services=services)
     launcher.launch()
 
 

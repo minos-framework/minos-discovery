@@ -33,6 +33,6 @@ discovery:
           controller: minos.api_gateway.discovery.handlers.DiscoveryHandlers
           action: system_health
     db:
-        host: localhost
+        host: 0.0.0.0
         port: 6379
         password:

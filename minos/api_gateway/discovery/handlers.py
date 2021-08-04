@@ -38,7 +38,7 @@ async def get_formatted(request: web.Request) -> dict:
 
 
 class DiscoveryHandlers(object):
-    async def discover(self, request: web.Request, config: MinosConfig, **kwargs):
+    async def discover(self, request: web.Request, config: MinosConfig):
         name = request.query.get("name")
         if not name:
             return web.json_response('Parameter "name" not found.', status=400)
@@ -50,7 +50,7 @@ class DiscoveryHandlers(object):
             data = redis_cli.get_data(name)
             return web.json_response(data=data)
 
-    async def subscribe(self, request: web.Request, config: MinosConfig, **kwargs):
+    async def subscribe(self, request: web.Request, config: MinosConfig):
         validation, errors = await validate_input(request)
 
         if errors:
@@ -64,7 +64,7 @@ class DiscoveryHandlers(object):
 
         return web.json_response(text="Service added")
 
-    async def unsubscribe(self, request: web.Request, config: MinosConfig, **kwargs):
+    async def unsubscribe(self, request: web.Request, config: MinosConfig):
         name = request.query.get("name")
         if not name:
             return web.json_response('Parameter "name" not found.', status=400)
@@ -81,5 +81,5 @@ class DiscoveryHandlers(object):
 
             return web.json_response(text="Unsubscription done!")
 
-    async def system_health(self, request: web.Request, config: MinosConfig, **kwargs):
+    async def system_health(self, request: web.Request, config: MinosConfig):
         return web.json_response({"host": request.host})

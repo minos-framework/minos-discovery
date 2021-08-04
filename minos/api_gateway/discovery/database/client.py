@@ -57,8 +57,8 @@ class MinosRedisClient(ABC):
         try:
             redis_connection = redis.Redis(host=self._redis_host, port=self._redis_port, password=self._redis_password)
             redis_connection.ping()
-        except Exception:
-            raise Exception
+        except Exception as exc:
+            raise exc
 
         return redis_connection
 

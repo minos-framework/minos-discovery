@@ -29,12 +29,9 @@ class Foo:
 
 
 class TestCli(unittest.TestCase):
-    CONFIG_FILE_PATH = BASE_PATH / "config.yml"
-
     def setUp(self):
-        self.config = MinosConfig(self.CONFIG_FILE_PATH)
-        self.services = ["a", "b", Foo]
-        self.launcher = EntrypointLauncher(config=self.config, services=self.services)
+        self.services = ("a", "b", Foo)
+        self.launcher = EntrypointLauncher(services=self.services)
 
     def test_launch(self):
         loop = FakeLoop()

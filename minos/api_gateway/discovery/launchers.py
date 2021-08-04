@@ -10,6 +10,9 @@ import logging
 from asyncio import (
     AbstractEventLoop,
 )
+from pathlib import (
+    Path,
+)
 from typing import (
     NoReturn,
 )
@@ -24,18 +27,13 @@ from cached_property import (
     cached_property,
 )
 
-from minos.api_gateway.common import (
-    MinosConfig,
-)
-
 logger = logging.getLogger(__name__)
 
 
 class EntrypointLauncher:
     """EntryPoint Launcher class."""
 
-    def __init__(self, config: MinosConfig, services: tuple, *args, **kwargs):
-        self.config = config
+    def __init__(self, services: tuple):
         self.services = services
 
     def launch(self) -> NoReturn:
