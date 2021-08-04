@@ -10,13 +10,14 @@ from minos.api_gateway.common import (
     MinosConfig,
 )
 from minos.api_gateway.discovery import (
-    DiscoveryService,
+    DiscoveryService, handlers,
 )
 from tests.utils import (
     BASE_PATH,
 )
 
 
+# TODO Redo these tests without AioHTTPTestCase
 class TestDiscoveryHandler(AioHTTPTestCase):
     async def get_application(self):
         """
@@ -28,7 +29,11 @@ class TestDiscoveryHandler(AioHTTPTestCase):
 
     @unittest_run_loop
     async def test_discover(self):
-        url = "/discover"
+        url = "/subscribe"
+
+        await self.client.request("POST", url)
+
+        url = "/discover?name=asdf"
         resp = await self.client.request("GET", url)
         assert resp.status == 200
         text = await resp.text()

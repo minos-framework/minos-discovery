@@ -5,6 +5,7 @@
 # Minos framework can not be copied and/or distributed without the express
 # permission of Clariteia SL.
 import asyncio
+import functools
 import logging
 from pathlib import (
     Path,
@@ -21,6 +22,7 @@ from minos.api_gateway.common import (
     MinosConfig,
     RESTService,
 )
+from .handlers import DiscoveryHandlers
 
 logger = logging.getLogger(__name__)
 
@@ -36,14 +38,20 @@ class DiscoveryService(RESTService):
         graceful_stop_timeout: int = 5,
         **kwargs: Any,
     ):
-        config = MinosConfig(self.CONFIG_FILE_PATH)
         if app is None:
             app = web.Application()
+        config = MinosConfig(self.CONFIG_FILE_PATH)
+        endpoints = [
+            web.get('/discover', functools.partial(DiscoveryHandlers.discover, config=config)),
+            web.post('/subscribe', functools.partial(DiscoveryHandlers.subscribe, config=config)),
+            web.post('/unsubscribe', functools.partial(DiscoveryHandlers.unsubscribe, config=config)),
+            web.get('/system/health', functools.partial(DiscoveryHandlers.system_health, config=config))
+        ]
 
         super().__init__(
             address=config.discovery.connection.host,
             port=config.discovery.connection.port,
-            endpoints=config.discovery.endpoints,
+            endpoints=endpoints,
             config=config,
             app=app,
             **kwargs,

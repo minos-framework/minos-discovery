@@ -38,19 +38,21 @@ async def get_formatted(request: web.Request) -> dict:
 
 
 class DiscoveryHandlers(object):
-    async def discover(self, request: web.Request, config: MinosConfig):
+    @staticmethod
+    async def discover(request: web.Request, config: MinosConfig):
         name = request.query.get("name")
         if not name:
             return web.json_response('Parameter "name" not found.', status=400)
-        else:
-            # Search by key in Redis and return JSON
-            redis_cli = MinosRedisClient(config=config)
 
-            # Get JSON data
-            data = redis_cli.get_data(name)
-            return web.json_response(data=data)
+        # Search by key in Redis and return JSON
+        redis_cli = MinosRedisClient(config=config)
 
-    async def subscribe(self, request: web.Request, config: MinosConfig):
+        # Get JSON data
+        data = redis_cli.get_data(name)
+        return web.json_response(data=data)
+
+    @staticmethod
+    async def subscribe(request: web.Request, config: MinosConfig):
         validation, errors = await validate_input(request)
 
         if errors:
@@ -58,13 +60,14 @@ class DiscoveryHandlers(object):
 
         input_json = await get_formatted(request)
 
-        redis_cli = MinosRedisClient(config=config)
+        redis_client = MinosRedisClient(config=config)
 
-        redis_cli.set_data(input_json["name"], input_json)
+        redis_client.set_data(input_json["name"], input_json)
 
         return web.json_response(text="Service added")
 
-    async def unsubscribe(self, request: web.Request, config: MinosConfig):
+    @staticmethod
+    async def unsubscribe(request: web.Request, config: MinosConfig):
         name = request.query.get("name")
         if not name:
             return web.json_response('Parameter "name" not found.', status=400)
@@ -81,5 +84,6 @@ class DiscoveryHandlers(object):
 
             return web.json_response(text="Unsubscription done!")
 
-    async def system_health(self, request: web.Request, config: MinosConfig):
+    @staticmethod
+    async def system_health(request: web.Request, config: MinosConfig):
         return web.json_response({"host": request.host})
