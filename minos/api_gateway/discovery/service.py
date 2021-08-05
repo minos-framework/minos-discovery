@@ -42,8 +42,8 @@ class DiscoveryService(RESTService):
 
         endpoints = [
             web.get('/discover', functools.partial(DiscoveryHandlers.discover, config=config)),
-            web.post('/subscribe', functools.partial(DiscoveryHandlers.subscribe, config=config)),
-            web.post('/unsubscribe', functools.partial(DiscoveryHandlers.unsubscribe, config=config)),
+            web.post('/subscriptions', functools.partial(DiscoveryHandlers.subscribe, config=config)),
+            web.delete('/subscriptions', functools.partial(DiscoveryHandlers.unsubscribe, config=config)),
             web.get('/system/health', functools.partial(DiscoveryHandlers.system_health, config=config))
         ]
 

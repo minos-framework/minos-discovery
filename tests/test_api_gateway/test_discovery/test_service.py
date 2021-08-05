@@ -62,7 +62,7 @@ class TestDiscoveryServiceEndpoints(AioHTTPTestCase):
 
     @unittest_run_loop
     async def test_subscribe(self):
-        url = "/subscribe"
+        url = "/subscriptions"
         resp = await self.client.request(
             "POST", url, data=json.dumps(dict(ip="127.0.0.1", port=5000, name="test_endpoint"))
         )
@@ -72,7 +72,7 @@ class TestDiscoveryServiceEndpoints(AioHTTPTestCase):
 
     @unittest_run_loop
     async def test_discover(self):
-        url = "/subscribe"
+        url = "/subscriptions"
         resp = await self.client.request(
             "POST", url, data=json.dumps(dict(ip="127.0.0.1", port=5000, name="test_endpoint"))
         )
@@ -91,7 +91,7 @@ class TestDiscoveryServiceEndpoints(AioHTTPTestCase):
 
     @unittest_run_loop
     async def test_discover_no_name(self):
-        url = "/subscribe"
+        url = "/subscriptions"
         resp = await self.client.request(
             "POST", url, data=json.dumps(dict(ip="127.0.0.1", port=5000, name="test_endpoint"))
         )
@@ -107,16 +107,16 @@ class TestDiscoveryServiceEndpoints(AioHTTPTestCase):
 
     @unittest_run_loop
     async def test_unsubscribe(self):
-        url = "/unsubscribe?name=test_endpoint"
-        resp = await self.client.request("POST", url)
+        url = "/subscriptions?name=test_endpoint"
+        resp = await self.client.request("DELETE", url)
         assert resp.status == 200
         text = await resp.text()
         assert "Unsubscription done!" in text
 
     @unittest_run_loop
     async def test_unsubscribe_no_name(self):
-        url = "/unsubscribe"
-        resp = await self.client.request("POST", url)
+        url = "/subscriptions"
+        resp = await self.client.request("DELETE", url)
         assert resp.status == 400
         text = await resp.text()
         assert "not found." in text
@@ -129,7 +129,7 @@ class TestDiscoveryServiceEndpoints(AioHTTPTestCase):
 
     @unittest_run_loop
     async def test_wrong_parameter_ip(self):
-        url = "/subscribe"
+        url = "/subscriptions"
         resp = await self.client.request("POST", url, data=json.dumps(dict(port=5000, name="test_endpoint")))
         assert resp.status == 400
         text = await resp.text()
@@ -137,7 +137,7 @@ class TestDiscoveryServiceEndpoints(AioHTTPTestCase):
 
     @unittest_run_loop
     async def test_wrong_parameter_name(self):
-        url = "/subscribe"
+        url = "/subscriptions"
         resp = await self.client.request("POST", url, data=json.dumps(dict(ip="127.0.0.1", port=5000)))
         assert resp.status == 400
         text = await resp.text()
@@ -145,7 +145,7 @@ class TestDiscoveryServiceEndpoints(AioHTTPTestCase):
 
     @unittest_run_loop
     async def test_no_port(self):
-        url = "/subscribe"
+        url = "/subscriptions"
         resp = await self.client.request("POST", url, data=json.dumps(dict(ip="127.0.0.1", name="test_endpoint")))
         assert resp.status == 200
         text = await resp.text()
