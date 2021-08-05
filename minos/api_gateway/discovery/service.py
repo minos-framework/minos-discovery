@@ -18,11 +18,15 @@ from typing import (
 from aiohttp import (
     web,
 )
+
 from minos.api_gateway.common import (
     MinosConfig,
     RESTService,
 )
-from .handlers import DiscoveryHandlers
+
+from .handlers import (
+    DiscoveryHandlers,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -41,10 +45,10 @@ class DiscoveryService(RESTService):
             app = web.Application()
 
         endpoints = [
-            web.get('/discover', functools.partial(DiscoveryHandlers.discover, config=config)),
-            web.post('/subscriptions', functools.partial(DiscoveryHandlers.subscribe, config=config)),
-            web.delete('/subscriptions', functools.partial(DiscoveryHandlers.unsubscribe, config=config)),
-            web.get('/system/health', functools.partial(DiscoveryHandlers.system_health, config=config))
+            web.get("/discover", functools.partial(DiscoveryHandlers.discover, config=config)),
+            web.post("/subscriptions", functools.partial(DiscoveryHandlers.subscribe, config=config)),
+            web.delete("/subscriptions", functools.partial(DiscoveryHandlers.unsubscribe, config=config)),
+            web.get("/system/health", functools.partial(DiscoveryHandlers.system_health, config=config)),
         ]
 
         super().__init__(

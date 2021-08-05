@@ -1,6 +1,8 @@
 import json
 import unittest
-from pathlib import Path
+from pathlib import (
+    Path,
+)
 from unittest.mock import (
     call,
     patch,

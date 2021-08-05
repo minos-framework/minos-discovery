@@ -10,7 +10,8 @@ from minos.api_gateway.common import (
     MinosConfig,
 )
 from minos.api_gateway.discovery import (
-    DiscoveryService, handlers,
+    DiscoveryService,
+    handlers,
 )
 from tests.utils import (
     BASE_PATH,
