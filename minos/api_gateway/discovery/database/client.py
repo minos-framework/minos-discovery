@@ -20,11 +20,15 @@ it performs a Redis lookup by key value. The value is stored in Redis as JSON.
 """
 
 import json
-from abc import ABC
+from abc import (
+    ABC,
+)
 
 import redis
 
-from minos.api_gateway.common import MinosConfig
+from minos.api_gateway.common import (
+    MinosConfig,
+)
 
 
 class MinosRedisClient(ABC):

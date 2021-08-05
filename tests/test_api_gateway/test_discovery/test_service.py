@@ -1,20 +1,30 @@
 import json
 import unittest
-from pathlib import Path
+from pathlib import (
+    Path,
+)
 from unittest.mock import (
     call,
     patch,
 )
 
-from aiohttp import web
+from aiohttp import (
+    web,
+)
 from aiohttp.test_utils import (
     AioHTTPTestCase,
     unittest_run_loop,
 )
 
-from minos.api_gateway.common import MinosConfig
-from minos.api_gateway.discovery import DiscoveryService
-from tests.utils import BASE_PATH
+from minos.api_gateway.common import (
+    MinosConfig,
+)
+from minos.api_gateway.discovery import (
+    DiscoveryService,
+)
+from tests.utils import (
+    BASE_PATH,
+)
 
 
 class TestDiscoveryService(unittest.IsolatedAsyncioTestCase):

@@ -7,20 +7,26 @@
 import asyncio
 import functools
 import logging
-from pathlib import Path
+from pathlib import (
+    Path,
+)
 from typing import (
     Any,
     Optional,
 )
 
-from aiohttp import web
+from aiohttp import (
+    web,
+)
 
 from minos.api_gateway.common import (
     MinosConfig,
     RESTService,
 )
 
-from .handlers import DiscoveryHandlers
+from .handlers import (
+    DiscoveryHandlers,
+)
 
 logger = logging.getLogger(__name__)
 
