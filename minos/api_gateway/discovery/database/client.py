@@ -1,10 +1,3 @@
-# Copyright (C) 2020 Clariteia SL
-#
-# This file is part of minos framework.
-#
-# Minos framework can not be copied and/or distributed without the express
-# permission of Clariteia SL.
-
 """API Router is responsible for obtaining the connection values for each domain name.
 
 This module obtains the IP, port and status of a microservice. Using the domain name,
