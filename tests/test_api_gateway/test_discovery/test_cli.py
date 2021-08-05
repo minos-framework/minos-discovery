@@ -8,14 +8,10 @@ from typer.testing import (
     CliRunner,
 )
 
-from minos.api_gateway.common import (
-    MinosConfig,
-)
 from minos.api_gateway.discovery.cli import (
     EntrypointLauncher,
 )
 from tests.utils import (
-    BASE_PATH,
     FakeEntrypoint,
     FakeLoop,
 )
