@@ -19,11 +19,14 @@ from tests.utils import (
 
 # TODO Redo these tests without AioHTTPTestCase
 class TestDiscoveryHandler(AioHTTPTestCase):
+    CONFIG_FILE_PATH = BASE_PATH / "config.yml"
+
     async def get_application(self):
         """
         Override the get_app method to return your application.
         """
-        service = DiscoveryService()
+        config = MinosConfig(self.CONFIG_FILE_PATH)
+        service = DiscoveryService(config=config)
 
         return await service.create_application()
 

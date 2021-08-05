@@ -30,17 +30,16 @@ logger = logging.getLogger(__name__)
 class DiscoveryService(RESTService):
     """Discovery Service class."""
 
-    CONFIG_FILE_PATH = Path(__file__).parent / "config.yml"
-
     def __init__(
         self,
+        config: MinosConfig,
         app: Optional[web.Application] = None,
         graceful_stop_timeout: int = 5,
         **kwargs: Any,
     ):
         if app is None:
             app = web.Application()
-        config = MinosConfig(self.CONFIG_FILE_PATH)
+
         endpoints = [
             web.get('/discover', functools.partial(DiscoveryHandlers.discover, config=config)),
             web.post('/subscribe', functools.partial(DiscoveryHandlers.subscribe, config=config)),

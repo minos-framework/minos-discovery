@@ -1,5 +1,6 @@
 import json
 import unittest
+from pathlib import Path
 from unittest.mock import (
     call,
     patch,
@@ -25,15 +26,19 @@ from tests.utils import (
 
 
 class TestDiscoveryService(unittest.IsolatedAsyncioTestCase):
+    CONFIG_FILE_PATH = BASE_PATH / "config.yml"
+
     def test_default_graceful_stop_timeout(self):
         app = web.Application()
-        service = DiscoveryService(app=app)
+        config = MinosConfig(self.CONFIG_FILE_PATH)
+        service = DiscoveryService(config=config, app=app)
 
         self.assertEqual(5, service.graceful_stop_timeout)
 
     async def test_stop(self):
         app = web.Application()
-        service = DiscoveryService(app=app)
+        config = MinosConfig(self.CONFIG_FILE_PATH)
+        service = DiscoveryService(config=config, app=app)
 
         with patch("asyncio.sleep") as mock:
             mock.return_value = None
@@ -43,12 +48,15 @@ class TestDiscoveryService(unittest.IsolatedAsyncioTestCase):
 
 
 class TestDiscoveryServiceEndpoints(AioHTTPTestCase):
+    CONFIG_FILE_PATH = BASE_PATH / "config.yml"
+
     async def get_application(self):
         """
         Override the get_app method to return your application.
         """
         app = web.Application()
-        service = DiscoveryService(app=app)
+        config = MinosConfig(self.CONFIG_FILE_PATH)
+        service = DiscoveryService(config=config, app=app)
 
         return await service.create_application()
 
