@@ -43,7 +43,9 @@ def start(
 
     services = (
         HealthStatusCheckerService(interval=120, delay=0, config=config),
-        DiscoveryService(config=config),
+        DiscoveryService(
+            address=config.discovery.connection.host, port=config.discovery.connection.port, config=config
+        ),
     )
     launcher = EntrypointLauncher(services=services)
     launcher.launch()

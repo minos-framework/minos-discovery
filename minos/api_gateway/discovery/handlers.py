@@ -2,10 +2,6 @@ from aiohttp import (
     web,
 )
 
-from minos.api_gateway.common import (
-    MinosConfig,
-)
-
 from .database import (
     MinosRedisClient,
 )
@@ -39,14 +35,14 @@ async def get_formatted(request: web.Request) -> dict:
     }
 
 
-@routes.get("/discover")
-async def discover(request: web.Request, config: MinosConfig):
+@routes.get("/subscriptions")
+async def discover(request: web.Request):
     name = request.query.get("name")
     if not name:
         return web.json_response('Parameter "name" not found.', status=400)
 
     # Search by key in Redis and return JSON
-    redis_cli = MinosRedisClient(config=config)
+    redis_cli = MinosRedisClient(config=request.app["config"])
 
     # Get JSON data
     data = redis_cli.get_data(name)
@@ -54,7 +50,7 @@ async def discover(request: web.Request, config: MinosConfig):
 
 
 @routes.post("/subscriptions")
-async def subscribe(request: web.Request, config: MinosConfig):
+async def subscribe(request: web.Request):
     validation, errors = await validate_input(request)
 
     if errors:
@@ -62,7 +58,7 @@ async def subscribe(request: web.Request, config: MinosConfig):
 
     input_json = await get_formatted(request)
 
-    redis_client = MinosRedisClient(config=config)
+    redis_client = MinosRedisClient(config=request.app["config"])
 
     redis_client.set_data(input_json["name"], input_json)
 
@@ -70,13 +66,13 @@ async def subscribe(request: web.Request, config: MinosConfig):
 
 
 @routes.delete("/subscriptions")
-async def unsubscribe(request: web.Request, config: MinosConfig):
+async def unsubscribe(request: web.Request):
     name = request.query.get("name")
     if not name:
         return web.json_response('Parameter "name" not found.', status=400)
     else:
         # Search by key in Redis and set subscription to unsubscribed
-        redis_cli = MinosRedisClient(config=config)
+        redis_cli = MinosRedisClient(config=request.app["config"])
 
         # Get JSON data
         data = redis_cli.get_data(name)
@@ -89,5 +85,5 @@ async def unsubscribe(request: web.Request, config: MinosConfig):
 
 
 @routes.get("/system/health")
-async def system_health(request: web.Request, config: MinosConfig):
+async def system_health(request: web.Request):
     return web.json_response({"host": request.host})

@@ -6,44 +6,40 @@
 # permission of Clariteia SL.
 import asyncio
 import logging
-from typing import (
-    Any,
-    Optional,
-)
 
 from aiohttp import (
     web,
 )
+from aiomisc.service.aiohttp import (
+    AIOHTTPService,
+)
 
 from minos.api_gateway.common import (
     MinosConfig,
-    RESTService,
+)
+
+from .handlers import (
+    routes,
 )
 
 logger = logging.getLogger(__name__)
 
 
-class DiscoveryService(RESTService):
+class DiscoveryService(AIOHTTPService):
     """Discovery Service class."""
 
-    def __init__(
-        self,
-        config: MinosConfig,
-        app: Optional[web.Application] = None,
-        graceful_stop_timeout: int = 5,
-        **kwargs: Any,
-    ):
-        if app is None:
-            app = web.Application()
-
-        super().__init__(
-            address=config.discovery.connection.host,
-            port=config.discovery.connection.port,
-            config=config,
-            app=app,
-            **kwargs,
-        )
+    def __init__(self, address: str, port: int, config: MinosConfig, graceful_stop_timeout: int = 5):
+        self.config = config
         self.graceful_stop_timeout = graceful_stop_timeout
+        super().__init__(address, port)
+
+    async def create_application(self) -> web.Application:
+        app = web.Application()
+        app.router.add_routes(routes)
+
+        app["config"] = self.config
+
+        return app
 
     async def stop(self, exception: Exception = None) -> None:
         """

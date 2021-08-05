@@ -1,16 +1,10 @@
 import json
 import unittest
-from pathlib import (
-    Path,
-)
 from unittest.mock import (
     call,
     patch,
 )
 
-from aiohttp import (
-    web,
-)
 from aiohttp.test_utils import (
     AioHTTPTestCase,
     unittest_run_loop,
@@ -31,16 +25,18 @@ class TestDiscoveryService(unittest.IsolatedAsyncioTestCase):
     CONFIG_FILE_PATH = BASE_PATH / "config.yml"
 
     def test_default_graceful_stop_timeout(self):
-        app = web.Application()
         config = MinosConfig(self.CONFIG_FILE_PATH)
-        service = DiscoveryService(config=config, app=app)
+        service = DiscoveryService(
+            address=config.discovery.connection.host, port=config.discovery.connection.port, config=config
+        )
 
         self.assertEqual(5, service.graceful_stop_timeout)
 
     async def test_stop(self):
-        app = web.Application()
         config = MinosConfig(self.CONFIG_FILE_PATH)
-        service = DiscoveryService(config=config, app=app)
+        service = DiscoveryService(
+            address=config.discovery.connection.host, port=config.discovery.connection.port, config=config
+        )
 
         with patch("asyncio.sleep") as mock:
             mock.return_value = None
@@ -56,9 +52,10 @@ class TestDiscoveryServiceEndpoints(AioHTTPTestCase):
         """
         Override the get_app method to return your application.
         """
-        app = web.Application()
         config = MinosConfig(self.CONFIG_FILE_PATH)
-        service = DiscoveryService(config=config, app=app)
+        service = DiscoveryService(
+            address=config.discovery.connection.host, port=config.discovery.connection.port, config=config
+        )
 
         return await service.create_application()
 
@@ -82,7 +79,7 @@ class TestDiscoveryServiceEndpoints(AioHTTPTestCase):
         text = await resp.text()
         assert "Service added" in text
 
-        url = "/discover?name=test_endpoint"
+        url = "/subscriptions?name=test_endpoint"
         resp = await self.client.request("GET", url)
         assert resp.status == 200
         text = await resp.text()
@@ -101,7 +98,7 @@ class TestDiscoveryServiceEndpoints(AioHTTPTestCase):
         text = await resp.text()
         assert "Service added" in text
 
-        url = "/discover"
+        url = "/subscriptions"
         resp = await self.client.request("GET", url)
         assert resp.status == 400
         text = await resp.text()

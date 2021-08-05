@@ -10,9 +10,6 @@ import logging
 from asyncio import (
     AbstractEventLoop,
 )
-from pathlib import (
-    Path,
-)
 from typing import (
     NoReturn,
 )
