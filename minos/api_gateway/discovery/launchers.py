@@ -7,25 +7,13 @@ Minos framework can not be copied and/or distributed without the express permiss
 """
 
 import logging
-from asyncio import (
-    AbstractEventLoop,
-)
-from pathlib import (
-    Path,
-)
-from typing import (
-    NoReturn,
-)
+from asyncio import AbstractEventLoop
+from pathlib import Path
+from typing import NoReturn
 
-from aiomisc.entrypoint import (
-    Entrypoint,
-)
-from aiomisc.utils import (
-    create_default_event_loop,
-)
-from cached_property import (
-    cached_property,
-)
+from aiomisc.entrypoint import Entrypoint
+from aiomisc.utils import create_default_event_loop
+from cached_property import cached_property
 
 logger = logging.getLogger(__name__)
 

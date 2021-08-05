@@ -5,28 +5,16 @@ This file is part of minos framework.
 
 Minos framework can not be copied and/or distributed without the express permission of Clariteia SL.
 """
-from pathlib import (
-    Path,
-)
-from typing import (
-    Optional,
-)
+from pathlib import Path
+from typing import Optional
 
 import typer
 
-from minos.api_gateway.common import (
-    MinosConfig,
-)
+from minos.api_gateway.common import MinosConfig
 
-from .health_status import (
-    HealthStatusCheckerService,
-)
-from .launchers import (
-    EntrypointLauncher,
-)
-from .service import (
-    DiscoveryService,
-)
+from .health_status import HealthStatusCheckerService
+from .launchers import EntrypointLauncher
+from .service import DiscoveryService
 
 app = typer.Typer()
 

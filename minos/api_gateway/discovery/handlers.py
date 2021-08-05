@@ -1,14 +1,8 @@
-from aiohttp import (
-    web,
-)
+from aiohttp import web
 
-from minos.api_gateway.common import (
-    MinosConfig,
-)
+from minos.api_gateway.common import MinosConfig
 
-from .database import (
-    MinosRedisClient,
-)
+from .database import MinosRedisClient
 
 
 async def validate_input(request: web.Request):
