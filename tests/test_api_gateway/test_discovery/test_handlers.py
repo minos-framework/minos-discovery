@@ -32,11 +32,7 @@ class TestDiscoveryHandler(AioHTTPTestCase):
 
     @unittest_run_loop
     async def test_discover(self):
-        url = "/subscribe"
-
-        await self.client.request("POST", url)
-
-        url = "/discover?name=asdf"
+        url = "/discover"
         resp = await self.client.request("GET", url)
         assert resp.status == 200
         text = await resp.text()
