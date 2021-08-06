@@ -40,7 +40,7 @@ def start(
             address=config.discovery.connection.host, port=config.discovery.connection.port, config=config
         ),
     )
-    launcher = EntrypointLauncher(services=services)
+    launcher = EntrypointLauncher(services=services)  # pragma: no cover
     launcher.launch()
 
 
