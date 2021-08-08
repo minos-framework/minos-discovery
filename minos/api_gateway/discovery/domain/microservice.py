@@ -17,8 +17,3 @@ class Microservice:
 
         for endpoint in self.endpoints:
             db_client.set_data(endpoint.name, microservice_value)
-
-    # TODO move creation logic from Microservice.view() to here
-    @classmethod
-    def from_dict(cls, microservice_dict: dict):
-        pass
