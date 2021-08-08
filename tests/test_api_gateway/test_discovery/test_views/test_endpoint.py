@@ -45,3 +45,12 @@ class TestMicroserviceEndpoints(AioHTTPTestCase):
         self.assertEqual("1.1.1.1", body["address"])
         self.assertEqual(1, int(body["port"]))
         self.assertEqual("test_name", body["name"])
+
+    @unittest_run_loop
+    async def test_get_not_exists(self):
+        endpoint_name = "not_existing_endpoint"
+
+        response = await self.client.get(f"/microservices/endpoints/{endpoint_name}")
+
+        self.assertEqual(204, response.status)
+

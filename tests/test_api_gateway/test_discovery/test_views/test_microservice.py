@@ -38,7 +38,7 @@ class TestMicroserviceEndpoints(AioHTTPTestCase):
 
         response = await self.client.post(f"/microservices/{name}", json=body)
 
-        self.assertEqual(200, response.status)
+        self.assertEqual(201, response.status)
 
     @unittest_run_loop
     async def test_post_missing_param(self):
@@ -49,7 +49,6 @@ class TestMicroserviceEndpoints(AioHTTPTestCase):
         }
 
         response = await self.client.post(f"/microservices/{name}", json=body)
-        await asyncio.sleep(0)
 
         self.assertEqual(400, response.status)
         self.assertIn("address", await response.text())
@@ -59,6 +58,5 @@ class TestMicroserviceEndpoints(AioHTTPTestCase):
         name = "test_name"
 
         response = await self.client.post(f"/microservices/{name}")
-        await asyncio.sleep(0)
 
         self.assertEqual(400, response.status)

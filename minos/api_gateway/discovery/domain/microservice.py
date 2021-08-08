@@ -1,6 +1,7 @@
 from typing import NoReturn
 
 from .endpoint import Endpoint
+from ..exceptions import NotFoundException
 
 
 class Microservice:
@@ -23,6 +24,9 @@ class Microservice:
     @classmethod
     def find_by_endpoint(cls, name, db_client) -> "Microservice":
         microservice_dict = db_client.get_data(name)
-        microservice = cls(endpoints=[], **microservice_dict)
+        if not microservice_dict:
+            raise NotFoundException
+
+        microservice = cls(**microservice_dict, endpoints=[])
 
         return microservice

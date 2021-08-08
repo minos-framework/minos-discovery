@@ -16,3 +16,6 @@ from .launchers import (
 from .service import (
     DiscoveryService,
 )
+from .exceptions import (
+    NotFoundException
+)

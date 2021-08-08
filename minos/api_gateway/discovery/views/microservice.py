@@ -6,6 +6,7 @@ from aiohttp import (
 )
 
 from . import routes
+from ..database import MinosRedisClient
 from ..domain import (
     Microservice,
 )
@@ -23,7 +24,6 @@ class MicroserviceView(web.View):
         else:
             body["name"] = self.request.match_info["name"]
 
-        from .. import MinosRedisClient
         redis_client = MinosRedisClient(config=self.request.app["config"])
 
         try:
@@ -32,7 +32,7 @@ class MicroserviceView(web.View):
             raise web.HTTPBadRequest(text=exc.args[0])
         microservice.save(redis_client)
 
-        return web.Response()
+        return web.HTTPCreated()
 
-    async def get(self):
+    async def delete(self):
         pass
