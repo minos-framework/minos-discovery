@@ -1,6 +1,3 @@
-import asyncio
-import json
-
 from aiohttp.test_utils import (
     AioHTTPTestCase,
     unittest_run_loop
