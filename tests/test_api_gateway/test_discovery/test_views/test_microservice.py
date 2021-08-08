@@ -54,6 +54,12 @@ class TestMicroserviceEndpoints(AioHTTPTestCase):
         self.assertIn("address", await response.text())
 
     @unittest_run_loop
+    async def test_post_missing_name(self):
+        response = await self.client.post("/microservices/")
+
+        self.assertEqual(404, response.status)
+
+    @unittest_run_loop
     async def test_post_empty_body(self):
         name = "test_name"
 
