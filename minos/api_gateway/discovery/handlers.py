@@ -5,36 +5,8 @@ from aiohttp import (
 from .database import (
     MinosRedisClient,
 )
-from .domain import (
-    Microservice,
-)
 
 routes = web.RouteTableDef()
-
-
-@routes.view("/microservices/{name}")
-class MicroserviceView(web.View):
-    async def post(self):
-
-        microservice = Microservice(
-            name=self.request.match_info["name"],
-            address=
-        )
-
-    async def get(self):
-        pass
-
-
-@routes.view("/endpoints/{endpoint_name}")
-class EndpointView(web.View):
-    async def post(self):
-        pass
-
-    async def get(self):
-        pass
-
-    async def delete(self):
-        pass
 
 
 async def validate_input(request: web.Request):

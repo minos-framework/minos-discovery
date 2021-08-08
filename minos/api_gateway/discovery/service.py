@@ -12,8 +12,8 @@ from minos.api_gateway.common import (
     MinosConfig,
 )
 
-from .handlers import (
-    routes,
+from .views import (
+    routes
 )
 
 logger = logging.getLogger(__name__)
