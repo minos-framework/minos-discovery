@@ -1,14 +1,20 @@
 import logging
-from json import JSONDecodeError
-
-from aiohttp import (
-    web
+from json import (
+    JSONDecodeError,
 )
 
-from . import routes
-from ..database import MinosRedisClient
+from aiohttp import (
+    web,
+)
+
+from ..database import (
+    MinosRedisClient,
+)
 from ..domain import (
     Microservice,
+)
+from .router import (
+    routes,
 )
 
 logger = logging.getLogger(__name__)

@@ -1,7 +1,9 @@
-from .router import routes
-
-from .microservice import (
-    MicroserviceView
+from .endpoint import (
+    EndpointView,
 )
-
-from .endpoint import EndpointView
+from .microservice import (
+    MicroserviceView,
+)
+from .router import (
+    routes,
+)

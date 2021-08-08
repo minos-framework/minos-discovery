@@ -1,13 +1,17 @@
 from aiohttp.test_utils import (
     AioHTTPTestCase,
-    unittest_run_loop
+    unittest_run_loop,
 )
+
 from minos.api_gateway.common import (
     MinosConfig,
 )
-
-from minos.api_gateway.discovery import DiscoveryService
-from tests.utils import BASE_PATH
+from minos.api_gateway.discovery import (
+    DiscoveryService,
+)
+from tests.utils import (
+    BASE_PATH,
+)
 
 
 class TestMicroserviceEndpoints(AioHTTPTestCase):
@@ -28,11 +32,7 @@ class TestMicroserviceEndpoints(AioHTTPTestCase):
     async def test_get(self):
         name = "test_name"
         endpoint_name = "test_endpoint_1"
-        body = {
-            "address": "1.1.1.1",
-            "port": 1,
-            "endpoints": [endpoint_name]
-        }
+        body = {"address": "1.1.1.1", "port": 1, "endpoints": [endpoint_name]}
 
         await self.client.post(f"/microservices/{name}", json=body)
 
@@ -53,4 +53,3 @@ class TestMicroserviceEndpoints(AioHTTPTestCase):
         response = await self.client.get(f"/microservices/endpoints/{endpoint_name}")
 
         self.assertEqual(204, response.status)
-

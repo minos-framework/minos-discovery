@@ -3,14 +3,18 @@ import json
 
 from aiohttp.test_utils import (
     AioHTTPTestCase,
-    unittest_run_loop
+    unittest_run_loop,
 )
+
 from minos.api_gateway.common import (
     MinosConfig,
 )
-
-from minos.api_gateway.discovery import DiscoveryService
-from tests.utils import BASE_PATH
+from minos.api_gateway.discovery import (
+    DiscoveryService,
+)
+from tests.utils import (
+    BASE_PATH,
+)
 
 
 class TestMicroserviceEndpoints(AioHTTPTestCase):
@@ -30,11 +34,7 @@ class TestMicroserviceEndpoints(AioHTTPTestCase):
     @unittest_run_loop
     async def test_post(self):
         name = "test_name"
-        body = {
-            "address": "1.1.1.1",
-            "port": 1,
-            "endpoints": ["test_endpoint_1", "test_endpoint_2"]
-        }
+        body = {"address": "1.1.1.1", "port": 1, "endpoints": ["test_endpoint_1", "test_endpoint_2"]}
 
         response = await self.client.post(f"/microservices/{name}", json=body)
 
@@ -43,10 +43,7 @@ class TestMicroserviceEndpoints(AioHTTPTestCase):
     @unittest_run_loop
     async def test_post_missing_param(self):
         name = "test_name"
-        body = {
-            "port": 1,
-            "endpoints": ["test_endpoint_1", "test_endpoint_2"]
-        }
+        body = {"port": 1, "endpoints": ["test_endpoint_1", "test_endpoint_2"]}
 
         response = await self.client.post(f"/microservices/{name}", json=body)
 

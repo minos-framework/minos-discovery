@@ -1,7 +1,13 @@
-from typing import NoReturn
+from typing import (
+    NoReturn,
+)
 
-from .endpoint import Endpoint
-from ..exceptions import NotFoundException
+from ..exceptions import (
+    NotFoundException,
+)
+from .endpoint import (
+    Endpoint,
+)
 
 
 class Microservice:
@@ -12,11 +18,7 @@ class Microservice:
         self.endpoints = [Endpoint(endpoint_name) for endpoint_name in endpoints]
 
     def save(self, db_client) -> NoReturn:
-        microservice_value = {
-            "name": self.name,
-            "address": self.address,
-            "port": self.port
-        }
+        microservice_value = {"name": self.name, "address": self.address, "port": self.port}
 
         for endpoint in self.endpoints:
             db_client.set_data(endpoint.name, microservice_value)

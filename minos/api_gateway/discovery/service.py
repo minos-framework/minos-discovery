@@ -13,7 +13,7 @@ from minos.api_gateway.common import (
 )
 
 from .views import (
-    routes
+    routes,
 )
 
 logger = logging.getLogger(__name__)

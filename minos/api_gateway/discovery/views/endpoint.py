@@ -1,9 +1,19 @@
-from aiohttp import web
+from aiohttp import (
+    web,
+)
 
-from ..exceptions import NotFoundException
-from ..domain import Microservice
-from ..views import routes
-from ..database import MinosRedisClient
+from ..database import (
+    MinosRedisClient,
+)
+from ..domain import (
+    Microservice,
+)
+from ..exceptions import (
+    NotFoundException,
+)
+from .router import (
+    routes,
+)
 
 
 @routes.view("/microservices/endpoints/{name}")

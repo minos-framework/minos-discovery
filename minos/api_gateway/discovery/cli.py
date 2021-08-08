@@ -29,7 +29,7 @@ def start(
     file_path: Optional[Path] = typer.Argument(
         "config.yml", help="Discovery Service configuration file.", envvar="MINOS_API_GATEWAY_CONFIG_FILE_PATH"
     )
-):
+):  # pragma: no cover
     """Start Discovery services."""
 
     config = MinosConfig(file_path)
