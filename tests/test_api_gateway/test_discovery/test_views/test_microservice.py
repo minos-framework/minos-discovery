@@ -36,8 +36,7 @@ class TestMicroserviceEndpoints(AioHTTPTestCase):
             "endpoints": ["test_endpoint_1", "test_endpoint_2"]
         }
 
-        response = await self.client.post(f"/microservices/{name}", data=json.dumps(body))
-        await asyncio.sleep(0)
+        response = await self.client.post(f"/microservices/{name}", json=body)
 
         self.assertEqual(200, response.status)
 
@@ -49,7 +48,7 @@ class TestMicroserviceEndpoints(AioHTTPTestCase):
             "endpoints": ["test_endpoint_1", "test_endpoint_2"]
         }
 
-        response = await self.client.post(f"/microservices/{name}", data=json.dumps(body))
+        response = await self.client.post(f"/microservices/{name}", json=body)
         await asyncio.sleep(0)
 
         self.assertEqual(400, response.status)

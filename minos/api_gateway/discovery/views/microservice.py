@@ -5,13 +5,12 @@ from aiohttp import (
     web
 )
 
+from . import routes
 from ..domain import (
     Microservice,
 )
 
 logger = logging.getLogger(__name__)
-
-routes = web.RouteTableDef()
 
 
 @routes.view("/microservices/{name}")
@@ -36,16 +35,4 @@ class MicroserviceView(web.View):
         return web.Response()
 
     async def get(self):
-        pass
-
-
-@routes.view("/endpoints/{endpoint_name}")
-class EndpointView(web.View):
-    async def post(self):
-        pass
-
-    async def get(self):
-        pass
-
-    async def delete(self):
         pass
