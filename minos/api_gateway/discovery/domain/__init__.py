@@ -1,3 +1,7 @@
 from .microservice import (
-    Microservice
+    Microservice,
+)
+
+from .endpoint import (
+    Endpoint
 )

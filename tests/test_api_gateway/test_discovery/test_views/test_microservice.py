@@ -54,3 +54,12 @@ class TestMicroserviceEndpoints(AioHTTPTestCase):
 
         self.assertEqual(400, response.status)
         self.assertIn("address", await response.text())
+
+    @unittest_run_loop
+    async def test_post_empty_body(self):
+        name = "test_name"
+
+        response = await self.client.post(f"/microservices/{name}")
+        await asyncio.sleep(0)
+
+        self.assertEqual(400, response.status)

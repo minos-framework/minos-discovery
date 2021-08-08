@@ -37,12 +37,16 @@ class MicroserviceView(web.View):
         else:
             microservice_body = await self.parse(body)
 
+        from .. import MinosRedisClient
+        redis_client = MinosRedisClient(config=self.request.app["config"])
+
         microservice = Microservice(
             name=self.request.match_info["name"],
             address=microservice_body["address"],
             port=microservice_body["port"],
             endpoints=microservice_body["endpoints"]
         )
+        microservice.save(redis_client)
 
         return web.json_response(data="ok")
 
