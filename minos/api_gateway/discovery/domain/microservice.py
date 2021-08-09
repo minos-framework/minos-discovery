@@ -32,3 +32,8 @@ class Microservice:
         microservice = cls(**microservice_dict, endpoints=[])
 
         return microservice
+
+    @staticmethod
+    def delete_by_endpoint(endpoints: list[str], db_client):
+        for endpoint in endpoints:
+            db_client.delete_data(endpoint)

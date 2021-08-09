@@ -1,13 +1,7 @@
-import json
 import unittest
 from unittest.mock import (
     call,
     patch,
-)
-
-from aiohttp.test_utils import (
-    AioHTTPTestCase,
-    unittest_run_loop,
 )
 
 from minos.api_gateway.common import (

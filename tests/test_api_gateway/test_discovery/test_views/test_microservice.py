@@ -1,6 +1,3 @@
-import asyncio
-import json
-
 from aiohttp.test_utils import (
     AioHTTPTestCase,
     unittest_run_loop,
@@ -63,3 +60,14 @@ class TestMicroserviceEndpoints(AioHTTPTestCase):
         response = await self.client.post(f"/microservices/{name}")
 
         self.assertEqual(400, response.status)
+
+    @unittest_run_loop
+    async def test_delete(self):
+        name = "test_name"
+        endpoint_name = "test_endpoint_1"
+        body = {"address": "1.1.1.1", "port": 1, "endpoints": [endpoint_name]}
+        await self.client.post(f"/microservices/{name}", json=body)
+
+        response = await self.client.delete(f"/microservices/{name}", json=body)
+
+        self.assertEqual(200, response.status)

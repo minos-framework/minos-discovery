@@ -33,7 +33,6 @@ class TestMicroserviceEndpoints(AioHTTPTestCase):
         name = "test_name"
         endpoint_name = "test_endpoint_1"
         body = {"address": "1.1.1.1", "port": 1, "endpoints": [endpoint_name]}
-
         await self.client.post(f"/microservices/{name}", json=body)
 
         response = await self.client.get(f"/microservices/endpoints/{endpoint_name}")

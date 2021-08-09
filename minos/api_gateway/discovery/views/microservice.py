@@ -23,12 +23,7 @@ logger = logging.getLogger(__name__)
 @routes.view("/microservices/{name}")
 class MicroserviceView(web.View):
     async def post(self):
-        try:
-            body = await self.request.json()
-        except JSONDecodeError as exc:
-            raise web.HTTPBadRequest(text="Empty or wrong body")
-        else:
-            body["name"] = self.request.match_info["name"]
+        body = await self.get_body()
 
         redis_client = MinosRedisClient(config=self.request.app["config"])
 
@@ -41,4 +36,20 @@ class MicroserviceView(web.View):
         return web.HTTPCreated()
 
     async def delete(self):
-        pass
+        body = await self.get_body()
+
+        redis_client = MinosRedisClient(config=self.request.app["config"])
+
+        Microservice.delete_by_endpoint(body["endpoints"], redis_client)
+
+        return web.HTTPOk()
+
+    async def get_body(self):
+        try:
+            body = await self.request.json()
+        except JSONDecodeError:
+            raise web.HTTPBadRequest(text="Empty or wrong body")
+        else:
+            body["name"] = self.request.match_info["name"]
+
+        return body
