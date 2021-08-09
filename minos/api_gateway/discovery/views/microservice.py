@@ -31,7 +31,7 @@ class MicroserviceView(web.View):
             microservice = Microservice(**body)
         except TypeError as exc:
             raise web.HTTPBadRequest(text=exc.args[0])
-        microservice.save(redis_client)
+        await microservice.save(redis_client)
 
         return web.HTTPCreated()
 
@@ -40,7 +40,7 @@ class MicroserviceView(web.View):
 
         redis_client = MinosRedisClient(config=self.request.app["config"])
 
-        Microservice.delete_by_endpoint(body["endpoints"], redis_client)
+        await Microservice.delete_by_endpoint(body["endpoints"], redis_client)
 
         return web.HTTPOk()
 

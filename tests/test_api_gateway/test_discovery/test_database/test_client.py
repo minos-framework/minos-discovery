@@ -1,7 +1,13 @@
 import os
-import unittest
 from unittest import (
-    mock,
+    IsolatedAsyncioTestCase,
+)
+from unittest.mock import (
+    patch,
+)
+
+from aioredis import (
+    ConnectionError,
 )
 
 from minos.api_gateway.common import (
@@ -15,39 +21,46 @@ from tests.utils import (
 )
 
 
-class TestDiscoveryHandler(unittest.TestCase):
+class TestDiscoveryHandler(IsolatedAsyncioTestCase):
+    CONFIG_FILE_PATH = BASE_PATH / "config.yml"
+
     def setUp(self) -> None:
-        self.config_file_path = BASE_PATH / "config.yml"
-        config = MinosConfig(self.config_file_path)
+        config = MinosConfig(self.CONFIG_FILE_PATH)
         self.redis_client = MinosRedisClient(config=config)
 
-    @mock.patch.dict(os.environ, {"DISCOVERY_SERVICE_DB_HOST": "redishost"})
-    @mock.patch.dict(os.environ, {"DISCOVERY_SERVICE_DB_PORT": "8393"})
-    @mock.patch.dict(os.environ, {"DISCOVERY_SERVICE_DB_PASSWORD": "SomePass"})
-    def test_redis_client_connection(self):
-        config = MinosConfig(self.config_file_path)
-        with self.assertRaises(Exception):
-            self.redis_client = MinosRedisClient(config=config)
-            print(self.redis_client.get_redis_connection())
+    async def test_redis_wrong_client_connection(self):
+        with patch.dict(
+            os.environ,
+            {
+                "DISCOVERY_SERVICE_DB_HOST": "redishost",
+                "DISCOVERY_SERVICE_DB_PORT": "8393",
+                "DISCOVERY_SERVICE_DB_PASSWORD": "SomePass",
+            },
+            clear=True,
+        ):
+            config = MinosConfig(self.CONFIG_FILE_PATH)
+            with self.assertRaises(ConnectionError):
+                redis_client = MinosRedisClient(config=config)
+                await redis_client.ping()
 
-    def test_redis_client_get_data(self):
-        data = self.redis_client.get_data("a")
+    async def test_redis_client_get_data(self):
+        data = await self.redis_client.get_data("a")
         self.assertEqual(data, {})
 
-    def test_redis_client_set_data(self):
-        response = self.redis_client.set_data("endpoint_name", {"test": "a"})
+    async def test_redis_client_set_data(self):
+        response = await self.redis_client.set_data("endpoint_name", {"test": "a"})
         self.assertTrue(response)
 
-    def test_redis_client_delete_unexisting_data(self):
-        response = self.redis_client.delete_data("nokey")
+    async def test_redis_client_delete_unexisting_data(self):
+        response = await self.redis_client.delete_data("nokey")
         self.assertFalse(response)
 
-    def test_redis_client_delete_data(self):
-        response = self.redis_client.set_data("endpoint_name", {"test": "a"})
+    async def test_redis_client_delete_data(self):
+        response = await self.redis_client.set_data("endpoint_name", {"test": "a"})
         self.assertTrue(response)
-        response = self.redis_client.delete_data("endpoint_name")
+        response = await self.redis_client.delete_data("endpoint_name")
         self.assertTrue(response)
 
-    def test_redis_client_get_connection(self):
-        redis_conn = self.redis_client.get_redis_connection()
+    async def test_redis_client_get_connection(self):
+        redis_conn = await self.redis_client.get_redis_connection()
         self.assertEqual(type(redis_conn).__name__, "Redis")

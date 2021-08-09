@@ -37,7 +37,13 @@ class HealthStatusChecker:
 
         :return: This method does not return anything.
         """
-        coroutines = (self._check_one(key) for key in self.redis.get_redis_connection().scan_iter())
+        coroutines = ()
+
+        cur = b"0"  # set initial cursor to 0
+        while cur:
+            cur, keys = await self.redis.redis.scan(cur, match="key:*")
+            coroutines = (self._check_one(key) for key in keys)
+
         await gather(*coroutines)
 
     async def _check_one(self, key: str):
@@ -48,7 +54,7 @@ class HealthStatusChecker:
             alive = await self._query_health_status(**data)
             self._update_one(alive, key, data)
         except Exception as exc:
-            self.redis.delete_data(key)
+            await self.redis.delete_data(key)
             logger.warning(f"An exception was raised while checking {key!r}: {exc!r}")
 
     # noinspection PyMethodMayBeStatic,PyUnusedLocal
