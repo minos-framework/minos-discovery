@@ -39,7 +39,8 @@ class MinosRedisClient:
         port = config.discovery.database.port
         password = config.discovery.database.password
 
-        self.redis = aioredis.from_url(f"redis://{address}:{port}", password=password)
+        pool = aioredis.ConnectionPool.from_url(f"redis://{address}:{port}", password=password, max_connections=10)
+        self.redis = aioredis.Redis(connection_pool=pool)
 
     async def get_data(self, key: str) -> str:
         """Get redis value by key"""
