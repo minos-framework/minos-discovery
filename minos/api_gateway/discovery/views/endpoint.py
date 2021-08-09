@@ -2,9 +2,6 @@ from aiohttp import (
     web,
 )
 
-from ..database import (
-    MinosRedisClient,
-)
 from ..domain import (
     Microservice,
 )
@@ -21,7 +18,7 @@ class EndpointView(web.View):
     async def get(self):
         name = self.request.match_info["name"]
 
-        redis_client = MinosRedisClient(config=self.request.app["config"])
+        redis_client = self.request.app["db_client"]
 
         try:
             microservice = await Microservice.find_by_endpoint(name, redis_client)
