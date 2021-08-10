@@ -1,10 +1,3 @@
-"""
-Copyright (C) 2021 Clariteia SL
-
-This file is part of minos framework.
-
-Minos framework can not be copied and/or distributed without the express permission of Clariteia SL.
-"""
 from pathlib import (
     Path,
 )
@@ -43,9 +36,11 @@ def start(
 
     services = (
         HealthStatusCheckerService(interval=120, delay=0, config=config),
-        DiscoveryService(config=config),
+        DiscoveryService(
+            address=config.discovery.connection.host, port=config.discovery.connection.port, config=config
+        ),
     )
-    launcher = EntrypointLauncher(config=config, services=services)
+    launcher = EntrypointLauncher(services=services)  # pragma: no cover
     launcher.launch()
 
 

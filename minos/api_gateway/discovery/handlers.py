@@ -2,13 +2,11 @@ from aiohttp import (
     web,
 )
 
-from minos.api_gateway.common import (
-    MinosConfig,
-)
-
 from .database import (
     MinosRedisClient,
 )
+
+routes = web.RouteTableDef()
 
 
 async def validate_input(request: web.Request):
@@ -37,49 +35,55 @@ async def get_formatted(request: web.Request) -> dict:
     }
 
 
-class DiscoveryHandlers(object):
-    async def discover(self, request: web.Request, config: MinosConfig, **kwargs):
-        name = request.query.get("name")
-        if not name:
-            return web.json_response('Parameter "name" not found.', status=400)
-        else:
-            # Search by key in Redis and return JSON
-            redis_cli = MinosRedisClient(config=config)
+@routes.get("/subscriptions")
+async def discover(request: web.Request):
+    name = request.query.get("name")
+    if not name:
+        return web.json_response('Parameter "name" not found.', status=400)
 
-            # Get JSON data
-            data = redis_cli.get_data(name)
-            return web.json_response(data=data)
+    # Search by key in Redis and return JSON
+    redis_cli = MinosRedisClient(config=request.app["config"])
 
-    async def subscribe(self, request: web.Request, config: MinosConfig, **kwargs):
-        validation, errors = await validate_input(request)
+    # Get JSON data
+    data = redis_cli.get_data(name)
+    return web.json_response(data=data)
 
-        if errors:
-            return validation
 
-        input_json = await get_formatted(request)
+@routes.post("/subscriptions")
+async def subscribe(request: web.Request):
+    validation, errors = await validate_input(request)
 
-        redis_cli = MinosRedisClient(config=config)
+    if errors:
+        return validation
 
-        redis_cli.set_data(input_json["name"], input_json)
+    input_json = await get_formatted(request)
 
-        return web.json_response(text="Service added")
+    redis_client = MinosRedisClient(config=request.app["config"])
 
-    async def unsubscribe(self, request: web.Request, config: MinosConfig, **kwargs):
-        name = request.query.get("name")
-        if not name:
-            return web.json_response('Parameter "name" not found.', status=400)
-        else:
-            # Search by key in Redis and set subscription to unsubscribed
-            redis_cli = MinosRedisClient(config=config)
+    redis_client.set_data(input_json["name"], input_json)
 
-            # Get JSON data
-            data = redis_cli.get_data(name)
+    return web.json_response(text="Service added")
 
-            data["subscribed"] = False
 
-            redis_cli.set_data(name, data)
+@routes.delete("/subscriptions")
+async def unsubscribe(request: web.Request):
+    name = request.query.get("name")
+    if not name:
+        return web.json_response('Parameter "name" not found.', status=400)
+    else:
+        # Search by key in Redis and set subscription to unsubscribed
+        redis_cli = MinosRedisClient(config=request.app["config"])
 
-            return web.json_response(text="Unsubscription done!")
+        # Get JSON data
+        data = redis_cli.get_data(name)
 
-    async def system_health(self, request: web.Request, config: MinosConfig, **kwargs):
-        return web.json_response({"host": request.host})
+        data["subscribed"] = False
+
+        redis_cli.set_data(name, data)
+
+        return web.json_response(text="Unsubscription done!")
+
+
+@routes.get("/system/health")
+async def system_health(request: web.Request):
+    return web.json_response({"host": request.host})
