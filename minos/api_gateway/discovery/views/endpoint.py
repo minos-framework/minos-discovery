@@ -13,15 +13,17 @@ from .router import (
 )
 
 
-@routes.view("/microservices/endpoints/{name}")
+@routes.view("/microservices")
 class EndpointView(web.View):
     async def get(self):
-        name = self.request.match_info["name"]
+        url = self.request.query["url"]
+        if not url:
+            raise web.HTTPBadRequest(text="Missing 'url' query param")
 
         redis_client = self.request.app["db_client"]
 
         try:
-            microservice = await Microservice.find_by_endpoint(name, redis_client)
+            microservice = await Microservice.find_by_endpoint(url, redis_client)
         except NotFoundException:
             return web.HTTPNoContent()
 
