@@ -24,7 +24,7 @@ class EndpointView(web.View):
         redis_client = MinosRedisClient(config=self.request.app["config"])
 
         try:
-            microservice = Microservice.find_by_endpoint(name, redis_client)
+            microservice = await Microservice.find_by_endpoint(name, redis_client)
         except NotFoundException:
             return web.HTTPNoContent()
 
