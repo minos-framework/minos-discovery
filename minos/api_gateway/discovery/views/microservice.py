@@ -7,9 +7,6 @@ from aiohttp import (
     web,
 )
 
-from ..database import (
-    MinosRedisClient,
-)
 from ..domain import (
     Microservice,
 )
@@ -25,7 +22,7 @@ class MicroserviceView(web.View):
     async def post(self):
         body = await self.get_body()
 
-        redis_client = MinosRedisClient(config=self.request.app["config"])
+        redis_client = self.request.app["db_client"]
 
         try:
             microservice = Microservice(**body)
@@ -38,7 +35,7 @@ class MicroserviceView(web.View):
     async def delete(self):
         body = await self.get_body()
 
-        redis_client = MinosRedisClient(config=self.request.app["config"])
+        redis_client = self.request.app["db_client"]
 
         await Microservice.delete_by_endpoint(body["endpoints"], redis_client)
 

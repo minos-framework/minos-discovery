@@ -12,6 +12,9 @@ from minos.api_gateway.common import (
     MinosConfig,
 )
 
+from .database import (
+    MinosRedisClient,
+)
 from .views import (
     routes,
 )
@@ -31,7 +34,7 @@ class DiscoveryService(AIOHTTPService):
         app = web.Application()
         app.router.add_routes(routes)
 
-        app["config"] = self.config
+        app["db_client"] = MinosRedisClient(self.config)
 
         return app
 
