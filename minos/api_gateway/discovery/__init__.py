@@ -6,6 +6,9 @@ from .cli import (
 from .database import (
     MinosRedisClient,
 )
+from .exceptions import (
+    NotFoundException,
+)
 from .health_status import (
     HealthStatusChecker,
     HealthStatusCheckerService,

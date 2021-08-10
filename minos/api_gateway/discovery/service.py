@@ -12,7 +12,7 @@ from minos.api_gateway.common import (
     MinosConfig,
 )
 
-from .handlers import (
+from .views import (
     routes,
 )
 

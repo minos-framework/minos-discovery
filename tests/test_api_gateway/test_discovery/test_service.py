@@ -1,13 +1,7 @@
-import json
 import unittest
 from unittest.mock import (
     call,
     patch,
-)
-
-from aiohttp.test_utils import (
-    AioHTTPTestCase,
-    unittest_run_loop,
 )
 
 from minos.api_gateway.common import (
@@ -43,112 +37,6 @@ class TestDiscoveryService(unittest.IsolatedAsyncioTestCase):
             await service.stop()
             self.assertEqual(1, mock.call_count)
             self.assertEqual(call(service.graceful_stop_timeout), mock.call_args)
-
-
-class TestDiscoveryServiceEndpoints(AioHTTPTestCase):
-    CONFIG_FILE_PATH = BASE_PATH / "config.yml"
-
-    async def get_application(self):
-        """
-        Override the get_app method to return your application.
-        """
-        config = MinosConfig(self.CONFIG_FILE_PATH)
-        service = DiscoveryService(
-            address=config.discovery.connection.host, port=config.discovery.connection.port, config=config
-        )
-
-        return await service.create_application()
-
-    @unittest_run_loop
-    async def test_subscribe(self):
-        url = "/subscriptions"
-        resp = await self.client.request(
-            "POST", url, data=json.dumps(dict(ip="127.0.0.1", port=5000, name="test_endpoint"))
-        )
-        assert resp.status == 200
-        text = await resp.text()
-        assert "Service added" in text
-
-    @unittest_run_loop
-    async def test_discover(self):
-        url = "/subscriptions"
-        resp = await self.client.request(
-            "POST", url, data=json.dumps(dict(ip="127.0.0.1", port=5000, name="test_endpoint"))
-        )
-        assert resp.status == 200
-        text = await resp.text()
-        assert "Service added" in text
-
-        url = "/subscriptions?name=test_endpoint"
-        resp = await self.client.request("GET", url)
-        assert resp.status == 200
-        text = await resp.text()
-        result = json.loads(text)
-        self.assertDictEqual(
-            {"ip": "127.0.0.1", "port": 5000, "name": "test_endpoint", "status": True, "subscribed": True}, result
-        )
-
-    @unittest_run_loop
-    async def test_discover_no_name(self):
-        url = "/subscriptions"
-        resp = await self.client.request(
-            "POST", url, data=json.dumps(dict(ip="127.0.0.1", port=5000, name="test_endpoint"))
-        )
-        assert resp.status == 200
-        text = await resp.text()
-        assert "Service added" in text
-
-        url = "/subscriptions"
-        resp = await self.client.request("GET", url)
-        assert resp.status == 400
-        text = await resp.text()
-        assert "not found." in text
-
-    @unittest_run_loop
-    async def test_unsubscribe(self):
-        url = "/subscriptions?name=test_endpoint"
-        resp = await self.client.request("DELETE", url)
-        assert resp.status == 200
-        text = await resp.text()
-        assert "Unsubscription done!" in text
-
-    @unittest_run_loop
-    async def test_unsubscribe_no_name(self):
-        url = "/subscriptions"
-        resp = await self.client.request("DELETE", url)
-        assert resp.status == 400
-        text = await resp.text()
-        assert "not found." in text
-
-    @unittest_run_loop
-    async def test_system_health(self):
-        url = "/system/health"
-        resp = await self.client.request("GET", url)
-        assert resp.status == 200
-
-    @unittest_run_loop
-    async def test_wrong_parameter_ip(self):
-        url = "/subscriptions"
-        resp = await self.client.request("POST", url, data=json.dumps(dict(port=5000, name="test_endpoint")))
-        assert resp.status == 400
-        text = await resp.text()
-        assert "ip not found" in text
-
-    @unittest_run_loop
-    async def test_wrong_parameter_name(self):
-        url = "/subscriptions"
-        resp = await self.client.request("POST", url, data=json.dumps(dict(ip="127.0.0.1", port=5000)))
-        assert resp.status == 400
-        text = await resp.text()
-        assert "name not found" in text
-
-    @unittest_run_loop
-    async def test_no_port(self):
-        url = "/subscriptions"
-        resp = await self.client.request("POST", url, data=json.dumps(dict(ip="127.0.0.1", name="test_endpoint")))
-        assert resp.status == 200
-        text = await resp.text()
-        assert "Service added" in text
 
 
 if __name__ == "__main__":
