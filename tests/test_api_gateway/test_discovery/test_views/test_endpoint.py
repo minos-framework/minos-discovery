@@ -74,3 +74,28 @@ class TestMicroserviceEndpoints(AioHTTPTestCase):
         self.assertEqual("1.1.1.1", body["address"])
         self.assertEqual(1, int(body["port"]))
         self.assertEqual("test_name", body["name"])
+
+    @unittest_run_loop
+    async def test_get_wrong_concrete_path(self):
+        name = "test_name"
+        endpoint_verb = "GET"
+        endpoint_path = "test_endpoint_1/{uuid}"
+        body = {"address": "1.1.1.1", "port": 1, "endpoints": [[endpoint_verb, endpoint_path]]}
+        await self.client.post(f"/microservices/{name}", json=body)
+
+        response = await self.client.get(f"/microservices?verb={endpoint_verb}&path={endpoint_path}")
+
+        self.assertEqual(400, response.status)
+
+    @unittest_run_loop
+    async def test_get_missing_query_params(self):
+        name = "test_name"
+        endpoint_verb = "GET"
+        endpoint_path = "test_endpoint_1/{uuid}"
+        body = {"address": "1.1.1.1", "port": 1, "endpoints": [[endpoint_verb, endpoint_path]]}
+        await self.client.post(f"/microservices/{name}", json=body)
+
+        response = await self.client.get(f"/microservices?path={endpoint_path}")
+
+        self.assertEqual(400, response.status)
+        self.assertIn("verb", await response.text())
