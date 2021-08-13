@@ -19,7 +19,7 @@ speedups = ["aiodns", "brotlipy", "cchardet"]
 
 [[package]]
 name = "aiomisc"
-version = "14.3.16"
+version = "14.4.1"
 description = "aiomisc - miscellaneous utils for asyncio"
 category = "main"
 optional = false
@@ -784,7 +784,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [[package]]
 name = "virtualenv"
-version = "20.7.0"
+version = "20.7.1"
 description = "Virtual Python Environment builder"
 category = "dev"
 optional = false
@@ -859,8 +859,8 @@ aiohttp = [
     {file = "aiohttp-3.7.4.post0.tar.gz", hash = "sha256:493d3299ebe5f5a7c66b9819eacdcfbbaaf1a8e84911ddffcdc48888497afecf"},
 ]
 aiomisc = [
-    {file = "aiomisc-14.3.16-py3-none-any.whl", hash = "sha256:aed11ac85b60ddbf5eaeafb7fb5458da1d798a98975366aaab7e7701f6ee8d12"},
-    {file = "aiomisc-14.3.16.tar.gz", hash = "sha256:808f81520d5973d0a8758b85f0cc1aeecd5d30f293fee073eb2feb7ba3ded26e"},
+    {file = "aiomisc-14.4.1-py3-none-any.whl", hash = "sha256:8101da063dc0fb29dca41c91abfc71f512b56bb588a32421e91b21fd14c0e0f3"},
+    {file = "aiomisc-14.4.1.tar.gz", hash = "sha256:7ba55acc462b29a7f97bbf5485ff2b6f509c06a6a4e3e5be62c41ee490dfefd0"},
 ]
 aioredis = [
     {file = "aioredis-2.0.0-py3-none-any.whl", hash = "sha256:9921d68a3df5c5cdb0d5b49ad4fc88a4cfdd60c108325df4f0066e8410c55ffb"},
@@ -1315,8 +1315,8 @@ urllib3 = [
     {file = "urllib3-1.26.6.tar.gz", hash = "sha256:f57b4c16c62fa2760b7e3d97c35b255512fb6b59a259730f36ba32ce9f8e342f"},
 ]
 virtualenv = [
-    {file = "virtualenv-20.7.0-py2.py3-none-any.whl", hash = "sha256:fdfdaaf0979ac03ae7f76d5224a05b58165f3c804f8aa633f3dd6f22fbd435d5"},
-    {file = "virtualenv-20.7.0.tar.gz", hash = "sha256:97066a978431ec096d163e72771df5357c5c898ffdd587048f45e0aecc228094"},
+    {file = "virtualenv-20.7.1-py2.py3-none-any.whl", hash = "sha256:73863dc3be1efe6ee638e77495c0c195a6384ae7b15c561f3ceb2698ae7267c1"},
+    {file = "virtualenv-20.7.1.tar.gz", hash = "sha256:57bcb59c5898818bd555b1e0cfcf668bd6204bc2b53ad0e70a52413bd790f9e4"},
 ]
 yarl = [
     {file = "yarl-1.6.3-cp36-cp36m-macosx_10_14_x86_64.whl", hash = "sha256:0355a701b3998dcd832d0dc47cc5dedf3874f966ac7f870e0f3a6788d802d434"},

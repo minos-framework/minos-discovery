@@ -1,3 +1,5 @@
+import uuid
+
 from aiohttp.test_utils import (
     AioHTTPTestCase,
     unittest_run_loop,
@@ -31,11 +33,11 @@ class TestMicroserviceEndpoints(AioHTTPTestCase):
     @unittest_run_loop
     async def test_get(self):
         name = "test_name"
-        endpoint_name = "test_endpoint_1"
-        body = {"address": "1.1.1.1", "port": 1, "endpoints": [endpoint_name]}
+        endpoint_url = "test_endpoint_1"
+        body = {"address": "1.1.1.1", "port": 1, "endpoints": [endpoint_url]}
         await self.client.post(f"/microservices/{name}", json=body)
 
-        response = await self.client.get(f"/microservices/endpoints/{endpoint_name}")
+        response = await self.client.get(f"/microservices?url={endpoint_url}")
 
         self.assertEqual(200, response.status)
 
@@ -49,6 +51,23 @@ class TestMicroserviceEndpoints(AioHTTPTestCase):
     async def test_get_not_exists(self):
         endpoint_name = "not_existing_endpoint"
 
-        response = await self.client.get(f"/microservices/endpoints/{endpoint_name}")
+        response = await self.client.get(f"/microservices?url={endpoint_name}")
 
         self.assertEqual(204, response.status)
+
+    @unittest_run_loop
+    async def test_get_with_pattern(self):
+        name = "test_name"
+        endpoint_url = "test_endpoint_1/{uuid}"
+        body = {"address": "1.1.1.1", "port": 1, "endpoints": [endpoint_url]}
+        await self.client.post(f"/microservices/{name}", json=body)
+
+        response = await self.client.get(f"/microservices?url=test_endpoint_1/{uuid.uuid4()}")
+
+        self.assertEqual(200, response.status)
+
+        body = await response.json()
+
+        self.assertEqual("1.1.1.1", body["address"])
+        self.assertEqual(1, int(body["port"]))
+        self.assertEqual("test_name", body["name"])
