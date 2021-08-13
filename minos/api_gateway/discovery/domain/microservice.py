@@ -55,7 +55,8 @@ class Microservice:
 
     @classmethod
     async def delete(cls, microservice_name, redis_client):
-        endpoints = await redis_client.get_data(microservice_name)
+        microservice_data = await redis_client.get_data(f"{MICROSERVICE_KEY_PREFIX}:{microservice_name}")
+        endpoints = microservice_data["endpoints"]
         await redis_client.delete_data(microservice_name)
         for endpoint in endpoints:
             await redis_client.delete_data(endpoint)
