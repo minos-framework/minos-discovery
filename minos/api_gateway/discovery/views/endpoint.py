@@ -1,5 +1,3 @@
-from json import JSONDecodeError
-
 from aiohttp import (
     web,
 )
@@ -7,7 +5,9 @@ from aiohttp import (
 from ..domain import (
     Microservice,
 )
-from ..domain.endpoint import ConcreteEndpoint
+from ..domain.endpoint import (
+    ConcreteEndpoint,
+)
 from ..exceptions import (
     NotFoundException,
 )
