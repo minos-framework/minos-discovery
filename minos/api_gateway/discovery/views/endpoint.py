@@ -38,4 +38,4 @@ class EndpointView(web.View):
         except NotFoundException:
             return web.HTTPNoContent()
 
-        return web.json_response(microservice.__dict__)
+        return web.json_response(microservice.to_json())

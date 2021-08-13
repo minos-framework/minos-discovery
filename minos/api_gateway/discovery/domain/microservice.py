@@ -10,6 +10,9 @@ from .endpoint import (
     GenericEndpoint,
 )
 
+MICROSERVICE_KEY_PREFIX = "microservice"
+ENDPOINT_KEY_PREFIX = "endpoint"
+
 
 class Microservice:
     def __init__(self, name: str, address: str, port: int, endpoints: list[list[str]]):
@@ -21,19 +24,32 @@ class Microservice:
         ]
 
     async def save(self, db_client) -> NoReturn:
-        microservice_value = {"name": self.name, "address": self.address, "port": self.port}
+        microservice_value = {
+            "name": self.name,
+            "address": self.address,
+            "port": self.port,
+            "endpoints": [
+                f"{ENDPOINT_KEY_PREFIX}:{endpoint.verb}:{endpoint.path_as_str}" for endpoint in self.endpoints
+            ],
+        }
 
-        for endpoint in self.endpoints:
-            await db_client.set_data(f"endpoint:{endpoint.verb}:{endpoint.path_as_str}", microservice_value)
+        microservice_key = f"{MICROSERVICE_KEY_PREFIX}:{self.name}"
+        await db_client.set_data(microservice_key, microservice_value)
+        for endpoint_key in microservice_value["endpoints"]:
+            await db_client.set_data(endpoint_key, microservice_key)
 
     @classmethod
     async def find_by_endpoint(cls, concrete_endpoint: ConcreteEndpoint, db_client):
-        async for key_bytes in db_client.redis.scan_iter(match="endpoint:*"):
+        async for key_bytes in db_client.redis.scan_iter(match=f"{ENDPOINT_KEY_PREFIX}:*"):
             _, verb, path = key_bytes.decode("utf-8").split(":")
             endpoint = GenericEndpoint(verb, path)
             if endpoint.matches(concrete_endpoint):
-                microservice_dict = await db_client.get_data(key_bytes)
-                return cls(**microservice_dict, endpoints=[])
+                microservice_key = await db_client.get_data(key_bytes)
+                microservice_dict = await db_client.get_data(microservice_key)
+                microservice_dict["endpoints"] = [
+                    endpoint_key.split(":")[1::-1] for endpoint_key in microservice_dict["endpoints"]
+                ]
+                return cls(**microservice_dict)
 
         raise NotFoundException
 
@@ -41,3 +57,13 @@ class Microservice:
     async def delete_by_endpoint(endpoints: list[str], db_client):
         for endpoint in endpoints:
             await db_client.delete_data(endpoint)
+
+    def to_json(self):
+        microservice_dict = {
+            "name": self.name,
+            "address": self.address,
+            "port": self.port,
+            "endpoints": [[endpoint.verb, endpoint.path_as_str] for endpoint in self.endpoints],
+        }
+
+        return microservice_dict
