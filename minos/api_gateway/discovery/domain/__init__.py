@@ -1,5 +1,8 @@
 from .endpoint import (
-    Endpoint,
+    GenericEndpoint,
+)
+from .exceptions import (
+    CannotInstantiateException,
 )
 from .microservice import (
     Microservice,

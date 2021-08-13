@@ -31,7 +31,7 @@ class TestMicroserviceEndpoints(AioHTTPTestCase):
     @unittest_run_loop
     async def test_post(self):
         name = "test_name"
-        body = {"address": "1.1.1.1", "port": 1, "endpoints": ["test_endpoint_1", "test_endpoint_2"]}
+        body = {"address": "1.1.1.1", "port": 1, "endpoints": [["GET", "test_endpoint_1"], ["POST", "test_endpoint_2"]]}
 
         response = await self.client.post(f"/microservices/{name}", json=body)
 
