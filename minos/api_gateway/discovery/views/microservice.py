@@ -33,11 +33,11 @@ class MicroserviceView(web.View):
         return web.HTTPCreated()
 
     async def delete(self):
-        body = await self.get_body()
+        microservice_name = self.request.match_info["name"]
 
         redis_client = self.request.app["db_client"]
 
-        await Microservice.delete_by_endpoint(body["endpoints"], redis_client)
+        await Microservice.delete(microservice_name, redis_client)
 
         return web.HTTPOk()
 

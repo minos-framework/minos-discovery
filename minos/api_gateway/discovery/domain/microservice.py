@@ -35,7 +35,9 @@ class Microservice:
 
         raise NotFoundException
 
-    @staticmethod
-    async def delete_by_endpoint(endpoints: list[str], db_client):
+    @classmethod
+    async def delete(cls, microservice_name, redis_client):
+        endpoints = await redis_client.get_data(microservice_name)
+        await redis_client.delete_data(microservice_name)
         for endpoint in endpoints:
-            await db_client.delete_data(endpoint)
+            await redis_client.delete_data(endpoint)

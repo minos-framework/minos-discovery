@@ -68,6 +68,6 @@ class TestMicroserviceEndpoints(AioHTTPTestCase):
         body = {"address": "1.1.1.1", "port": 1, "endpoints": [endpoint_name]}
         await self.client.post(f"/microservices/{name}", json=body)
 
-        response = await self.client.delete(f"/microservices/{name}", json=body)
+        response = await self.client.delete(f"/microservices/{name}")
 
         self.assertEqual(200, response.status)
