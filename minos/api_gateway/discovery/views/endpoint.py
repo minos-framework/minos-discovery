@@ -1,3 +1,5 @@
+from json import JSONDecodeError
+
 from aiohttp import (
     web,
 )
@@ -5,6 +7,7 @@ from aiohttp import (
 from ..domain import (
     Microservice,
 )
+from ..domain.endpoint import ConcreteEndpoint
 from ..exceptions import (
     NotFoundException,
 )
@@ -13,15 +16,20 @@ from .router import (
 )
 
 
-@routes.view("/microservices/endpoints/{name}")
+@routes.view("/microservices")
 class EndpointView(web.View):
     async def get(self):
-        name = self.request.match_info["name"]
+        try:
+            verb = self.request.query["verb"]
+            path = self.request.query["path"]
+        except KeyError:
+            raise web.HTTPBadRequest(text="Missing either 'verb' or 'path' query params")
 
         redis_client = self.request.app["db_client"]
 
+        endpoint = ConcreteEndpoint(verb, path)
         try:
-            microservice = await Microservice.find_by_endpoint(name, redis_client)
+            microservice = await Microservice.find_by_endpoint(endpoint, redis_client)
         except NotFoundException:
             return web.HTTPNoContent()
 
