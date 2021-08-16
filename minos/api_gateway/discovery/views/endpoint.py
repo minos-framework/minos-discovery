@@ -3,7 +3,11 @@ from aiohttp import (
 )
 
 from ..domain import (
+    CannotInstantiateException,
     Microservice,
+)
+from ..domain.endpoint import (
+    ConcreteEndpoint,
 )
 from ..exceptions import (
     NotFoundException,
@@ -16,14 +20,21 @@ from .router import (
 @routes.view("/microservices")
 class EndpointView(web.View):
     async def get(self):
-        url = self.request.query["url"]
-        if not url:
-            raise web.HTTPBadRequest(text="Missing 'url' query param")
+        try:
+            verb = self.request.query["verb"]
+            path = self.request.query["path"]
+        except KeyError:
+            raise web.HTTPBadRequest(text="Missing either 'verb' or 'path' query params")
 
         redis_client = self.request.app["db_client"]
 
         try:
-            microservice = await Microservice.find_by_endpoint(url, redis_client)
+            endpoint = ConcreteEndpoint(verb, path)
+        except CannotInstantiateException:
+            raise web.HTTPBadRequest(text="The given endpoint cannot have parts enclosed in brackets")
+
+        try:
+            microservice = await Microservice.find_by_endpoint(endpoint, redis_client)
         except NotFoundException:
             return web.HTTPNoContent()
 

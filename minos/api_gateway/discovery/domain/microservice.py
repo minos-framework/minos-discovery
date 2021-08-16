@@ -6,31 +6,33 @@ from ..exceptions import (
     NotFoundException,
 )
 from .endpoint import (
-    Endpoint,
+    ConcreteEndpoint,
+    GenericEndpoint,
 )
 
 
 class Microservice:
-    def __init__(self, name: str, address: str, port: int, endpoints: list[str]):
+    def __init__(self, name: str, address: str, port: int, endpoints: list[list[str]]):
         self.name = name
         self.address = address
         self.port = port
-        self.endpoints = [Endpoint(endpoint_path) for endpoint_path in endpoints]
+        self.endpoints: list[GenericEndpoint] = [
+            GenericEndpoint(endpoint_verb, endpoint_path) for endpoint_verb, endpoint_path in endpoints
+        ]
 
     async def save(self, db_client) -> NoReturn:
         microservice_value = {"name": self.name, "address": self.address, "port": self.port}
 
         for endpoint in self.endpoints:
-            await db_client.set_data(endpoint.path, microservice_value)
+            await db_client.set_data(f"endpoint:{endpoint.verb}:{endpoint.path_as_str}", microservice_value)
 
     @classmethod
-    async def find_by_endpoint(cls, url: str, db_client):
-        async for key_bytes in db_client.redis.scan_iter():
-            key = key_bytes.decode("utf-8")
-            endpoint = Endpoint(key)
-            if endpoint.matches(url):
-                microservice_dict = await db_client.get_data(key)
-
+    async def find_by_endpoint(cls, concrete_endpoint: ConcreteEndpoint, db_client):
+        async for key_bytes in db_client.redis.scan_iter(match="endpoint:*"):
+            _, verb, path = key_bytes.decode("utf-8").split(":")
+            endpoint = GenericEndpoint(verb, path)
+            if endpoint.matches(concrete_endpoint):
+                microservice_dict = await db_client.get_data(key_bytes)
                 return cls(**microservice_dict, endpoints=[])
 
         raise NotFoundException

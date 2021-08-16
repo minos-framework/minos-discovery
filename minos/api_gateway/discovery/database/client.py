@@ -83,6 +83,3 @@ class MinosRedisClient:
 
     async def ping(self):
         return await self.redis.ping()
-
-    async def scan_iter(self):
-        return self.redis.scan_iter()
