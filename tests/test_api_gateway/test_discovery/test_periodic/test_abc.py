@@ -49,7 +49,7 @@ class TestRestInterfaceService(AioHTTPTestCase):
     async def test_existing_endpoint(self):
         # Create endpoint
         endpoint_data = dict(
-            ip=self.client.host,
+            address=self.client.host,
             port=self.client.port,
             status=True,
         )
@@ -66,7 +66,7 @@ class TestRestInterfaceService(AioHTTPTestCase):
     async def test_existing_endpoint_modify_to_true(self):
         # Create endpoint
         endpoint_data = dict(
-            ip=self.client.host,
+            address=self.client.host,
             port=self.client.port,
             status=False,
         )
@@ -85,7 +85,7 @@ class TestRestInterfaceService(AioHTTPTestCase):
         await self.redis.set_data(
             "microservice:system_health_wrong",
             dict(
-                ip=self.client.host,
+                address=self.client.host,
                 port=5050,
                 status=True,
             ),
@@ -99,7 +99,7 @@ class TestRestInterfaceService(AioHTTPTestCase):
         self.assertEqual(
             data,
             dict(
-                ip=self.client.host,
+                address=self.client.host,
                 port=5050,
                 status=False,
             ),
@@ -108,11 +108,11 @@ class TestRestInterfaceService(AioHTTPTestCase):
     @unittest_run_loop
     async def test_check_not_raises(self):
         # Create endpoint
-        await self.redis.set_data("foo", {"ip": "bad"})
+        await self.redis.set_data("foo", {"address": "bad"})
 
         checker = HealthStatusChecker(config=self.config)
         await checker.check()
-        self.assertEqual({"ip": "bad"}, await self.redis.get_data("foo"))
+        self.assertEqual({"address": "bad"}, await self.redis.get_data("foo"))
 
 
 if __name__ == "__main__":

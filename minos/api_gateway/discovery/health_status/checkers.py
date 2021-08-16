@@ -43,7 +43,7 @@ class HealthStatusChecker:
         coroutines = []
 
         async for key in self.redis.redis.scan_iter(match=f"{MICROSERVICE_KEY_PREFIX}:*"):
-            coroutines.append(self._check_one(key))
+            coroutines.append(self._check_one(key.decode("utf-8")))
 
         coroutines = tuple(coroutines)
         await gather(*coroutines)
@@ -56,12 +56,11 @@ class HealthStatusChecker:
             alive = await self._query_health_status(**data)
             await self._update_one(alive, key, data)
         except Exception as exc:
-            await self.redis.delete_data(key)
             logger.warning(f"An exception was raised while checking {key!r}: {exc!r}")
 
     # noinspection PyMethodMayBeStatic,PyUnusedLocal
-    async def _query_health_status(self, ip: str, port: int, **kwargs) -> bool:
-        url = URL.build(scheme="http", host=ip, port=port, path="/system/health")
+    async def _query_health_status(self, address: str, port: int, **kwargs) -> bool:
+        url = URL.build(scheme="http", host=address, port=port, path="/system/health")
 
         try:
             async with ClientSession() as session:
