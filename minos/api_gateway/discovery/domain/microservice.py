@@ -1,10 +1,6 @@
-from typing import (
-    NoReturn,
-)
+from typing import NoReturn
 
-from ..exceptions import (
-    NotFoundException,
-)
+from ..exceptions import NotFoundException
 from .endpoint import (
     ConcreteEndpoint,
     GenericEndpoint,

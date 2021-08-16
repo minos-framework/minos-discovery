@@ -1,23 +1,17 @@
 import unittest
 
-from aiohttp import (
-    web,
-)
+from aiohttp import web
 from aiohttp.test_utils import (
     AioHTTPTestCase,
     unittest_run_loop,
 )
 
-from minos.api_gateway.common import (
-    MinosConfig,
-)
+from minos.api_gateway.common import MinosConfig
 from minos.api_gateway.discovery import (
     HealthStatusChecker,
     MinosRedisClient,
 )
-from tests.utils import (
-    BASE_PATH,
-)
+from tests.utils import BASE_PATH
 
 
 class TestRestInterfaceService(AioHTTPTestCase):
@@ -48,11 +42,7 @@ class TestRestInterfaceService(AioHTTPTestCase):
     @unittest_run_loop
     async def test_existing_endpoint(self):
         # Create endpoint
-        endpoint_data = dict(
-            address=self.client.host,
-            port=self.client.port,
-            status=True,
-        )
+        endpoint_data = dict(address=self.client.host, port=self.client.port, status=True,)
         await self.redis.set_data("microservice:system_health", endpoint_data)
 
         checker = HealthStatusChecker(config=self.config)
@@ -65,11 +55,7 @@ class TestRestInterfaceService(AioHTTPTestCase):
     @unittest_run_loop
     async def test_existing_endpoint_modify_to_true(self):
         # Create endpoint
-        endpoint_data = dict(
-            address=self.client.host,
-            port=self.client.port,
-            status=False,
-        )
+        endpoint_data = dict(address=self.client.host, port=self.client.port, status=False,)
         await self.redis.set_data("microservice:system_health2", endpoint_data)
 
         checker = HealthStatusChecker(config=self.config)
@@ -83,12 +69,7 @@ class TestRestInterfaceService(AioHTTPTestCase):
     async def test_unexisting_endpoint(self):
         # Create endpoint
         await self.redis.set_data(
-            "microservice:system_health_wrong",
-            dict(
-                address=self.client.host,
-                port=5050,
-                status=True,
-            ),
+            "microservice:system_health_wrong", dict(address=self.client.host, port=5050, status=True,),
         )
 
         checker = HealthStatusChecker(config=self.config)
@@ -97,12 +78,7 @@ class TestRestInterfaceService(AioHTTPTestCase):
         data = await self.redis.get_data("microservice:system_health_wrong")
 
         self.assertEqual(
-            data,
-            dict(
-                address=self.client.host,
-                port=5050,
-                status=False,
-            ),
+            data, dict(address=self.client.host, port=5050, status=False,),
         )
 
     @unittest_run_loop
