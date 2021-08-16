@@ -22,6 +22,7 @@ class Microservice:
         self.endpoints: list[GenericEndpoint] = [
             GenericEndpoint(endpoint_verb, endpoint_path) for endpoint_verb, endpoint_path in endpoints
         ]
+        self.status = True
 
     async def save(self, db_client) -> NoReturn:
         microservice_value = {
@@ -67,6 +68,7 @@ class Microservice:
             "address": self.address,
             "port": self.port,
             "endpoints": [[endpoint.verb, endpoint.path_as_str] for endpoint in self.endpoints],
+            "status": self.status,
         }
 
         return microservice_dict
