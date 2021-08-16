@@ -48,60 +48,53 @@ class TestRestInterfaceService(AioHTTPTestCase):
     @unittest_run_loop
     async def test_existing_endpoint(self):
         # Create endpoint
-        endpoint_data = dict(
-            ip=self.client.host, port=self.client.port, name="system_health", status=True, subscribed=True
-        )
-        await self.redis.set_data("system_health", endpoint_data)
+        endpoint_data = dict(address=self.client.host, port=self.client.port, status=True,)
+        await self.redis.set_data("microservice:system_health", endpoint_data)
 
         checker = HealthStatusChecker(config=self.config)
         await checker.check()
 
-        data = await self.redis.get_data("system_health")
+        data = await self.redis.get_data("microservice:system_health")
 
         self.assertEqual(data, endpoint_data)
 
-    @unittest.skip
     @unittest_run_loop
     async def test_existing_endpoint_modify_to_true(self):
         # Create endpoint
-        endpoint_data = dict(
-            ip=self.client.host, port=self.client.port, name="system_health2", status=False, subscribed=True
-        )
-        await self.redis.set_data("system_health2", endpoint_data)
+        endpoint_data = dict(address=self.client.host, port=self.client.port, status=False,)
+        await self.redis.set_data("microservice:system_health2", endpoint_data)
 
         checker = HealthStatusChecker(config=self.config)
         await checker.check()
 
-        data = await self.redis.get_data("system_health2")
+        data = await self.redis.get_data("microservice:system_health2")
         endpoint_data["status"] = True
         self.assertEqual(data, endpoint_data)
 
-    @unittest.skip
     @unittest_run_loop
     async def test_unexisting_endpoint(self):
         # Create endpoint
         await self.redis.set_data(
-            "system_health_wrong",
-            dict(ip=self.client.host, port=5050, name="system_health_wrong", status=True, subscribed=True),
+            "microservice:system_health_wrong", dict(address=self.client.host, port=5050, status=True,),
         )
 
         checker = HealthStatusChecker(config=self.config)
         await checker.check()
 
-        data = await self.redis.get_data("system_health_wrong")
+        data = await self.redis.get_data("microservice:system_health_wrong")
 
         self.assertEqual(
-            data, dict(ip=self.client.host, port=5050, name="system_health_wrong", status=False, subscribed=True)
+            data, dict(address=self.client.host, port=5050, status=False,),
         )
 
     @unittest_run_loop
     async def test_check_not_raises(self):
         # Create endpoint
-        await self.redis.set_data("foo", {"ip": "bad"})
+        await self.redis.set_data("foo", {"address": "bad"})
 
         checker = HealthStatusChecker(config=self.config)
         await checker.check()
-        self.assertEqual({"ip": "bad"}, await self.redis.get_data("foo"))
+        self.assertEqual({"address": "bad"}, await self.redis.get_data("foo"))
 
 
 if __name__ == "__main__":

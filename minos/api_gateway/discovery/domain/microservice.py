@@ -22,6 +22,7 @@ class Microservice:
         self.endpoints: list[GenericEndpoint] = [
             GenericEndpoint(endpoint_verb, endpoint_path) for endpoint_verb, endpoint_path in endpoints
         ]
+        self.status = True
 
     async def save(self, db_client) -> NoReturn:
         microservice_value = {
@@ -53,10 +54,13 @@ class Microservice:
 
         raise NotFoundException
 
-    @staticmethod
-    async def delete_by_endpoint(endpoints: list[str], db_client):
+    @classmethod
+    async def delete(cls, microservice_name, redis_client):
+        microservice_data = await redis_client.get_data(f"{MICROSERVICE_KEY_PREFIX}:{microservice_name}")
+        endpoints = microservice_data["endpoints"]
+        await redis_client.delete_data(microservice_name)
         for endpoint in endpoints:
-            await db_client.delete_data(endpoint)
+            await redis_client.delete_data(endpoint)
 
     def to_json(self):
         microservice_dict = {
@@ -64,6 +68,7 @@ class Microservice:
             "address": self.address,
             "port": self.port,
             "endpoints": [[endpoint.verb, endpoint.path_as_str] for endpoint in self.endpoints],
+            "status": self.status,
         }
 
         return microservice_dict
