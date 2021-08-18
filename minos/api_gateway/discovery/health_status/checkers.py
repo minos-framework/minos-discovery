@@ -2,7 +2,6 @@
 
 import logging
 from asyncio import (
-    TimeoutError,
     gather,
 )
 from typing import (
@@ -13,7 +12,6 @@ from typing import (
 from aiohttp import (
     ClientConnectorError,
     ClientSession,
-    ClientTimeout,
 )
 from yarl import (
     URL,
@@ -36,9 +34,8 @@ logger = logging.getLogger(__name__)
 class HealthStatusChecker:
     """Health Status Checker class."""
 
-    def __init__(self, config: MinosConfig, timeout: float = 5.0):
+    def __init__(self, config: MinosConfig):
         self.redis = MinosRedisClient(config=config)
-        self.timeout = timeout
 
     async def check(self) -> NoReturn:
         """Check the health status of the already known microservices.
@@ -68,10 +65,10 @@ class HealthStatusChecker:
         url = URL.build(scheme="http", host=address, port=port, path="/system/health")
 
         try:
-            async with ClientSession(timeout=ClientTimeout(total=self.timeout)) as session:
+            async with ClientSession() as session:
                 async with session.get(url=url) as response:
                     return response.ok
-        except (ClientConnectorError, TimeoutError):
+        except ClientConnectorError:
             return False
 
     async def _update_one(self, alive: bool, key: str, data: dict[str, Any]) -> NoReturn:

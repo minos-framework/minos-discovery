@@ -25,15 +25,15 @@ from tests.utils import (
 class TestRestInterfaceService(AioHTTPTestCase):
     CONFIG_FILE_PATH = BASE_PATH / "config.yml"
 
-    def setUp(self) -> None:
-        super().setUp()
+    async def setUpAsync(self) -> None:
+        await super().setUpAsync()
         self.config = MinosConfig(self.CONFIG_FILE_PATH)
         self.redis = MinosRedisClient(config=self.config)
-        self.redis.flush_db()
+        await self.redis.flush_db()
 
-    def tearDown(self) -> None:
-        self.redis.flush_db()
-        super().tearDown()
+    async def tearDownAsync(self) -> None:
+        await self.redis.flush_db()
+        await super().tearDownAsync()
 
     async def get_application(self):
         """
