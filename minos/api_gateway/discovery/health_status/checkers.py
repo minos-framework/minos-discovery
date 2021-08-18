@@ -1,3 +1,5 @@
+"""minos.api_gateway.discovery.health_status.checkers module."""
+
 import logging
 from asyncio import (
     gather,
@@ -33,8 +35,9 @@ logger = logging.getLogger(__name__)
 class HealthStatusChecker:
     """Health Status Checker class."""
 
-    def __init__(self, config: MinosConfig):
+    def __init__(self, config: MinosConfig, timeout: float = 3.0):
         self.redis = MinosRedisClient(config=config)
+        self.timeout = timeout
 
     async def check(self) -> NoReturn:
         """Check the health status of the already known microservices.
@@ -64,10 +67,10 @@ class HealthStatusChecker:
         url = URL.build(scheme="http", host=address, port=port, path="/system/health")
 
         try:
-            async with ClientSession(timeout=ClientTimeout(total=3)) as session:
+            async with ClientSession(timeout=ClientTimeout(total=self.timeout)) as session:
                 async with session.get(url=url) as response:
                     return response.ok
-        except ClientConnectorError:
+        except (ClientConnectorError, TimeoutError):
             return False
 
     async def _update_one(self, alive: bool, key: str, data: dict[str, Any]) -> NoReturn:
