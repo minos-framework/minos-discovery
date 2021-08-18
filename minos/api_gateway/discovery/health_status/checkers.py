@@ -10,6 +10,7 @@ from typing import (
 from aiohttp import (
     ClientConnectorError,
     ClientSession,
+    ClientTimeout,
 )
 from yarl import (
     URL,
@@ -63,7 +64,7 @@ class HealthStatusChecker:
         url = URL.build(scheme="http", host=address, port=port, path="/system/health")
 
         try:
-            async with ClientSession() as session:
+            async with ClientSession(timeout=ClientTimeout(total=3)) as session:
                 async with session.get(url=url) as response:
                     return response.ok
         except ClientConnectorError:
