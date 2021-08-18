@@ -2,6 +2,7 @@
 
 import logging
 from asyncio import (
+    TimeoutError,
     gather,
 )
 from typing import (
@@ -35,7 +36,7 @@ logger = logging.getLogger(__name__)
 class HealthStatusChecker:
     """Health Status Checker class."""
 
-    def __init__(self, config: MinosConfig, timeout: float = 3.0):
+    def __init__(self, config: MinosConfig, timeout: float = 5.0):
         self.redis = MinosRedisClient(config=config)
         self.timeout = timeout
 
