@@ -41,8 +41,7 @@ class Microservice:
         :return: A ``Microservice`` instance.
         """
         async for key_bytes in db_client.redis.scan_iter(match=f"{ENDPOINT_KEY_PREFIX}:*"):
-            _, verb, path = key_bytes.decode("utf-8").split(":", 2)
-            endpoint = GenericEndpoint(verb, path)
+            endpoint = GenericEndpoint.load_by_key(key_bytes)
             if endpoint.matches(concrete_endpoint):
                 return await cls.load_by_endpoint(key_bytes, db_client)
 
@@ -50,7 +49,7 @@ class Microservice:
 
     @classmethod
     async def load_by_endpoint(cls, endpoint_key: bytes, db_client) -> Microservice:
-        """Load a new instance from the database.
+        """Load an instance from the database.
 
         :param endpoint_key: The endpoint key.
         :param db_client: The database client.
@@ -61,7 +60,7 @@ class Microservice:
 
     @classmethod
     async def load(cls, microservice_key: bytes, db_client) -> Microservice:
-        """Load a new instance from the database.
+        """Load an instance from the database.
 
         :param microservice_key: The microservice key.
         :param db_client: The database client.
@@ -75,6 +74,11 @@ class Microservice:
         return cls(**microservice_dict)
 
     async def save(self, db_client) -> NoReturn:
+        """Store the instance into the database.
+
+        :param db_client: The database client.
+        :return: This method does not return anything.
+        """
         microservice_value = {
             "name": self.name,
             "address": self.address,
