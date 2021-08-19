@@ -1,0 +1,7 @@
+minos.api\_gateway.discovery.views.router module
+================================================
+
+.. automodule:: minos.api_gateway.discovery.views.router
+   :members:
+   :undoc-members:
+   :show-inheritance:

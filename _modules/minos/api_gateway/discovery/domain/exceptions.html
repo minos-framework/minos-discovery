@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>minos.api_gateway.discovery.health_status.services &mdash; Discovery Service 0.0.4 documentation</title>
+  <title>minos.api_gateway.discovery.domain.exceptions &mdash; Discovery Service 0.0.4 documentation</title>
   
 
   
@@ -146,7 +146,7 @@
         
           <li><a href="../../../../index.html">Module code</a> &raquo;</li>
         
-      <li>minos.api_gateway.discovery.health_status.services</li>
+      <li>minos.api_gateway.discovery.domain.exceptions</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -161,37 +161,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for minos.api_gateway.discovery.health_status.services</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">annotations</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="kn">from</span> <span class="nn">aiomisc.service.periodic</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">PeriodicService</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="kn">from</span> <span class="nn">minos.api_gateway.common</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">MinosConfig</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="kn">from</span> <span class="nn">.checkers</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">HealthStatusChecker</span><span class="p">,</span>
-<span class="p">)</span>
-
-
-<div class="viewcode-block" id="HealthStatusCheckerService"><a class="viewcode-back" href="../../../../../api/minos.api_gateway.discovery.health_status.services.html#minos.api_gateway.discovery.health_status.services.HealthStatusCheckerService">[docs]</a><span class="k">class</span> <span class="nc">HealthStatusCheckerService</span><span class="p">(</span><span class="n">PeriodicService</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Minos DiscoveryPeriodicHealthChecker class.&quot;&quot;&quot;</span>
-
-<div class="viewcode-block" id="HealthStatusCheckerService.__init__"><a class="viewcode-back" href="../../../../../api/minos.api_gateway.discovery.health_status.services.html#minos.api_gateway.discovery.health_status.services.HealthStatusCheckerService.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">MinosConfig</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">status_checker</span> <span class="o">=</span> <span class="n">HealthStatusChecker</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="HealthStatusCheckerService.callback"><a class="viewcode-back" href="../../../../../api/minos.api_gateway.discovery.health_status.services.html#minos.api_gateway.discovery.health_status.services.HealthStatusCheckerService.callback">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Method to be called periodically by the internal ``aiomisc`` logic.</span>
-
-<span class="sd">        :return:This method does not return anything.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">status_checker</span><span class="o">.</span><span class="n">check</span><span class="p">()</span>  <span class="c1"># pragma: no cover</span></div></div>
+  <h1>Source code for minos.api_gateway.discovery.domain.exceptions</h1><div class="highlight"><pre>
+<div class="viewcode-block" id="CannotInstantiateException"><a class="viewcode-back" href="../../../../../api/minos.api_gateway.discovery.domain.exceptions.html#minos.api_gateway.discovery.domain.exceptions.CannotInstantiateException">[docs]</a><span></span><span class="k">class</span> <span class="nc">CannotInstantiateException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Cannot Instantiate class&quot;&quot;&quot;</span></div>
 </pre></div>
 
            </div>

@@ -1,0 +1,7 @@
+minos.api\_gateway.discovery.domain.endpoint module
+===================================================
+
+.. automodule:: minos.api_gateway.discovery.domain.endpoint
+   :members:
+   :undoc-members:
+   :show-inheritance:

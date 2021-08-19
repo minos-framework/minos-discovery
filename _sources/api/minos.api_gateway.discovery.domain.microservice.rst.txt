@@ -1,0 +1,7 @@
+minos.api\_gateway.discovery.domain.microservice module
+=======================================================
+
+.. automodule:: minos.api_gateway.discovery.domain.microservice
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>minos.api_gateway.discovery.cli module &mdash; Discovery Service 0.0.4 documentation</title>
+  <title>minos.api_gateway.discovery.domain.exceptions module &mdash; Discovery Service 0.0.4 documentation</title>
   
 
   
@@ -144,13 +144,13 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>minos.api_gateway.discovery.cli module</li>
+      <li>minos.api_gateway.discovery.domain.exceptions module</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/api/minos.api_gateway.discovery.cli.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/api/minos.api_gateway.discovery.domain.exceptions.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -163,30 +163,30 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-minos.api_gateway.discovery.cli">
-<span id="minos-api-gateway-discovery-cli-module"></span><h1>minos.api_gateway.discovery.cli module<a class="headerlink" href="#module-minos.api_gateway.discovery.cli" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="minos.api_gateway.discovery.cli.main">
-<span class="sig-prename descclassname"><span class="pre">minos.api_gateway.discovery.cli.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/cli.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.cli.main" title="Permalink to this definition">¶</a></dt>
-<dd><p>CLI’s main function.</p>
+  <div class="section" id="module-minos.api_gateway.discovery.domain.exceptions">
+<span id="minos-api-gateway-discovery-domain-exceptions-module"></span><h1>minos.api_gateway.discovery.domain.exceptions module<a class="headerlink" href="#module-minos.api_gateway.discovery.domain.exceptions" title="Permalink to this headline">¶</a></h1>
+<dl class="py exception">
+<dt class="sig sig-object py" id="minos.api_gateway.discovery.domain.exceptions.CannotInstantiateException">
+<em class="property"><span class="pre">exception</span> </em><span class="sig-prename descclassname"><span class="pre">minos.api_gateway.discovery.domain.exceptions.</span></span><span class="sig-name descname"><span class="pre">CannotInstantiateException</span></span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/domain/exceptions.html#CannotInstantiateException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.domain.exceptions.CannotInstantiateException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Cannot Instantiate class</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="minos.api_gateway.discovery.domain.exceptions.CannotInstantiateException.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#minos.api_gateway.discovery.domain.exceptions.CannotInstantiateException.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minos.api_gateway.discovery.domain.exceptions.CannotInstantiateException.args">
+<span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#minos.api_gateway.discovery.domain.exceptions.CannotInstantiateException.args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minos.api_gateway.discovery.domain.exceptions.CannotInstantiateException.with_traceback">
+<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#minos.api_gateway.discovery.domain.exceptions.CannotInstantiateException.with_traceback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception.with_traceback(tb) –
+set self.__traceback__ to tb and return self.</p>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="minos.api_gateway.discovery.cli.start">
-<span class="sig-prename descclassname"><span class="pre">minos.api_gateway.discovery.cli.</span></span><span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">file_path=&lt;typer.models.ArgumentInfo</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/cli.html#start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.cli.start" title="Permalink to this definition">¶</a></dt>
-<dd><p>Start Discovery services.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="minos.api_gateway.discovery.cli.status">
-<span class="sig-prename descclassname"><span class="pre">minos.api_gateway.discovery.cli.</span></span><span class="sig-name descname"><span class="pre">status</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/cli.html#status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.cli.status" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the Discovery Service status.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="minos.api_gateway.discovery.cli.stop">
-<span class="sig-prename descclassname"><span class="pre">minos.api_gateway.discovery.cli.</span></span><span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/cli.html#stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.cli.stop" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stop the Discovery Service.</p>
 </dd></dl>
 
 </div>

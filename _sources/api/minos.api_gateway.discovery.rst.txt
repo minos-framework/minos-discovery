@@ -13,7 +13,9 @@ Subpackages
    :maxdepth: 4
 
    minos.api_gateway.discovery.database
+   minos.api_gateway.discovery.domain
    minos.api_gateway.discovery.health_status
+   minos.api_gateway.discovery.views
 
 Submodules
 ----------
@@ -22,6 +24,6 @@ Submodules
    :maxdepth: 4
 
    minos.api_gateway.discovery.cli
-   minos.api_gateway.discovery.handlers
+   minos.api_gateway.discovery.exceptions
    minos.api_gateway.discovery.launchers
    minos.api_gateway.discovery.service

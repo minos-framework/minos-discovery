@@ -1,7 +1,0 @@
-minos.api\_gateway.discovery.handlers module
-============================================
-
-.. automodule:: minos.api_gateway.discovery.handlers
-   :members:
-   :undoc-members:
-   :show-inheritance:

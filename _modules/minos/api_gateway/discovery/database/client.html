@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>minos.api_gateway.discovery.database.client &mdash; Discovery Service 0.0.3 documentation</title>
+  <title>minos.api_gateway.discovery.database.client &mdash; Discovery Service 0.0.4 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.0.3
+                0.0.4
               </div>
             
           
@@ -162,14 +162,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for minos.api_gateway.discovery.database.client</h1><div class="highlight"><pre>
-<span></span><span class="c1"># Copyright (C) 2020 Clariteia SL</span>
-<span class="c1">#</span>
-<span class="c1"># This file is part of minos framework.</span>
-<span class="c1">#</span>
-<span class="c1"># Minos framework can not be copied and/or distributed without the express</span>
-<span class="c1"># permission of Clariteia SL.</span>
-
-<span class="sd">&quot;&quot;&quot;API Router is responsible for obtaining the connection values for each domain name.</span>
+<span></span><span class="sd">&quot;&quot;&quot;API Router is responsible for obtaining the connection values for each domain name.</span>
 
 <span class="sd">This module obtains the IP, port and status of a microservice. Using the domain name,</span>
 <span class="sd">it performs a Redis lookup by key value. The value is stored in Redis as JSON.</span>
@@ -184,18 +177,15 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">ABC</span><span class="p">,</span>
-<span class="p">)</span>
 
-<span class="kn">import</span> <span class="nn">redis</span>
+<span class="kn">import</span> <span class="nn">aioredis</span>
 
 <span class="kn">from</span> <span class="nn">minos.api_gateway.common</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">MinosConfig</span><span class="p">,</span>
 <span class="p">)</span>
 
 
-<div class="viewcode-block" id="MinosRedisClient"><a class="viewcode-back" href="../../../../../api/minos.api_gateway.discovery.database.client.html#minos.api_gateway.discovery.database.client.MinosRedisClient">[docs]</a><span class="k">class</span> <span class="nc">MinosRedisClient</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<div class="viewcode-block" id="MinosRedisClient"><a class="viewcode-back" href="../../../../../api/minos.api_gateway.discovery.database.client.html#minos.api_gateway.discovery.database.client.MinosRedisClient">[docs]</a><span class="k">class</span> <span class="nc">MinosRedisClient</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Class that connects to Redis and returns the configuration values according to domain name.</span>
 
 <span class="sd">    The connection to Redis is made via the environment variables: REDIS_HOST, REDIS_PORT, REDIS_PASSWORD.</span>
@@ -204,55 +194,44 @@
 <span class="sd">        domain: A string which specifies the Domain Name. Example: order, cart, customer ....</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="vm">__slots__</span> <span class="o">=</span> <span class="s2">&quot;_redis_host&quot;</span><span class="p">,</span> <span class="s2">&quot;_redis_port&quot;</span><span class="p">,</span> <span class="s2">&quot;_redis_password&quot;</span><span class="p">,</span> <span class="s2">&quot;redis&quot;</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="s2">&quot;address&quot;</span><span class="p">,</span> <span class="s2">&quot;port&quot;</span><span class="p">,</span> <span class="s2">&quot;password&quot;</span><span class="p">,</span> <span class="s2">&quot;redis&quot;</span>
 
 <div class="viewcode-block" id="MinosRedisClient.__init__"><a class="viewcode-back" href="../../../../../api/minos.api_gateway.discovery.database.client.html#minos.api_gateway.discovery.database.client.MinosRedisClient.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">MinosConfig</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Perform initial configuration and connection to Redis&quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_redis_host</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">discovery</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">host</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_redis_port</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">discovery</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">port</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_redis_password</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">discovery</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">password</span>
+        <span class="n">address</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">discovery</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">host</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">discovery</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">port</span>
+        <span class="n">password</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">discovery</span><span class="o">.</span><span class="n">database</span><span class="o">.</span><span class="n">password</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">redis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__redis_connect</span><span class="p">()</span></div>
+        <span class="n">pool</span> <span class="o">=</span> <span class="n">aioredis</span><span class="o">.</span><span class="n">ConnectionPool</span><span class="o">.</span><span class="n">from_url</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;redis://</span><span class="si">{</span><span class="n">address</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">,</span> <span class="n">max_connections</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">redis</span> <span class="o">=</span> <span class="n">aioredis</span><span class="o">.</span><span class="n">Redis</span><span class="p">(</span><span class="n">connection_pool</span><span class="o">=</span><span class="n">pool</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">__redis_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Perform connection to Redis&quot;&quot;&quot;</span>
-
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">redis_connection</span> <span class="o">=</span> <span class="n">redis</span><span class="o">.</span><span class="n">Redis</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_redis_host</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_redis_port</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_redis_password</span><span class="p">)</span>
-            <span class="n">redis_connection</span><span class="o">.</span><span class="n">ping</span><span class="p">()</span>
-        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span>
-
-        <span class="k">return</span> <span class="n">redis_connection</span>
-
-<div class="viewcode-block" id="MinosRedisClient.get_data"><a class="viewcode-back" href="../../../../../api/minos.api_gateway.discovery.database.client.html#minos.api_gateway.discovery.database.client.MinosRedisClient.get_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<div class="viewcode-block" id="MinosRedisClient.get_data"><a class="viewcode-back" href="../../../../../api/minos.api_gateway.discovery.database.client.html#minos.api_gateway.discovery.database.client.MinosRedisClient.get_data">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Get redis value by key&quot;&quot;&quot;</span>
         <span class="n">json_data</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">redis_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+            <span class="n">redis_data</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
             <span class="n">json_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">redis_data</span><span class="p">)</span>
-
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="k">pass</span>
 
         <span class="k">return</span> <span class="n">json_data</span></div>
 
-<div class="viewcode-block" id="MinosRedisClient.set_data"><a class="viewcode-back" href="../../../../../api/minos.api_gateway.discovery.database.client.html#minos.api_gateway.discovery.database.client.MinosRedisClient.set_data">[docs]</a>    <span class="k">def</span> <span class="nf">set_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+<div class="viewcode-block" id="MinosRedisClient.set_data"><a class="viewcode-back" href="../../../../../api/minos.api_gateway.discovery.database.client.html#minos.api_gateway.discovery.database.client.MinosRedisClient.set_data">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">set_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
         <span class="n">flag</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
             <span class="n">flag</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="k">return</span> <span class="n">flag</span></div>
 
-<div class="viewcode-block" id="MinosRedisClient.update_data"><a class="viewcode-back" href="../../../../../api/minos.api_gateway.discovery.database.client.html#minos.api_gateway.discovery.database.client.MinosRedisClient.update_data">[docs]</a>    <span class="k">def</span> <span class="nf">update_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
+<div class="viewcode-block" id="MinosRedisClient.update_data"><a class="viewcode-back" href="../../../../../api/minos.api_gateway.discovery.database.client.html#minos.api_gateway.discovery.database.client.MinosRedisClient.update_data">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">update_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># pragma: no cover</span>
         <span class="sd">&quot;&quot;&quot;Update specific value&quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="MinosRedisClient.delete_data"><a class="viewcode-back" href="../../../../../api/minos.api_gateway.discovery.database.client.html#minos.api_gateway.discovery.database.client.MinosRedisClient.delete_data">[docs]</a>    <span class="k">def</span> <span class="nf">delete_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="n">deleted_elements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<div class="viewcode-block" id="MinosRedisClient.delete_data"><a class="viewcode-back" href="../../../../../api/minos.api_gateway.discovery.database.client.html#minos.api_gateway.discovery.database.client.MinosRedisClient.delete_data">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">delete_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">deleted_elements</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">deleted_elements</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
@@ -263,8 +242,11 @@
         <span class="sd">&quot;&quot;&quot;Redis connection itself&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span></div>
 
-<div class="viewcode-block" id="MinosRedisClient.flush_db"><a class="viewcode-back" href="../../../../../api/minos.api_gateway.discovery.database.client.html#minos.api_gateway.discovery.database.client.MinosRedisClient.flush_db">[docs]</a>    <span class="k">def</span> <span class="nf">flush_db</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">flushdb</span><span class="p">()</span></div></div>
+<div class="viewcode-block" id="MinosRedisClient.flush_db"><a class="viewcode-back" href="../../../../../api/minos.api_gateway.discovery.database.client.html#minos.api_gateway.discovery.database.client.MinosRedisClient.flush_db">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">flush_db</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">flushdb</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="MinosRedisClient.ping"><a class="viewcode-back" href="../../../../../api/minos.api_gateway.discovery.database.client.html#minos.api_gateway.discovery.database.client.MinosRedisClient.ping">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">ping</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">ping</span><span class="p">()</span></div></div>
 </pre></div>
 
            </div>

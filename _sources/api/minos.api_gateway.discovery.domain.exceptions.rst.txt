@@ -1,0 +1,7 @@
+minos.api\_gateway.discovery.domain.exceptions module
+=====================================================
+
+.. automodule:: minos.api_gateway.discovery.domain.exceptions
+   :members:
+   :undoc-members:
+   :show-inheritance:

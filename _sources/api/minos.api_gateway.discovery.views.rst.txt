@@ -1,0 +1,17 @@
+minos.api\_gateway.discovery.views package
+==========================================
+
+.. automodule:: minos.api_gateway.discovery.views
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   minos.api_gateway.discovery.views.endpoint
+   minos.api_gateway.discovery.views.microservice
+   minos.api_gateway.discovery.views.router

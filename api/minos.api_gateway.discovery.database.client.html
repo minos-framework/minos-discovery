@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>minos.api_gateway.discovery.database.client module &mdash; Discovery Service 0.0.3 documentation</title>
+  <title>minos.api_gateway.discovery.database.client module &mdash; Discovery Service 0.0.4 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.0.3
+                0.0.4
               </div>
             
           
@@ -182,7 +182,7 @@ bar = foo.conn_values()</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="minos.api_gateway.discovery.database.client.MinosRedisClient">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">minos.api_gateway.discovery.database.client.</span></span><span class="sig-name descname"><span class="pre">MinosRedisClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/database/client.html#MinosRedisClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.database.client.MinosRedisClient" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class that connects to Redis and returns the configuration values according to domain name.</p>
 <p>The connection to Redis is made via the environment variables: REDIS_HOST, REDIS_PORT, REDIS_PASSWORD.</p>
 <dl class="simple">
@@ -195,19 +195,24 @@ bar = foo.conn_values()</p>
 <dd><p>Perform initial configuration and connection to Redis</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minos.api_gateway.discovery.database.client.MinosRedisClient.address">
+<span class="sig-name descname"><span class="pre">address</span></span><a class="headerlink" href="#minos.api_gateway.discovery.database.client.MinosRedisClient.address" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="minos.api_gateway.discovery.database.client.MinosRedisClient.delete_data">
-<span class="sig-name descname"><span class="pre">delete_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/database/client.html#MinosRedisClient.delete_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.database.client.MinosRedisClient.delete_data" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">async</span> </em><span class="sig-name descname"><span class="pre">delete_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/database/client.html#MinosRedisClient.delete_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.database.client.MinosRedisClient.delete_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="minos.api_gateway.discovery.database.client.MinosRedisClient.flush_db">
-<span class="sig-name descname"><span class="pre">flush_db</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/database/client.html#MinosRedisClient.flush_db"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.database.client.MinosRedisClient.flush_db" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">async</span> </em><span class="sig-name descname"><span class="pre">flush_db</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/database/client.html#MinosRedisClient.flush_db"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.database.client.MinosRedisClient.flush_db" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="minos.api_gateway.discovery.database.client.MinosRedisClient.get_data">
-<span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/database/client.html#MinosRedisClient.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.database.client.MinosRedisClient.get_data" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">async</span> </em><span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/database/client.html#MinosRedisClient.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.database.client.MinosRedisClient.get_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get redis value by key</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -223,18 +228,33 @@ bar = foo.conn_values()</p>
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="minos.api_gateway.discovery.database.client.MinosRedisClient.password">
+<span class="sig-name descname"><span class="pre">password</span></span><a class="headerlink" href="#minos.api_gateway.discovery.database.client.MinosRedisClient.password" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minos.api_gateway.discovery.database.client.MinosRedisClient.ping">
+<em class="property"><span class="pre">async</span> </em><span class="sig-name descname"><span class="pre">ping</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/database/client.html#MinosRedisClient.ping"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.database.client.MinosRedisClient.ping" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="minos.api_gateway.discovery.database.client.MinosRedisClient.port">
+<span class="sig-name descname"><span class="pre">port</span></span><a class="headerlink" href="#minos.api_gateway.discovery.database.client.MinosRedisClient.port" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="minos.api_gateway.discovery.database.client.MinosRedisClient.redis">
 <span class="sig-name descname"><span class="pre">redis</span></span><a class="headerlink" href="#minos.api_gateway.discovery.database.client.MinosRedisClient.redis" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="minos.api_gateway.discovery.database.client.MinosRedisClient.set_data">
-<span class="sig-name descname"><span class="pre">set_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/database/client.html#MinosRedisClient.set_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.database.client.MinosRedisClient.set_data" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">async</span> </em><span class="sig-name descname"><span class="pre">set_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/database/client.html#MinosRedisClient.set_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.database.client.MinosRedisClient.set_data" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="minos.api_gateway.discovery.database.client.MinosRedisClient.update_data">
-<span class="sig-name descname"><span class="pre">update_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/database/client.html#MinosRedisClient.update_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.database.client.MinosRedisClient.update_data" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">async</span> </em><span class="sig-name descname"><span class="pre">update_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/database/client.html#MinosRedisClient.update_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.database.client.MinosRedisClient.update_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update specific value</p>
 </dd></dl>
 

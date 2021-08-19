@@ -1,0 +1,17 @@
+minos.api\_gateway.discovery.domain package
+===========================================
+
+.. automodule:: minos.api_gateway.discovery.domain
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   minos.api_gateway.discovery.domain.endpoint
+   minos.api_gateway.discovery.domain.exceptions
+   minos.api_gateway.discovery.domain.microservice
