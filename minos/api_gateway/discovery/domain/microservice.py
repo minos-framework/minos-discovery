@@ -40,7 +40,7 @@ class Microservice:
         :param db_client: The database client.
         :return: A ``Microservice`` instance.
         """
-        async for key_bytes in db_client.redis.scan_iter(match=f"{ENDPOINT_KEY_PREFIX}:*"):
+        async for key_bytes in db_client.redis.scan_iter(match=f"{ENDPOINT_KEY_PREFIX}:{concrete_endpoint.verb}:*"):
             endpoint = GenericEndpoint.load_by_key(key_bytes)
             if endpoint.matches(concrete_endpoint):
                 return await cls.load_by_endpoint(key_bytes, db_client)
