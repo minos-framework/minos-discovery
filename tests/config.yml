@@ -1,7 +1,7 @@
 discovery:
     host: localhost
-    port: 8080
-    path: /discover
+    port: 7832
+    path: ""
     endpoints: []
     db:
         host: localhost

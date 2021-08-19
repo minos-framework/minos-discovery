@@ -1,3 +1,9 @@
+"""minos.api_gateway.discovery.domain.endpoint module."""
+
+from __future__ import (
+    annotations,
+)
+
 from .exceptions import (
     CannotInstantiateException,
 )
@@ -28,6 +34,18 @@ class ConcreteEndpoint(Endpoint):
 
 
 class GenericEndpoint(Endpoint):
+    """Generic Endpoint class."""
+
+    @classmethod
+    def load_by_key(cls, endpoint_key: bytes) -> GenericEndpoint:
+        """Build a new generic endpoint from key.
+
+        :param endpoint_key: A key codified in bytes.
+        :return: A ``GenericEndpoint``.
+        """
+        _, verb, path = endpoint_key.decode("utf-8").split(":", 2)
+        return cls(verb, path)
+
     def matches(self, concrete_endpoint: ConcreteEndpoint) -> bool:
         if self.verb != concrete_endpoint.verb:
             return False

@@ -1,3 +1,5 @@
+"""minos.api_gateway.discovery.health_status.checkers module."""
+
 import logging
 from asyncio import (
     gather,

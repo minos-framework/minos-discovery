@@ -78,8 +78,8 @@ class MinosRedisClient:
         """Redis connection itself"""
         return self.redis
 
-    def flush_db(self):
-        self.redis.flushdb()
+    async def flush_db(self):
+        await self.redis.flushdb()
 
     async def ping(self):
         return await self.redis.ping()
