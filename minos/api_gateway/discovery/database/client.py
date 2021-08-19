@@ -1,10 +1,3 @@
-# Copyright (C) 2020 Clariteia SL
-#
-# This file is part of minos framework.
-#
-# Minos framework can not be copied and/or distributed without the express
-# permission of Clariteia SL.
-
 """API Router is responsible for obtaining the connection values for each domain name.
 
 This module obtains the IP, port and status of a microservice. Using the domain name,
@@ -20,18 +13,15 @@ it performs a Redis lookup by key value. The value is stored in Redis as JSON.
 """
 
 import json
-from abc import (
-    ABC,
-)
 
-import redis
+import aioredis
 
 from minos.api_gateway.common import (
     MinosConfig,
 )
 
 
-class MinosRedisClient(ABC):
+class MinosRedisClient:
     """Class that connects to Redis and returns the configuration values according to domain name.
 
     The connection to Redis is made via the environment variables: REDIS_HOST, REDIS_PORT, REDIS_PASSWORD.
@@ -40,55 +30,44 @@ class MinosRedisClient(ABC):
         domain: A string which specifies the Domain Name. Example: order, cart, customer ....
     """
 
-    __slots__ = "_redis_host", "_redis_port", "_redis_password", "redis"
+    __slots__ = "address", "port", "password", "redis"
 
     def __init__(self, config: MinosConfig):
         """Perform initial configuration and connection to Redis"""
 
-        self._redis_host = config.discovery.database.host
-        self._redis_port = config.discovery.database.port
-        self._redis_password = config.discovery.database.password
+        address = config.discovery.database.host
+        port = config.discovery.database.port
+        password = config.discovery.database.password
 
-        self.redis = self.__redis_connect()
+        pool = aioredis.ConnectionPool.from_url(f"redis://{address}:{port}", password=password, max_connections=10)
+        self.redis = aioredis.Redis(connection_pool=pool)
 
-    def __redis_connect(self):
-        """Perform connection to Redis"""
-
-        try:
-            redis_connection = redis.Redis(host=self._redis_host, port=self._redis_port, password=self._redis_password)
-            redis_connection.ping()
-        except Exception:
-            raise Exception
-
-        return redis_connection
-
-    def get_data(self, key: str) -> str:
+    async def get_data(self, key: str) -> str:
         """Get redis value by key"""
         json_data = {}
         try:
-            redis_data = self.redis.get(key)
+            redis_data = await self.redis.get(key)
             json_data = json.loads(redis_data)
-
         except Exception:
             pass
 
         return json_data
 
-    def set_data(self, key: str, data: dict):
+    async def set_data(self, key: str, data: dict):
         flag = True
         try:
-            self.redis.set(key, json.dumps(data))
+            await self.redis.set(key, json.dumps(data))
         except Exception:  # pragma: no cover
             flag = False
 
         return flag
 
-    def update_data(self):  # pragma: no cover
+    async def update_data(self):  # pragma: no cover
         """Update specific value"""
         pass
 
-    def delete_data(self, key: str):
-        deleted_elements = self.redis.delete(key)
+    async def delete_data(self, key: str):
+        deleted_elements = await self.redis.delete(key)
 
         if deleted_elements > 0:
             return True
@@ -99,5 +78,8 @@ class MinosRedisClient(ABC):
         """Redis connection itself"""
         return self.redis
 
-    def flush_db(self):
-        self.redis.flushdb()
+    async def flush_db(self):
+        await self.redis.flushdb()
+
+    async def ping(self):
+        return await self.redis.ping()

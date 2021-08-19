@@ -1,44 +1,42 @@
-# Copyright (C) 2020 Clariteia SL
-#
-# This file is part of minos framework.
-#
-# Minos framework can not be copied and/or distributed without the express
-# permission of Clariteia SL.
 import asyncio
 import logging
-import typing as t
 
 from aiohttp import (
     web,
 )
+from aiomisc.service.aiohttp import (
+    AIOHTTPService,
+)
 
 from minos.api_gateway.common import (
     MinosConfig,
-    RESTService,
+)
+
+from .database import (
+    MinosRedisClient,
+)
+from .views import (
+    routes,
 )
 
 logger = logging.getLogger(__name__)
 
 
-class DiscoveryService(RESTService):
+class DiscoveryService(AIOHTTPService):
     """Discovery Service class."""
 
-    def __init__(
-        self,
-        config: MinosConfig,
-        app: web.Application = web.Application(),
-        graceful_stop_timeout: int = 5,
-        **kwargs: t.Any,
-    ):
-        super().__init__(
-            address=config.discovery.connection.host,
-            port=config.discovery.connection.port,
-            endpoints=config.discovery.endpoints,
-            config=config,
-            app=app,
-            **kwargs,
-        )
+    def __init__(self, address: str, port: int, config: MinosConfig, graceful_stop_timeout: int = 5):
+        self.config = config
         self.graceful_stop_timeout = graceful_stop_timeout
+        super().__init__(address, port)
+
+    async def create_application(self) -> web.Application:
+        app = web.Application()
+        app.router.add_routes(routes)
+
+        app["db_client"] = MinosRedisClient(self.config)
+
+        return app
 
     async def stop(self, exception: Exception = None) -> None:
         """

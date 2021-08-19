@@ -1,11 +1,3 @@
-"""
-Copyright (C) 2021 Clariteia SL
-
-This file is part of minos framework.
-
-Minos framework can not be copied and/or distributed without the express permission of Clariteia SL.
-"""
-
 import logging
 from asyncio import (
     AbstractEventLoop,
@@ -24,18 +16,13 @@ from cached_property import (
     cached_property,
 )
 
-from minos.api_gateway.common import (
-    MinosConfig,
-)
-
 logger = logging.getLogger(__name__)
 
 
 class EntrypointLauncher:
     """EntryPoint Launcher class."""
 
-    def __init__(self, config: MinosConfig, services: tuple, *args, **kwargs):
-        self.config = config
+    def __init__(self, services: tuple):
         self.services = services
 
     def launch(self) -> NoReturn:

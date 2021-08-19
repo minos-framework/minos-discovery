@@ -1,10 +1,5 @@
-"""
-Copyright (C) 2021 Clariteia SL
+"""tests.test_api_gateway.test_discovery.test_periodic.test_service module."""
 
-This file is part of minos framework.
-
-Minos framework can not be copied and/or distributed without the express permission of Clariteia SL.
-"""
 import unittest
 from unittest.mock import (
     MagicMock,
@@ -25,7 +20,7 @@ from tests.utils import (
 )
 
 
-class TestMinosQueueService(unittest.IsolatedAsyncioTestCase):
+class TestHealthStatusCheckerService(unittest.IsolatedAsyncioTestCase):
     CONFIG_FILE_PATH = BASE_PATH / "config.yml"
 
     def test_is_instance(self):

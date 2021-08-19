@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "minos_discovery"
-version = "0.0.3"
+version = "0.0.4"
 description = "Minos Discovery service for Microservices subscription."
 readme = "README.md"
 repository = "https://github.com/clariteia/discovery"
@@ -31,7 +31,7 @@ include = [
 
 [tool.poetry.dependencies]
 python = "^3.9"
-redis = "^3.5.3"
+aioredis = "^2.0.0"
 minos-apigateway-common = "^0.0"
 typer = "^0.3.2"
 cached-property = "^1.5.2"

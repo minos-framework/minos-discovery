@@ -22,3 +22,9 @@ History
 * Add a graceful stop timeout to `DiscoveryService`.
 * Add `__main__.py`.
 * Fix bugs related with connection.
+
+0.0.4 (2021-08-19)
+------------------
+
+* Support auto discoverable endpoints.
+* Refactor internal structure.
