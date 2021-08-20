@@ -109,5 +109,5 @@ class TestMicroserviceEndpoints(AioHTTPTestCase):
 
         response = await self.client.get(f"/microservices?path={endpoint_path}")
 
-        self.assertEqual(400, response.status)
+        self.assertEqual(200, response.status)
         self.assertIn("verb", await response.text())
