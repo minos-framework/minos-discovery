@@ -36,6 +36,6 @@ class EndpointView(web.View):
         try:
             microservice = await Microservice.find_by_endpoint(endpoint, redis_client)
         except NotFoundException:
-            return web.HTTPNoContent()
+            return web.HTTPNotFound()
 
         return web.json_response(microservice.to_json())
