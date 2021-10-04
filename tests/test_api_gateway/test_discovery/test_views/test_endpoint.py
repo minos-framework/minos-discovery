@@ -55,7 +55,7 @@ class TestMicroserviceEndpoints(AioHTTPTestCase):
 
         response = await self.client.get(f"/microservices?verb={endpoint_verb}&path={endpoint_path}")
 
-        self.assertEqual(204, response.status)
+        self.assertEqual(404, response.status)
 
     @unittest_run_loop
     async def test_get_with_pattern(self):

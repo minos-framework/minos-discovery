@@ -1,5 +1,3 @@
-"""tests.test_api_gateway.test_discovery.test_periodic.test_abc module."""
-
 import unittest
 
 from aiohttp import (

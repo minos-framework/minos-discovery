@@ -28,3 +28,10 @@ History
 
 * Support auto discoverable endpoints.
 * Refactor internal structure.
+
+0.0.5 (2021-10-04)
+------------------
+
+* Fix bug related with response's status code of not found entry points.
+* Fix bug related with microservice deletion.
+* Minos improvements.
