@@ -40,7 +40,7 @@ class EntrypointLauncher:
         finally:
             self.graceful_shutdown()
 
-    def graceful_shutdown(self, err: Exception = None) -> NoReturn:
+    def graceful_shutdown(self, err: Exception = None) -> None:
         """Shutdown the services execution gracefully.
 
         :return: This method does not return anything.

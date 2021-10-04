@@ -1,11 +1,5 @@
-"""minos.api_gateway.discovery.domain.microservice module."""
-
 from __future__ import (
     annotations,
-)
-
-from typing import (
-    NoReturn,
 )
 
 from ..exceptions import (
@@ -73,7 +67,7 @@ class Microservice:
         ]
         return cls(**microservice_dict)
 
-    async def save(self, db_client) -> NoReturn:
+    async def save(self, db_client) -> None:
         """Store the instance into the database.
 
         :param db_client: The database client.

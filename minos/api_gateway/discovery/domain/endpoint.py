@@ -1,5 +1,3 @@
-"""minos.api_gateway.discovery.domain.endpoint module."""
-
 from __future__ import (
     annotations,
 )
