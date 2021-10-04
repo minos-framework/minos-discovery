@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>minos.api_gateway.discovery.views.endpoint &mdash; Discovery Service 0.0.4 documentation</title>
+  <title>minos.api_gateway.discovery.views.endpoint &mdash; Discovery Service 0.0.5 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.0.4
+                0.0.5
               </div>
             
           
@@ -200,7 +200,7 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">microservice</span> <span class="o">=</span> <span class="k">await</span> <span class="n">Microservice</span><span class="o">.</span><span class="n">find_by_endpoint</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">redis_client</span><span class="p">)</span>
         <span class="k">except</span> <span class="n">NotFoundException</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">web</span><span class="o">.</span><span class="n">HTTPNoContent</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">web</span><span class="o">.</span><span class="n">HTTPNotFound</span><span class="p">()</span>
 
         <span class="k">return</span> <span class="n">web</span><span class="o">.</span><span class="n">json_response</span><span class="p">(</span><span class="n">microservice</span><span class="o">.</span><span class="n">to_json</span><span class="p">())</span></div></div>
 </pre></div>

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>minos.api_gateway.discovery.health_status.checkers &mdash; Discovery Service 0.0.4 documentation</title>
+  <title>minos.api_gateway.discovery.health_status.checkers &mdash; Discovery Service 0.0.5 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.0.4
+                0.0.5
               </div>
             
           
@@ -162,15 +162,12 @@
            <div itemprop="articleBody">
             
   <h1>Source code for minos.api_gateway.discovery.health_status.checkers</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;minos.api_gateway.discovery.health_status.checkers module.&quot;&quot;&quot;</span>
-
-<span class="kn">import</span> <span class="nn">logging</span>
+<span></span><span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">asyncio</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">gather</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">Any</span><span class="p">,</span>
-    <span class="n">NoReturn</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">aiohttp</span> <span class="kn">import</span> <span class="p">(</span>
@@ -201,7 +198,7 @@
 <div class="viewcode-block" id="HealthStatusChecker.__init__"><a class="viewcode-back" href="../../../../../api/minos.api_gateway.discovery.health_status.checkers.html#minos.api_gateway.discovery.health_status.checkers.HealthStatusChecker.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">MinosConfig</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">redis</span> <span class="o">=</span> <span class="n">MinosRedisClient</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="HealthStatusChecker.check"><a class="viewcode-back" href="../../../../../api/minos.api_gateway.discovery.health_status.checkers.html#minos.api_gateway.discovery.health_status.checkers.HealthStatusChecker.check">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+<div class="viewcode-block" id="HealthStatusChecker.check"><a class="viewcode-back" href="../../../../../api/minos.api_gateway.discovery.health_status.checkers.html#minos.api_gateway.discovery.health_status.checkers.HealthStatusChecker.check">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Check the health status of the already known microservices.</span>
 
 <span class="sd">        :return: This method does not return anything.</span>
@@ -235,7 +232,7 @@
         <span class="k">except</span> <span class="n">ClientConnectorError</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span>
 
-    <span class="k">async</span> <span class="k">def</span> <span class="nf">_update_one</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alive</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_update_one</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alive</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">alive</span> <span class="o">==</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]:</span>
             <span class="k">return</span>
 
