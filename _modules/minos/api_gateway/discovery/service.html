@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>minos.api_gateway.discovery.service &mdash; Discovery Service 0.0.5 documentation</title>
+  <title>minos.api_gateway.discovery.service &mdash; Discovery Service 0.0.6 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.0.5
+                0.0.6
               </div>
             
           
@@ -192,6 +192,10 @@
 <div class="viewcode-block" id="DiscoveryService.__init__"><a class="viewcode-back" href="../../../../api/minos.api_gateway.discovery.service.html#minos.api_gateway.discovery.service.DiscoveryService.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">MinosConfig</span><span class="p">,</span> <span class="n">graceful_stop_timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">graceful_stop_timeout</span> <span class="o">=</span> <span class="n">graceful_stop_timeout</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Address </span><span class="si">{</span><span class="n">address</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Port </span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="DiscoveryService.create_application"><a class="viewcode-back" href="../../../../api/minos.api_gateway.discovery.service.html#minos.api_gateway.discovery.service.DiscoveryService.create_application">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">create_application</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">web</span><span class="o">.</span><span class="n">Application</span><span class="p">:</span>
