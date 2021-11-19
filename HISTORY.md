@@ -35,3 +35,8 @@ History
 * Fix bug related with response's status code of not found entry points.
 * Fix bug related with microservice deletion.
 * Minos improvements.
+
+0.0.6 (2021-11-19)
+------------------
+
+* Added a logger to get trace of address 
