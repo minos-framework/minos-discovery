@@ -28,6 +28,10 @@ class DiscoveryService(AIOHTTPService):
     def __init__(self, address: str, port: int, config: MinosConfig, graceful_stop_timeout: int = 5):
         self.config = config
         self.graceful_stop_timeout = graceful_stop_timeout
+        logger.info(
+            f"Address {address}"
+            f"Port {port}"
+        )
         super().__init__(address, port)
 
     async def create_application(self) -> web.Application:
