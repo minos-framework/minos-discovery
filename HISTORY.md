@@ -39,4 +39,4 @@ History
 0.0.6 (2021-11-19)
 ------------------
 
-* Added a logger to get trace of address 
+* Added a logger to get trace of address
