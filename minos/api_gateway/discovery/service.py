@@ -32,7 +32,7 @@ class DiscoveryService(AIOHTTPService):
             f"Address {address}"
             f"Port {port}"
         )
-        super().__init__('0.0.0.0', '5567')
+        super().__init__('0.0.0.0', 5567)
 
     async def create_application(self) -> web.Application:
         app = web.Application()

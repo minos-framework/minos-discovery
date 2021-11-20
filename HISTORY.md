@@ -45,3 +45,8 @@ History
 ------------------
 
 * static address and port
+
+0.0.8 (2021-11-20)
+------------------
+
+* modified PORT from string to INT
