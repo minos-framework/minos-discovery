@@ -40,3 +40,8 @@ History
 ------------------
 
 * Added a logger to get trace of address
+
+0.0.7 (2021-11-20)
+------------------
+
+* static address and port
