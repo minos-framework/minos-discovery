@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>minos.api_gateway.discovery.service module &mdash; Discovery Service 0.0.7 documentation</title>
+  <title>minos.api_gateway.discovery.service module &mdash; Discovery Service 0.0.8 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.0.7
+                0.0.8
               </div>
             
           
@@ -167,7 +167,7 @@
 <span id="minos-api-gateway-discovery-service-module"></span><h1>minos.api_gateway.discovery.service module<a class="headerlink" href="#module-minos.api_gateway.discovery.service" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="minos.api_gateway.discovery.service.DiscoveryService">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">minos.api_gateway.discovery.service.</span></span><span class="sig-name descname"><span class="pre">DiscoveryService</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graceful_stop_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/service.html#DiscoveryService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.service.DiscoveryService" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">minos.api_gateway.discovery.service.</span></span><span class="sig-name descname"><span class="pre">DiscoveryService</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graceful_stop_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/service.html#DiscoveryService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.service.DiscoveryService" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">aiomisc.service.aiohttp.AIOHTTPService</span></code></p>
 <p>Discovery Service class.</p>
 <dl class="py method">
@@ -177,7 +177,7 @@
 
 <dl class="py property">
 <dt class="sig sig-object py" id="minos.api_gateway.discovery.service.DiscoveryService.context">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">context</span></span><em class="property"><span class="pre">:</span> <span class="pre">aiomisc.context.Context</span></em><a class="headerlink" href="#minos.api_gateway.discovery.service.DiscoveryService.context" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">context</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">aiomisc.context.Context</span></em><a class="headerlink" href="#minos.api_gateway.discovery.service.DiscoveryService.context" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">aiomisc.context.Context</span></code></p>
@@ -187,7 +187,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="minos.api_gateway.discovery.service.DiscoveryService.create_application">
-<em class="property"><span class="pre">async</span> </em><span class="sig-name descname"><span class="pre">create_application</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/service.html#DiscoveryService.create_application"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.service.DiscoveryService.create_application" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_application</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/service.html#DiscoveryService.create_application"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.service.DiscoveryService.create_application" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">aiohttp.web_app.Application</span></code></p>
@@ -197,7 +197,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="minos.api_gateway.discovery.service.DiscoveryService.create_site">
-<em class="property"><span class="pre">async</span> </em><span class="sig-name descname"><span class="pre">create_site</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#minos.api_gateway.discovery.service.DiscoveryService.create_site" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_site</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#minos.api_gateway.discovery.service.DiscoveryService.create_site" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">aiohttp.web_runner.SockSite</span></code></p>
@@ -217,7 +217,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="minos.api_gateway.discovery.service.DiscoveryService.start">
-<em class="property"><span class="pre">async</span> </em><span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#minos.api_gateway.discovery.service.DiscoveryService.start" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#minos.api_gateway.discovery.service.DiscoveryService.start" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
@@ -227,7 +227,7 @@
 
 <dl class="py property">
 <dt class="sig sig-object py" id="minos.api_gateway.discovery.service.DiscoveryService.start_event">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">start_event</span></span><em class="property"><span class="pre">:</span> <span class="pre">asyncio.locks.Event</span></em><a class="headerlink" href="#minos.api_gateway.discovery.service.DiscoveryService.start_event" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">start_event</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">asyncio.locks.Event</span></em><a class="headerlink" href="#minos.api_gateway.discovery.service.DiscoveryService.start_event" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">asyncio.locks.Event</span></code></p>
@@ -237,7 +237,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="minos.api_gateway.discovery.service.DiscoveryService.stop">
-<em class="property"><span class="pre">async</span> </em><span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exception</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/service.html#DiscoveryService.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.service.DiscoveryService.stop" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exception</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/service.html#DiscoveryService.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.service.DiscoveryService.stop" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>exception</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">typing.Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code>]) – </p>

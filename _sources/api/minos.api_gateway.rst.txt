@@ -1,6 +1,8 @@
 minos.api\_gateway namespace
 ============================
 
+.. py:module:: minos.api_gateway
+
 Subpackages
 -----------
 
