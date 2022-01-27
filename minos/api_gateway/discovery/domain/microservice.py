@@ -67,6 +67,18 @@ class Microservice:
         ]
         return cls(**microservice_dict)
 
+    @classmethod
+    async def get_all(cls, db_client) -> Microservice:
+        """Load an instance from the database.
+
+        :param microservice_key: The microservice key.
+        :param db_client: The database client.
+        :return: A ``Microservice`` instance.
+        """
+
+        res = await db_client.get_all()
+        return res
+
     async def save(self, db_client) -> None:
         """Store the instance into the database.
 
