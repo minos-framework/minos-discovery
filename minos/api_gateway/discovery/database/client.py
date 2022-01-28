@@ -59,14 +59,12 @@ class MinosRedisClient:
 
     async def get_all(self) -> list:
         """Get redis value by key"""
-        json_data = {}
         data = list()
         try:
             async for key in self.redis.scan_iter(match=f"{MICROSERVICE_KEY_PREFIX}:*"):
                 decoded_key = key.decode("utf-8")
                 redis_data: dict[str, Any] = await self.redis.get(decoded_key)
                 data.append(json.loads(redis_data))
-            #json_data = json.loads(data)
         except Exception:
             pass
 
