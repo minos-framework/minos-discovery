@@ -1,13 +1,7 @@
-from aiohttp import (
-    web,
-)
+from aiohttp import web
 
-from ..domain import (
-    Microservice,
-)
-from .router import (
-    routes,
-)
+from ..domain import Microservice
+from .router import routes
 
 
 @routes.view("/endpoints")

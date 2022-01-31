@@ -1,16 +1,8 @@
-from aiohttp.test_utils import (
-    AioHTTPTestCase,
-)
+from aiohttp.test_utils import AioHTTPTestCase
 
-from minos.api_gateway.common import (
-    MinosConfig,
-)
-from minos.api_gateway.discovery import (
-    DiscoveryService,
-)
-from tests.utils import (
-    BASE_PATH,
-)
+from minos.api_gateway.common import MinosConfig
+from minos.api_gateway.discovery import DiscoveryService
+from tests.utils import BASE_PATH
 
 
 class TestMicroserviceEndpoints(AioHTTPTestCase):

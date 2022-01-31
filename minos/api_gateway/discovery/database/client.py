@@ -16,12 +16,8 @@ import json
 
 import aioredis
 
-from minos.api_gateway.common import (
-    MinosConfig,
-)
-from typing import (
-    Any,
-)
+from minos.api_gateway.common import MinosConfig
+from typing import Any
 from minos.api_gateway.discovery.domain.microservice import MICROSERVICE_KEY_PREFIX
 
 
