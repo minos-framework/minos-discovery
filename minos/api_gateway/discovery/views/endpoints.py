@@ -5,9 +5,6 @@ from aiohttp import (
 from ..domain import (
     Microservice,
 )
-from ..exceptions import (
-    NotFoundException,
-)
 from .router import (
     routes,
 )
@@ -17,10 +14,6 @@ from .router import (
 class EndpointsView(web.View):
     async def get(self):
         redis_client = self.request.app["db_client"]
-
-        try:
-            endpoints = await Microservice.get_all(redis_client)
-        except NotFoundException:
-            return web.HTTPNotFound()
+        endpoints = await Microservice.get_all(redis_client)
 
         return web.json_response(endpoints)
