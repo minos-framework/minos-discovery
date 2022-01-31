@@ -13,11 +13,17 @@ it performs a Redis lookup by key value. The value is stored in Redis as JSON.
 """
 
 import json
+from typing import (
+    Any,
+)
 
 import aioredis
 
 from minos.api_gateway.common import (
     MinosConfig,
+)
+from minos.api_gateway.discovery.domain.microservice import (
+    MICROSERVICE_KEY_PREFIX,
 )
 
 
@@ -52,6 +58,19 @@ class MinosRedisClient:
             pass
 
         return json_data
+
+    async def get_all(self) -> list:
+        """Get redis value by key"""
+        data = list()
+        try:
+            async for key in self.redis.scan_iter(match=f"{MICROSERVICE_KEY_PREFIX}:*"):
+                decoded_key = key.decode("utf-8")
+                redis_data: dict[str, Any] = await self.redis.get(decoded_key)
+                data.append(json.loads(redis_data))
+        except Exception:
+            pass
+
+        return data
 
     async def set_data(self, key: str, data: dict):
         flag = True
