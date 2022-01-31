@@ -1,6 +1,10 @@
-from __future__ import annotations
+from __future__ import (
+    annotations,
+)
 
-from ..exceptions import NotFoundException
+from ..exceptions import (
+    NotFoundException,
+)
 from .endpoint import (
     ConcreteEndpoint,
     GenericEndpoint,
