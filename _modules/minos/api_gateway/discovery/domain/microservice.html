@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>minos.api_gateway.discovery.domain.microservice &mdash; Discovery Service 0.0.8 documentation</title>
+  <title>minos.api_gateway.discovery.domain.microservice &mdash; Discovery Service 0.1.0 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.0.8
+                0.1.0
               </div>
             
           
@@ -230,6 +230,18 @@
             <span class="n">endpoint_key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">for</span> <span class="n">endpoint_key</span> <span class="ow">in</span> <span class="n">microservice_dict</span><span class="p">[</span><span class="s2">&quot;endpoints&quot;</span><span class="p">]</span>
         <span class="p">]</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">microservice_dict</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Microservice.get_all"><a class="viewcode-back" href="../../../../../api/minos.api_gateway.discovery.domain.microservice.html#minos.api_gateway.discovery.domain.microservice.Microservice.get_all">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_all</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">db_client</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Microservice</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Load an instance from the database.</span>
+
+<span class="sd">        :param microservice_key: The microservice key.</span>
+<span class="sd">        :param db_client: The database client.</span>
+<span class="sd">        :return: A ``Microservice`` instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">res</span> <span class="o">=</span> <span class="k">await</span> <span class="n">db_client</span><span class="o">.</span><span class="n">get_all</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">res</span></div>
 
 <div class="viewcode-block" id="Microservice.save"><a class="viewcode-back" href="../../../../../api/minos.api_gateway.discovery.domain.microservice.html#minos.api_gateway.discovery.domain.microservice.Microservice.save">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db_client</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Store the instance into the database.</span>

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>minos.api_gateway.discovery.database.client &mdash; Discovery Service 0.0.8 documentation</title>
+  <title>minos.api_gateway.discovery.database.client &mdash; Discovery Service 0.1.0 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.0.8
+                0.1.0
               </div>
             
           
@@ -177,11 +177,17 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Any</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">aioredis</span>
 
 <span class="kn">from</span> <span class="nn">minos.api_gateway.common</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">MinosConfig</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">minos.api_gateway.discovery.domain.microservice</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">MICROSERVICE_KEY_PREFIX</span><span class="p">,</span>
 <span class="p">)</span>
 
 
@@ -216,6 +222,19 @@
             <span class="k">pass</span>
 
         <span class="k">return</span> <span class="n">json_data</span></div>
+
+<div class="viewcode-block" id="MinosRedisClient.get_all"><a class="viewcode-back" href="../../../../../api/minos.api_gateway.discovery.database.client.html#minos.api_gateway.discovery.database.client.MinosRedisClient.get_all">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_all</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Get redis value by key&quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">async</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">scan_iter</span><span class="p">(</span><span class="n">match</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">MICROSERVICE_KEY_PREFIX</span><span class="si">}</span><span class="s2">:*&quot;</span><span class="p">):</span>
+                <span class="n">decoded_key</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+                <span class="n">redis_data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">redis</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">decoded_key</span><span class="p">)</span>
+                <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">redis_data</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">return</span> <span class="n">data</span></div>
 
 <div class="viewcode-block" id="MinosRedisClient.set_data"><a class="viewcode-back" href="../../../../../api/minos.api_gateway.discovery.database.client.html#minos.api_gateway.discovery.database.client.MinosRedisClient.set_data">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">set_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
         <span class="n">flag</span> <span class="o">=</span> <span class="kc">True</span>

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>minos.api_gateway.discovery.domain.microservice module &mdash; Discovery Service 0.0.8 documentation</title>
+  <title>minos.api_gateway.discovery.domain.microservice module &mdash; Discovery Service 0.1.0 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.0.8
+                0.1.0
               </div>
             
           
@@ -188,6 +188,26 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>concrete_endpoint</strong> (<a class="reference internal" href="minos.api_gateway.discovery.domain.endpoint.html#minos.api_gateway.discovery.domain.endpoint.ConcreteEndpoint" title="minos.api_gateway.discovery.domain.endpoint.ConcreteEndpoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">minos.api_gateway.discovery.domain.endpoint.ConcreteEndpoint</span></code></a>) – The concrete endpoint that must match.</p></li>
+<li><p><strong>db_client</strong> – The database client.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#minos.api_gateway.discovery.domain.microservice.Microservice" title="minos.api_gateway.discovery.domain.microservice.Microservice"><code class="xref py py-class docutils literal notranslate"><span class="pre">minos.api_gateway.discovery.domain.microservice.Microservice</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A <code class="docutils literal notranslate"><span class="pre">Microservice</span></code> instance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minos.api_gateway.discovery.domain.microservice.Microservice.get_all">
+<em class="property"><span class="pre">async</span><span class="w"> </span><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_client</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/domain/microservice.html#Microservice.get_all"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.domain.microservice.Microservice.get_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load an instance from the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>microservice_key</strong> – The microservice key.</p></li>
 <li><p><strong>db_client</strong> – The database client.</p></li>
 </ul>
 </dd>

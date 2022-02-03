@@ -13,5 +13,6 @@ Submodules
    :maxdepth: 4
 
    minos.api_gateway.discovery.views.endpoint
+   minos.api_gateway.discovery.views.endpoints
    minos.api_gateway.discovery.views.microservice
    minos.api_gateway.discovery.views.router

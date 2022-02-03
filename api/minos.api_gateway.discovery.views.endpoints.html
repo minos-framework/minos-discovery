@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>minos.api_gateway namespace &mdash; Discovery Service 0.1.0 documentation</title>
+  <title>minos.api_gateway.discovery.views.endpoints module &mdash; Discovery Service 0.1.0 documentation</title>
   
 
   
@@ -144,13 +144,13 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>minos.api_gateway namespace</li>
+      <li>minos.api_gateway.discovery.views.endpoints module</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/api/minos.api_gateway.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/api/minos.api_gateway.discovery.views.endpoints.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -163,44 +163,35 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-minos.api_gateway">
-<span id="minos-api-gateway-namespace"></span><h1>minos.api_gateway namespace<a class="headerlink" href="#module-minos.api_gateway" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="minos.api_gateway.discovery.html">minos.api_gateway.discovery package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="minos.api_gateway.discovery.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="minos.api_gateway.discovery.database.html">minos.api_gateway.discovery.database package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="minos.api_gateway.discovery.database.html#submodules">Submodules</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="minos.api_gateway.discovery.domain.html">minos.api_gateway.discovery.domain package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="minos.api_gateway.discovery.domain.html#submodules">Submodules</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="minos.api_gateway.discovery.health_status.html">minos.api_gateway.discovery.health_status package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="minos.api_gateway.discovery.health_status.html#submodules">Submodules</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="minos.api_gateway.discovery.views.html">minos.api_gateway.discovery.views package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="minos.api_gateway.discovery.views.html#submodules">Submodules</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="minos.api_gateway.discovery.html#submodules">Submodules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="minos.api_gateway.discovery.cli.html">minos.api_gateway.discovery.cli module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="minos.api_gateway.discovery.exceptions.html">minos.api_gateway.discovery.exceptions module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="minos.api_gateway.discovery.launchers.html">minos.api_gateway.discovery.launchers module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="minos.api_gateway.discovery.service.html">minos.api_gateway.discovery.service module</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
+  <div class="section" id="module-minos.api_gateway.discovery.views.endpoints">
+<span id="minos-api-gateway-discovery-views-endpoints-module"></span><h1>minos.api_gateway.discovery.views.endpoints module<a class="headerlink" href="#module-minos.api_gateway.discovery.views.endpoints" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="minos.api_gateway.discovery.views.endpoints.EndpointsView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">minos.api_gateway.discovery.views.endpoints.</span></span><span class="sig-name descname"><span class="pre">EndpointsView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/views/endpoints.html#EndpointsView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.views.endpoints.EndpointsView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">aiohttp.web_urldispatcher.View</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="minos.api_gateway.discovery.views.endpoints.EndpointsView.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#minos.api_gateway.discovery.views.endpoints.EndpointsView.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="minos.api_gateway.discovery.views.endpoints.EndpointsView.get">
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/minos/api_gateway/discovery/views/endpoints.html#EndpointsView.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#minos.api_gateway.discovery.views.endpoints.EndpointsView.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="minos.api_gateway.discovery.views.endpoints.EndpointsView.request">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">request</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#minos.api_gateway.discovery.views.endpoints.EndpointsView.request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Request instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 
 
