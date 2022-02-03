@@ -50,3 +50,8 @@ History
 ------------------
 
 * modified PORT from string to INT
+
+0.1.0 (2022-02-3)
+------------------
+
+* New view /endpoints. Return all endpoints stored.
