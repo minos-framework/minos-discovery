@@ -49,15 +49,14 @@ class TestDiscoveryHandler(IsolatedAsyncioTestCase):
 
     async def test_redis_client_set_data(self):
         response = await self.redis_client.set_data("endpoint_name", {"test": "a"})
-        self.assertTrue(response)
+        self.assertIsNone(response)
 
     async def test_redis_client_delete_unexisting_data(self):
         response = await self.redis_client.delete_data("nokey")
         self.assertFalse(response)
 
     async def test_redis_client_delete_data(self):
-        response = await self.redis_client.set_data("endpoint_name", {"test": "a"})
-        self.assertTrue(response)
+        await self.redis_client.set_data("endpoint_name", {"test": "a"})
         response = await self.redis_client.delete_data("endpoint_name")
         self.assertTrue(response)
 
