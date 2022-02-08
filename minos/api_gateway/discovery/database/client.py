@@ -38,14 +38,14 @@ class MinosRedisClient:
 
     __slots__ = "address", "port", "password", "redis"
 
-    def __init__(self, config: MinosConfig):
+    def __init__(self, config: MinosConfig, pool_size: int = 1000):
         """Perform initial configuration and connection to Redis"""
 
         address = config.discovery.database.host
         port = config.discovery.database.port
         password = config.discovery.database.password
 
-        pool = aioredis.ConnectionPool.from_url(f"redis://{address}:{port}", password=password, max_connections=1000)
+        pool = aioredis.ConnectionPool.from_url(f"redis://{address}:{port}", password=password, max_connections=pool_size)
         self.redis = aioredis.Redis(connection_pool=pool)
 
     async def get_data(self, key: str) -> str:
