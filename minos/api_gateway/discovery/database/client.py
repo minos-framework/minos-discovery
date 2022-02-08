@@ -75,13 +75,10 @@ class MinosRedisClient:
         return data
 
     async def set_data(self, key: str, data: dict):
-        flag = True
         try:
             await self.redis.set(key, json.dumps(data))
-        except Exception:  # pragma: no cover
-            flag = False
-
-        return flag
+        except Exception as e:  # pragma: no cover
+            raise e
 
     async def update_data(self):  # pragma: no cover
         """Update specific value"""
