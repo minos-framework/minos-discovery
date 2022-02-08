@@ -13,18 +13,12 @@ it performs a Redis lookup by key value. The value is stored in Redis as JSON.
 """
 
 import json
-from typing import (
-    Any,
-)
+from typing import Any
 
 import aioredis
 
-from minos.api_gateway.common import (
-    MinosConfig,
-)
-from minos.api_gateway.discovery.domain.microservice import (
-    MICROSERVICE_KEY_PREFIX,
-)
+from minos.api_gateway.common import MinosConfig
+from minos.api_gateway.discovery.domain.microservice import MICROSERVICE_KEY_PREFIX
 
 
 class MinosRedisClient:
@@ -45,7 +39,9 @@ class MinosRedisClient:
         port = config.discovery.database.port
         password = config.discovery.database.password
 
-        pool = aioredis.ConnectionPool.from_url(f"redis://{address}:{port}", password=password, max_connections=pool_size)
+        pool = aioredis.ConnectionPool.from_url(
+            f"redis://{address}:{port}", password=password, max_connections=pool_size
+        )
         self.redis = aioredis.Redis(connection_pool=pool)
 
     async def get_data(self, key: str) -> str:
