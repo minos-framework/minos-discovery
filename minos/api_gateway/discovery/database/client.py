@@ -13,18 +13,12 @@ it performs a Redis lookup by key value. The value is stored in Redis as JSON.
 """
 
 import json
-from typing import (
-    Any,
-)
+from typing import Any
 import logging
 import aioredis
 
-from minos.api_gateway.common import (
-    MinosConfig,
-)
-from minos.api_gateway.discovery.domain.microservice import (
-    MICROSERVICE_KEY_PREFIX,
-)
+from minos.api_gateway.common import MinosConfig
+from minos.api_gateway.discovery.domain.microservice import MICROSERVICE_KEY_PREFIX
 
 log = logging.getLogger(__name__)
 

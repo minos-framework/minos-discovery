@@ -1,10 +1,6 @@
-from __future__ import (
-    annotations,
-)
+from __future__ import annotations
 import logging
-from ..exceptions import (
-    NotFoundException,
-)
+from ..exceptions import NotFoundException
 from .endpoint import (
     ConcreteEndpoint,
     GenericEndpoint,
@@ -14,6 +10,7 @@ MICROSERVICE_KEY_PREFIX = "microservice"
 ENDPOINT_KEY_PREFIX = "endpoint"
 
 log = logging.getLogger(__name__)
+
 
 class Microservice:
     """Microservice class."""
