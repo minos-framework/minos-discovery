@@ -1,12 +1,24 @@
 import os
-from unittest import IsolatedAsyncioTestCase
-from unittest.mock import patch
+from unittest import (
+    IsolatedAsyncioTestCase,
+)
+from unittest.mock import (
+    patch,
+)
 
-from aioredis import ConnectionError
+from aioredis import (
+    ConnectionError,
+)
 
-from minos.api_gateway.common import MinosConfig
-from minos.api_gateway.discovery import MinosRedisClient
-from tests.utils import BASE_PATH
+from minos.api_gateway.common import (
+    MinosConfig,
+)
+from minos.api_gateway.discovery import (
+    MinosRedisClient,
+)
+from tests.utils import (
+    BASE_PATH,
+)
 
 
 class TestDiscoveryHandler(IsolatedAsyncioTestCase):
