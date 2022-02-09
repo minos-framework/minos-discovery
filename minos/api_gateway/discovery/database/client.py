@@ -13,10 +13,11 @@ it performs a Redis lookup by key value. The value is stored in Redis as JSON.
 """
 
 import json
+import logging
 from typing import (
     Any,
 )
-import logging
+
 import aioredis
 
 from minos.api_gateway.common import (
