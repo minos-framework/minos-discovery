@@ -1,7 +1,7 @@
 from __future__ import (
     annotations,
 )
-
+import logging
 from ..exceptions import (
     NotFoundException,
 )
@@ -13,6 +13,7 @@ from .endpoint import (
 MICROSERVICE_KEY_PREFIX = "microservice"
 ENDPOINT_KEY_PREFIX = "endpoint"
 
+log = logging.getLogger("my-logger")
 
 class Microservice:
     """Microservice class."""
@@ -96,9 +97,13 @@ class Microservice:
         }
 
         microservice_key = f"{MICROSERVICE_KEY_PREFIX}:{self.name}"
+        log.info("--------SAVE----------")
+        log.info(microservice_key)
+        log.info(microservice_value)
         await db_client.set_data(microservice_key, microservice_value)
         for endpoint_key in microservice_value["endpoints"]:
             await db_client.set_data(endpoint_key, microservice_key)
+        log.info("--------END SAVE----------")
 
     @classmethod
     async def delete(cls, microservice_name, redis_client):
