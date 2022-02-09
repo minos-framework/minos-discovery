@@ -16,7 +16,7 @@ import json
 from typing import (
     Any,
 )
-
+import logging
 import aioredis
 
 from minos.api_gateway.common import (
@@ -25,6 +25,8 @@ from minos.api_gateway.common import (
 from minos.api_gateway.discovery.domain.microservice import (
     MICROSERVICE_KEY_PREFIX,
 )
+
+log = logging.getLogger(__name__)
 
 
 class MinosRedisClient:
@@ -77,6 +79,9 @@ class MinosRedisClient:
     async def set_data(self, key: str, data: dict):
         try:
             res = await self.redis.set(key, json.dumps(data))
+            log.debug("---SAVED DATA---")
+            log.debug(await self.redis.get(key))
+            log.debug("----------------")
             return res
         except Exception as e:  # pragma: no cover
             raise e
