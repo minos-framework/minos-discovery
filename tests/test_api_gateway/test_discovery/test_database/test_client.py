@@ -64,7 +64,7 @@ class TestDiscoveryHandler(IsolatedAsyncioTestCase):
         d = {"test": "a"}
         res1 = await self.redis_client.set_data("update_example", d)
         self.assertTrue(res1)
-        res = await self.redis_client.set_data("update_example", {"test": "b"})
+        await self.redis_client.set_data("update_example", {"test": "b"})
         data = await self.redis_client.get_data("update_example")
         self.assertDictEqual({"test": "b"}, data)
 
