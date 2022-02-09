@@ -76,7 +76,8 @@ class MinosRedisClient:
 
     async def set_data(self, key: str, data: dict):
         try:
-            await self.redis.set(key, json.dumps(data))
+            res = await self.redis.set(key, json.dumps(data))
+            return res
         except Exception as e:  # pragma: no cover
             raise e
 
