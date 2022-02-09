@@ -1,7 +1,9 @@
 from __future__ import (
     annotations,
 )
+
 import logging
+
 from ..exceptions import (
     NotFoundException,
 )
@@ -14,6 +16,7 @@ MICROSERVICE_KEY_PREFIX = "microservice"
 ENDPOINT_KEY_PREFIX = "endpoint"
 
 log = logging.getLogger(__name__)
+
 
 class Microservice:
     """Microservice class."""
