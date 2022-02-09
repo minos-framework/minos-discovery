@@ -108,6 +108,10 @@ class Microservice:
         log.info(res)
         for endpoint_key in microservice_value["endpoints"]:
             await db_client.set_data(endpoint_key, microservice_key)
+
+        log.debug("---SAVED DATA---")
+        log.debug(await db_client.get_data(microservice_key))
+        log.debug("----------------")
         log.info("--------END SAVE----------")
 
     @classmethod
