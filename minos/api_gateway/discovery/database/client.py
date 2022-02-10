@@ -18,7 +18,7 @@ from typing import (
     Any,
 )
 
-import aioredis
+import redis
 
 from minos.api_gateway.common import (
     MinosConfig,
@@ -41,23 +41,20 @@ class MinosRedisClient:
 
     __slots__ = "address", "port", "password", "redis"
 
-    def __init__(self, config: MinosConfig, pool_size: int = 50):
+    def __init__(self, config: MinosConfig):
         """Perform initial configuration and connection to Redis"""
 
         address = config.discovery.database.host
         port = config.discovery.database.port
         password = config.discovery.database.password
 
-        pool = aioredis.ConnectionPool.from_url(
-            f"redis://{address}:{port}", password=password, max_connections=pool_size
-        )
-        self.redis = aioredis.Redis(connection_pool=pool)
+        self.redis = redis.Redis(host=address, port=port, password=password, db=0)
 
     async def get_data(self, key: str) -> str:
         """Get redis value by key"""
         json_data = {}
         try:
-            redis_data = await self.redis.get(key)
+            redis_data = self.redis.get(key)
             json_data = json.loads(redis_data)
         except Exception:
             pass
@@ -68,9 +65,9 @@ class MinosRedisClient:
         """Get redis value by key"""
         data = list()
         try:
-            async for key in self.redis.scan_iter(match=f"{MICROSERVICE_KEY_PREFIX}:*"):
+            for key in self.redis.scan_iter(match=f"{MICROSERVICE_KEY_PREFIX}:*"):
                 decoded_key = key.decode("utf-8")
-                redis_data: dict[str, Any] = await self.redis.get(decoded_key)
+                redis_data: dict[str, Any] = self.redis.get(decoded_key)
                 data.append(json.loads(redis_data))
         except Exception:
             pass
@@ -78,16 +75,14 @@ class MinosRedisClient:
         return data
 
     async def set_data(self, key: str, data: dict):
-        async with self.redis as r:
-            await r.set(key, json.dumps(data))
-            await r.save()
+        self.redis.set(key, json.dumps(data))
 
     async def update_data(self):  # pragma: no cover
         """Update specific value"""
         pass
 
     async def delete_data(self, key: str):
-        deleted_elements = await self.redis.delete(key)
+        deleted_elements = self.redis.delete(key)
 
         if deleted_elements > 0:
             return True
@@ -99,7 +94,7 @@ class MinosRedisClient:
         return self.redis
 
     async def flush_db(self):
-        await self.redis.flushdb()
+        self.redis.flushdb()
 
     async def ping(self):
-        return await self.redis.ping()
+        return self.redis.ping()

@@ -41,7 +41,7 @@ class HealthStatusChecker:
         """
         coroutines = []
 
-        async for key in self.redis.redis.scan_iter(match=f"{MICROSERVICE_KEY_PREFIX}:*"):
+        for key in self.redis.redis.scan_iter(match=f"{MICROSERVICE_KEY_PREFIX}:*"):
             coroutines.append(self._check_one(key.decode("utf-8")))
 
         coroutines = tuple(coroutines)
