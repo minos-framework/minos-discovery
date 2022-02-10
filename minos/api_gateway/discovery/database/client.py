@@ -41,7 +41,7 @@ class MinosRedisClient:
 
     __slots__ = "address", "port", "password", "redis"
 
-    def __init__(self, config: MinosConfig, pool_size: int = 2):
+    def __init__(self, config: MinosConfig, pool_size: int = 50):
         """Perform initial configuration and connection to Redis"""
 
         address = config.discovery.database.host
@@ -78,8 +78,9 @@ class MinosRedisClient:
         return data
 
     async def set_data(self, key: str, data: dict):
-        await self.redis.set(key, json.dumps(data))
-        await self.redis.close()
+        async with self.redis as r:
+            await r.set(key, json.dumps(data))
+        # await self.redis.save()
 
     async def update_data(self):  # pragma: no cover
         """Update specific value"""
