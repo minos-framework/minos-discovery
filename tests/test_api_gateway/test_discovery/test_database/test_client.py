@@ -5,11 +5,9 @@ from unittest import (
 from unittest.mock import (
     patch,
 )
-
-from aioredis import (
+from redis import (
     ConnectionError,
 )
-
 from minos.api_gateway.common import (
     MinosConfig,
 )
@@ -69,5 +67,5 @@ class TestDiscoveryHandler(IsolatedAsyncioTestCase):
         self.assertDictEqual({"test": "b"}, data)
 
     async def test_redis_client_get_connection(self):
-        redis_conn = await self.redis_client.get_redis_connection()
+        redis_conn = self.redis_client.get_redis_connection()
         self.assertEqual(type(redis_conn).__name__, "Redis")
