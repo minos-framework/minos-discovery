@@ -388,8 +388,8 @@ six = ">=1.16.0,<2.0.0"
 
 [[package]]
 name = "mistune"
-version = "2.0.2"
-description = "A sane Markdown parser with useful plugins and renderers"
+version = "0.8.4"
+description = "The fastest markdown parser in pure Python"
 category = "dev"
 optional = false
 python-versions = "*"
@@ -843,7 +843,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "87e2e4bcc789bf109f7288536e1e1cf451764bbff27685d44868e0eb3bfd420c"
+content-hash = "0df53fccc9ba043339f6100792bb83e330c82666a0cf22eab72ae98118ae58bd"
 
 [metadata.files]
 aiohttp = [
@@ -1227,8 +1227,8 @@ minos-apigateway-common = [
     {file = "minos_apigateway_common-0.0.5-py3-none-any.whl", hash = "sha256:dbc522fcb54fc7f9a598705a8ae5a34addc94665308951ac127b9aa9ed2499dc"},
 ]
 mistune = [
-    {file = "mistune-2.0.2-py2.py3-none-any.whl", hash = "sha256:6bab6c6abd711c4604206c7d8cad5cd48b28f072b4bb75797d74146ba393a049"},
-    {file = "mistune-2.0.2.tar.gz", hash = "sha256:6fc88c3cb49dba8b16687b41725e661cf85784c12e8974a29b9d336dd596c3a1"},
+    {file = "mistune-0.8.4-py2.py3-none-any.whl", hash = "sha256:88a1051873018da288eee8538d476dffe1262495144b33ecb586c4ab266bb8d4"},
+    {file = "mistune-0.8.4.tar.gz", hash = "sha256:59a3429db53c50b5c6bcc8a07f8848cb00d7dc8bdb431a4ab41920d201d4756e"},
 ]
 multidict = [
     {file = "multidict-6.0.2-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:0b9e95a740109c6047602f4db4da9949e6c5945cefbad34a1299775ddc9a62e2"},
