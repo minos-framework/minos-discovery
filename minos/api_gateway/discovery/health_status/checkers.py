@@ -1,17 +1,29 @@
 import logging
-from asyncio import gather
-from typing import Any
+from asyncio import (
+    gather,
+)
+from typing import (
+    Any,
+)
 
 from aiohttp import (
     ClientConnectorError,
     ClientSession,
 )
-from yarl import URL
+from yarl import (
+    URL,
+)
 
-from minos.api_gateway.common import MinosConfig
+from minos.api_gateway.common import (
+    MinosConfig,
+)
 
-from ..database import MinosRedisClient
-from ..domain.microservice import MICROSERVICE_KEY_PREFIX
+from ..database import (
+    MinosRedisClient,
+)
+from ..domain.microservice import (
+    MICROSERVICE_KEY_PREFIX,
+)
 
 logger = logging.getLogger(__name__)
 
