@@ -5,7 +5,6 @@ from aiohttp import (
 )
 from aiohttp.test_utils import (
     AioHTTPTestCase,
-    unittest_run_loop,
 )
 
 from minos.api_gateway.common import (
