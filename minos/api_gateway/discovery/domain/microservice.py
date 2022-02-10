@@ -103,12 +103,10 @@ class Microservice:
         }
 
         microservice_key = f"{MICROSERVICE_KEY_PREFIX}:{self.name}"
-        log.info("--------SAVE----------")
+        log.info("--------DATA TO SAVE----------")
         log.info(microservice_key)
         log.info(microservice_value)
-        res = await db_client.set_data(microservice_key, microservice_value)
-        log.info("REDIS RES")
-        log.info(res)
+        await db_client.set_data(microservice_key, microservice_value)
         for endpoint_key in microservice_value["endpoints"]:
             await db_client.set_data(endpoint_key, microservice_key)
 
