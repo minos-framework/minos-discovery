@@ -5,9 +5,11 @@ from unittest import (
 from unittest.mock import (
     patch,
 )
+
 from redis import (
     ConnectionError,
 )
+
 from minos.api_gateway.common import (
     MinosConfig,
 )
