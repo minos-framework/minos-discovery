@@ -80,7 +80,7 @@ class MinosRedisClient:
     async def set_data(self, key: str, data: dict):
         async with self.redis as r:
             await r.set(key, json.dumps(data))
-            # await r.save()
+            await r.save()
 
     async def update_data(self):  # pragma: no cover
         """Update specific value"""
