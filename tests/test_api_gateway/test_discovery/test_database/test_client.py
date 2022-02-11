@@ -6,7 +6,7 @@ from unittest.mock import (
     patch,
 )
 
-from redis import (
+from aioredis import (
     ConnectionError,
 )
 
