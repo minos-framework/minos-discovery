@@ -34,7 +34,7 @@ python = "^3.9"
 minos-apigateway-common = "^0.0"
 typer = "^0.3.2"
 cached-property = "^1.5.2"
-redis = "^4.1.3"
+aioredis = "^2.0.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.4"
