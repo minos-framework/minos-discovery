@@ -5,7 +5,6 @@ from aiohttp import (
 )
 from aiohttp.test_utils import (
     AioHTTPTestCase,
-    unittest_run_loop,
 )
 
 from minos.api_gateway.common import (
@@ -45,7 +44,6 @@ class TestRestInterfaceService(AioHTTPTestCase):
         app.router.add_get("/system/health", system_health)
         return app
 
-    @unittest_run_loop
     async def test_existing_endpoint(self):
         # Create endpoint
         endpoint_data = dict(address=self.client.host, port=self.client.port, status=True)
@@ -58,7 +56,6 @@ class TestRestInterfaceService(AioHTTPTestCase):
 
         self.assertEqual(endpoint_data, data)
 
-    @unittest_run_loop
     async def test_existing_endpoint_modify_to_true(self):
         # Create endpoint
         expected = dict(address=self.client.host, port=self.client.port, status=False)
@@ -71,7 +68,6 @@ class TestRestInterfaceService(AioHTTPTestCase):
         observed = await self.redis.get_data("microservice:system_health2")
         self.assertEqual(expected, observed)
 
-    @unittest_run_loop
     async def test_unexisting_endpoint(self):
         # Create endpoint
         await self.redis.set_data(
@@ -86,7 +82,6 @@ class TestRestInterfaceService(AioHTTPTestCase):
         expected = dict(address=self.client.host, port=5050, status=False)
         self.assertEqual(expected, observed)
 
-    @unittest_run_loop
     async def test_check_not_raises(self):
         # Create endpoint
         await self.redis.set_data("foo", {"address": "bad"})

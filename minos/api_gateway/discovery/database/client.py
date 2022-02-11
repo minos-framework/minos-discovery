@@ -13,6 +13,7 @@ it performs a Redis lookup by key value. The value is stored in Redis as JSON.
 """
 
 import json
+import logging
 from typing import (
     Any,
 )
@@ -26,6 +27,8 @@ from minos.api_gateway.discovery.domain.microservice import (
     MICROSERVICE_KEY_PREFIX,
 )
 
+log = logging.getLogger(__name__)
+
 
 class MinosRedisClient:
     """Class that connects to Redis and returns the configuration values according to domain name.
@@ -38,7 +41,7 @@ class MinosRedisClient:
 
     __slots__ = "address", "port", "password", "redis"
 
-    def __init__(self, config: MinosConfig, pool_size: int = 1000):
+    def __init__(self, config: MinosConfig, pool_size: int = 50):
         """Perform initial configuration and connection to Redis"""
 
         address = config.discovery.database.host
@@ -75,13 +78,9 @@ class MinosRedisClient:
         return data
 
     async def set_data(self, key: str, data: dict):
-        flag = True
-        try:
-            await self.redis.set(key, json.dumps(data))
-        except Exception:  # pragma: no cover
-            flag = False
-
-        return flag
+        async with self.redis as r:
+            await r.set(key, json.dumps(data))
+            # await r.save()
 
     async def update_data(self):  # pragma: no cover
         """Update specific value"""
