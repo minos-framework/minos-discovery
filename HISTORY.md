@@ -55,3 +55,9 @@ History
 ------------------
 
 * New view /endpoints. Return all endpoints stored.
+
+0.1.1 (2022-02-11)
+------------------
+
+* Increment redis pool.
+* Additional logs on `MinosRedisClient`.

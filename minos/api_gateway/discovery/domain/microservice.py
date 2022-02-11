@@ -2,6 +2,8 @@ from __future__ import (
     annotations,
 )
 
+import logging
+
 from ..exceptions import (
     NotFoundException,
 )
@@ -12,6 +14,8 @@ from .endpoint import (
 
 MICROSERVICE_KEY_PREFIX = "microservice"
 ENDPOINT_KEY_PREFIX = "endpoint"
+
+log = logging.getLogger(__name__)
 
 
 class Microservice:
@@ -36,6 +40,7 @@ class Microservice:
         """
         async for key_bytes in db_client.redis.scan_iter(match=f"{ENDPOINT_KEY_PREFIX}:{concrete_endpoint.verb}:*"):
             endpoint = GenericEndpoint.load_by_key(key_bytes)
+            log.info(endpoint)
             if endpoint.matches(concrete_endpoint):
                 return await cls.load_by_endpoint(key_bytes, db_client)
 
@@ -50,6 +55,7 @@ class Microservice:
         :return: A ``Microservice`` instance.
         """
         microservice_key = await db_client.get_data(endpoint_key)
+        log.info(microservice_key)
         return await cls.load(microservice_key, db_client)
 
     @classmethod
@@ -65,6 +71,7 @@ class Microservice:
         microservice_dict["endpoints"] = [
             endpoint_key.split(":", 2)[1:] for endpoint_key in microservice_dict["endpoints"]
         ]
+        log.info(microservice_dict)
         return cls(**microservice_dict)
 
     @classmethod
@@ -96,9 +103,17 @@ class Microservice:
         }
 
         microservice_key = f"{MICROSERVICE_KEY_PREFIX}:{self.name}"
+        log.info("--------DATA TO SAVE----------")
+        log.info(microservice_key)
+        log.info(microservice_value)
         await db_client.set_data(microservice_key, microservice_value)
         for endpoint_key in microservice_value["endpoints"]:
             await db_client.set_data(endpoint_key, microservice_key)
+
+        log.info("---SAVED DATA---")
+        log.info(await db_client.get_data(microservice_key))
+        log.info("----------------")
+        log.info("--------END SAVE----------")
 
     @classmethod
     async def delete(cls, microservice_name, redis_client):
