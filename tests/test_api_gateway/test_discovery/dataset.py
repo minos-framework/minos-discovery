@@ -18,3 +18,14 @@ def generate_record(name):
               "endpoints": [["GET", f"test_endpoint_{name}"], ["POST", f"test_endpoint_{name}"]]}
 
     return record
+
+
+def generate_record_old(x):
+    ip = socket.inet_ntoa(struct.pack('>I', random.randint(1, 0xffffffff)))
+    port = random.randint(1, 9999)
+    name = f"microservice_{x}"
+
+    record = {"address": f"{ip}", "port": port,
+              "endpoints": [["GET", f"test_endpoint_{name}"], ["POST", f"test_endpoint_{name}"]]}
+
+    return name, record

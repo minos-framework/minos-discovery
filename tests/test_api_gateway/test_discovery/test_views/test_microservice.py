@@ -4,14 +4,14 @@ from aiohttp.test_utils import (
     AioHTTPTestCase,
     unittest_run_loop,
 )
-import time
 from minos.api_gateway.common import (
     MinosConfig,
 )
 from minos.api_gateway.discovery import (
     DiscoveryService,
 )
-from tests.test_api_gateway.test_discovery.dataset import generate_record, generate_random_microservice_names
+from tests.test_api_gateway.test_discovery.dataset import generate_record, generate_random_microservice_names, \
+    generate_record_old
 from tests.utils import (
     BASE_PATH,
 )
@@ -78,6 +78,42 @@ class TestMicroserviceEndpoints(AioHTTPTestCase):
 
             self.assertEqual(record['body']['address'], body["address"])
             self.assertEqual(record['body']['port'], int(body["port"]))
+            self.assertEqual(record['name'], body["name"])
+
+    async def test_bulk_update_2(self):
+        expected = list()
+        tasks = list()
+        # Create new records
+        for x in range(50):
+            name, body = generate_record_old(x)
+            tasks.append(self.client.post(f"/microservices/{name}", json=body))
+
+        results = await asyncio.gather(*tasks)
+
+        for result in results:
+            self.assertEqual(201, result.status)
+
+        tasks = list()
+        for x in range(50):
+            name, body = generate_record_old(x)
+            expected.append({"name": name, "path": f"/microservices/{name}", "body": body})
+            tasks.append(self.client.post(f"/microservices/{name}", json=body))
+
+        results = await asyncio.gather(*tasks)
+
+        for result in results:
+            self.assertEqual(201, result.status)
+
+        for record in expected:
+            response = await self.client.get(
+                f"/microservices?verb={record['body']['endpoints'][0][0]}&path={record['body']['endpoints'][0][1]}")
+
+            self.assertEqual(200, response.status)
+
+            body = await response.json()
+
+            self.assertEqual(record['body']['address'], body["address"])
+            self.assertEqual(int(record['body']['port']), int(body["port"]))
             self.assertEqual(record['name'], body["name"])
 
     @unittest_run_loop
