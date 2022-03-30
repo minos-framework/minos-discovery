@@ -4,14 +4,18 @@ from aiohttp.test_utils import (
     AioHTTPTestCase,
     unittest_run_loop,
 )
+
 from minos.api_gateway.common import (
     MinosConfig,
 )
 from minos.api_gateway.discovery import (
     DiscoveryService,
 )
-from tests.test_api_gateway.test_discovery.dataset import generate_record, generate_random_microservice_names, \
-    generate_record_old
+from tests.test_api_gateway.test_discovery.dataset import (
+    generate_random_microservice_names,
+    generate_record,
+    generate_record_old,
+)
 from tests.utils import (
     BASE_PATH,
 )
@@ -70,15 +74,16 @@ class TestMicroserviceEndpoints(AioHTTPTestCase):
         # Check updated records are correct
         for record in expected:
             response = await self.client.get(
-                f"/microservices?verb={record['body']['endpoints'][0][0]}&path={record['body']['endpoints'][0][1]}")
+                f"/microservices?verb={record['body']['endpoints'][0][0]}&path={record['body']['endpoints'][0][1]}"
+            )
 
             self.assertEqual(200, response.status)
 
             body = await response.json()
 
-            self.assertEqual(record['body']['address'], body["address"])
-            self.assertEqual(record['body']['port'], int(body["port"]))
-            self.assertEqual(record['name'], body["name"])
+            self.assertEqual(record["body"]["address"], body["address"])
+            self.assertEqual(record["body"]["port"], int(body["port"]))
+            self.assertEqual(record["name"], body["name"])
 
     async def test_bulk_update_2(self):
         expected = list()
@@ -106,15 +111,16 @@ class TestMicroserviceEndpoints(AioHTTPTestCase):
 
         for record in expected:
             response = await self.client.get(
-                f"/microservices?verb={record['body']['endpoints'][0][0]}&path={record['body']['endpoints'][0][1]}")
+                f"/microservices?verb={record['body']['endpoints'][0][0]}&path={record['body']['endpoints'][0][1]}"
+            )
 
             self.assertEqual(200, response.status)
 
             body = await response.json()
 
-            self.assertEqual(record['body']['address'], body["address"])
-            self.assertEqual(int(record['body']['port']), int(body["port"]))
-            self.assertEqual(record['name'], body["name"])
+            self.assertEqual(record["body"]["address"], body["address"])
+            self.assertEqual(int(record["body"]["port"]), int(body["port"]))
+            self.assertEqual(record["name"], body["name"])
 
     @unittest_run_loop
     async def test_post_missing_param(self):

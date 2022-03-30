@@ -16,7 +16,7 @@ import json
 import logging
 from typing import (
     Any,
-    Optional
+    Optional,
 )
 
 import aioredis
