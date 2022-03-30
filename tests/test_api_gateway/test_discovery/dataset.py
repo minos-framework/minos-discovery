@@ -1,7 +1,9 @@
 import random
 import socket
 import struct
-from uuid import uuid4
+from uuid import (
+    uuid4,
+)
 
 
 def generate_random_microservice_names(quantity: int):

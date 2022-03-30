@@ -4,14 +4,21 @@ from aiohttp.test_utils import (
     AioHTTPTestCase,
     unittest_run_loop,
 )
-from minos.api_gateway.common import MinosConfig
-from minos.api_gateway.discovery import DiscoveryService
+
+from minos.api_gateway.common import (
+    MinosConfig,
+)
+from minos.api_gateway.discovery import (
+    DiscoveryService,
+)
 from tests.test_api_gateway.test_discovery.dataset import (
-    generate_record,
     generate_random_microservice_names,
+    generate_record,
     generate_record_old,
 )
-from tests.utils import BASE_PATH
+from tests.utils import (
+    BASE_PATH,
+)
 
 
 class TestMicroserviceEndpoints(AioHTTPTestCase):
