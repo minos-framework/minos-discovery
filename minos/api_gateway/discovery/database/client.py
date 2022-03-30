@@ -16,6 +16,7 @@ import json
 import logging
 from typing import (
     Any,
+    Optional
 )
 
 import aioredis
@@ -41,17 +42,14 @@ class MinosRedisClient:
 
     __slots__ = "address", "port", "password", "redis"
 
-    def __init__(self, config: MinosConfig, pool_size: int = 50):
+    def __init__(self, config: MinosConfig, pool_size: Optional[int] = None):
         """Perform initial configuration and connection to Redis"""
 
         address = config.discovery.database.host
         port = config.discovery.database.port
         password = config.discovery.database.password
 
-        pool = aioredis.ConnectionPool.from_url(
-            f"redis://{address}:{port}", password=password, max_connections=pool_size
-        )
-        self.redis = aioredis.Redis(connection_pool=pool)
+        self.redis = aioredis.from_url(f"redis://{address}:{port}", password=password, max_connections=pool_size)
 
     async def get_data(self, key: str) -> str:
         """Get redis value by key"""
@@ -78,13 +76,7 @@ class MinosRedisClient:
         return data
 
     async def set_data(self, key: str, data: dict):
-        async with self.redis as r:
-            await r.set(key, json.dumps(data))
-            await r.save()
-
-    async def update_data(self):  # pragma: no cover
-        """Update specific value"""
-        pass
+        await self.redis.set(key, json.dumps(data))
 
     async def delete_data(self, key: str):
         deleted_elements = await self.redis.delete(key)
